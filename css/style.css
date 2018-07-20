@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow');
+
+*{
+	margin: 0;
+	font-family: Arial;
+}
+
+.fundo{
+	width: 100%;
+	height: 1000px;
+	background: #e1e3f5; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#e1e3f5, #bfb9f1); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#e1e3f5, #bfb9f1); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#e1e3f5, #bfb9f1); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#e1e3f5, #bfb9f1); /* Standard syntax */
+    background-repeat: no-repeat;
+    position: relative;
+    float: left;
+}
+
+.esp_topo{
+	width: 100%;
+	height: 200px;
+	position: relative;
+    float: left;
+}
+
+.box_topo{
+	width: 1120px;
+	height: 100%;
+	position: relative;
+    margin: 0 auto;
+}
+
+.box_logo{
+	width: 240px;
+	height: 180px;
+	position: relative;
+	margin-top: 5px;
+	margin-left: 40px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	background-image: url(../img/empresarial_logo.png);
+    float: left;
+}
+
+.esp_meio{
+	width: 100%;
+	height: 655px;
+	float: left;
+}
+
+.box_meio{
+	width: 1250px; 
+	height: 100%;
+	border:1px solid #d6d6d6;
+	margin: 0 auto;
+}
+
+.box_lista{
+	width: 493px;
+	height: 100%;
+	border:1px solid #d6d6d6;
+	float: left;
+	background-color: #ffffff;
+	clear: both;
+	overflow: auto;
+}
+
+.esp_ultimo_usuario{
+	width: 753px;
+	height: 313px;
+	border:1px solid #d6d6d6;
+	background-color: #ffffff;
+	float: left;
+	position: relative;
+	z-index: 900;
+	white-space: nowrap;
+    overflow: hidden;
+}
+
+.box_parte_cinza{
+	width: 755px;
+	height: 340px;
+	background-color: #d6d6d6;
+	float: left;
+}
+
+.box_item_lista{
+	width: 100%;
+	height: 170px;
+	border-bottom: 1px solid #d6d6d6;
+}
+
+.box_foto_item_lista{
+	width: 100px;
+	height: 130px;
+	border:1px solid black;
+	margin-left: 15px;
+	margin-top: 15px;
+	float: left;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.box_foto_item_lista_jpg{
+	width: 130px;
+    height: 100px;
+    border: 1px solid black;
+    margin-left: 0px;
+    margin-top: 30px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transform: rotate(90deg);
+}
+
+.box_dados_item_lista{
+	width: 289px;
+	height: 130px;
+	float: left;
+	margin-top: 15px;
+	margin-left: 10px;
+}
+
+.box_dados_item_lista_jpg{
+	width: 289px;
+	height: 130px;
+	float: left;
+	margin-top: 15px;
+	margin-left: -5px;
+}
+
+.box_nome_item_lista{
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	font-size: 20px; 
+	color: blue;
+}
+
+.topico_item_lista{
+	height: 16px;
+	line-height: 16px;
+	font-size: 16px; 
+	font-weight: bold;
+	float: left;
+}
+
+.valor_item_lista{
+	height: 16px;
+	line-height: 16px;
+	font-size: 16px; 
+	float: left;
+}
+
+.liberado{
+	font-weight: bold;
+	color: green;
+}
+
+.bloqueado{
+	font-weight: bold;
+	color: red;
+}
+.box_ultimo_usuario{
+	position: relative;
+	width: 753px;
+	height: 313px;
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.box_foto_ultimo_usuario{
+	position: relative;
+	margin-left: 20px;
+	margin-top: 40px;
+	width: 170px;
+	height: 223px;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+	border:1px solid black;
+	float: left;
+}
+
+.box_foto_ultimo_usuario_jpg{
+	position: relative;
+	margin-left: 0px;
+	margin-top: 80px;
+	width: 223px;
+	height: 170px;
+	border:1px solid black;
+	float: left;
+	background-repeat: no-repeat;
+    background-position: center;
+	background-size: cover;
+    transform: rotate(90deg);
+}
+
+.box_dados_ultimo_usuario{
+	position: relative;
+	width: 510px;
+	height: 223px;
+	margin-top: 55px;
+	margin-left: 10px;
+	float: left;
+}
+
+.box_dados_ultimo_usuario_jpg{
+	position: relative;
+	width: 510px;
+	height: 223px;
+	margin-top: 55px;
+	margin-left: 10px;
+	float: left;
+}
+
+.box_nome_ultimo_usuario{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 30px; 
+	color: blue;
+}
+
+.topico_ultimo_usuario{
+	height: 25px;
+	line-height: 25px;
+	font-size: 25px; 
+	font-weight: bold;
+	float: left;
+}
+
+.valor_ultimo_usuario{
+	height: 25px;
+	line-height: 25px;
+	font-size: 25px; 
+	float: left;
+}
+
+.linha_topo{
+	height: 30px;
+	width: 100%;
+	float: left;
+}
+
+.linha{
+	height: 25px;
+	width: 100%;
+	float: left;
+}
+
+/* LOADER */
+#background {
+	display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+	z-index: 1;
+}
+
+#loader_container {
+	width:550px;
+	height:auto;
+	padding:15px;
+	margin:15% auto;
+	background:#fff;
+}
+
+#bola {
+	position:relative;
+	width:40px;
+	height:40px;
+	background:#ffc55a;
+	border-radius:100%;
+	margin:0 10px 0 5px; 
+	float:left;
+	transition: all 100ms ease;
+	animation:pular 400ms ease infinite alternate;
+	top:-5px;
+}
+
+.iniciar_animacao {
+	animation:pular 400ms ease infinite alternate;
+}
+
+@keyframes pular {
+	0% {top:10px;height:35px;border-radius:100% 100% 5px 5px;}
+	35% {top:-5px;height:40px;border-radius:100%;}
+	100% { top:-10px;height:40px;border-radius:100%;}
+}
+
+@keyframes parar {
+	0% {top:10px;height:35px;border-radius:100% 100% 5px 5px;}
+	100% { top:-5px;height:40px;border-radius:100%;}
+}
+
+
+#loader_container span {
+	display:block;
+	width:auto;
+	margin:1% 0;
+	font-size:24px;
+	font-family: 'PT Sans Narrow', sans-serif;
+	line-height:24px;
+	color:#000;
+}
