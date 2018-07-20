@@ -9,11 +9,12 @@
 		<title> Cadastro de usuarios </title>
 	
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="stylesheet" type="text/css" href="css/cadastro_usuario.css?3">
+		<link rel="stylesheet" type="text/css" href="css/cadastro_usuario.css">
+		<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"	></script>	
 		<script type="text/javascript" src="js/script.js"></script>	
-		<script type="text/javascript" src="js/cadastro_usuario.js?3"></script>	
+		<script type="text/javascript" src="js/cadastro_usuario.js"></script>
 	</head>
 	
 	<body>
@@ -37,13 +38,17 @@
 
 				<div id="formulario_cadastro">
 					<form name="frm_cadastro_empresa" method="post" action="cadastro_empresa.php">
-
 						<div id="form_esquerda">
-							<h4 style="text-align:center;color:#555;display:block;margin:0 0 10px 0;"> Usuário </h4>
-
 							<input type="text" name="txt_nome" placeholder="Nome" class="form_txt" id="nome"/>
-							<input type="text" name="txt_cpf" placeholder="RG" class="form_txt" id="rg" maxlength="12" />
+							<input type="text" name="txt_cpf" placeholder="CPF" class="form_txt" id="cpf" maxlength="14" />
+							<input type="text" name="txt_rg" placeholder="RG" class="form_txt" id="rg" maxlength="12" />
+							<input type="email" name="txt_email" placeholder="Email" class="form_txt" id="email" />
+							<input type="text" name="txt_tel" placeholder="Telefone/Celular" class="form_txt" id="tel" maxlength="14" />	
+						</div>
 
+						<div id="form_direita">
+							<input type="date" name="txt_dt_nascimento" placeholder="aaaa-mm-dd" class="form_txt" id="dt_nascimento"/>
+						
 							<select name="cbo_documento" class="form_cbo" id="documento">
 								<option value="0"> Selecione um documento </option>
 
@@ -53,7 +58,7 @@
 									$query  = "select *, d.documento_id as documento_id from documento as d ";
 									$query .="left join usuario as u on(d.documento_id=u.documento_id) ";
 									$query .="left join veiculo as v on(v.documento_id=d.documento_id) ";
-									$query .="where isnull(u.usuario_id) and isnull(v.veiculo_id) and substring(numero_etiqueta, 1,1) <> 'A';";
+									$query .="where isnull(u.usuario_id) and isnull(v.veiculo_id) and substring(numero_etiqueta, 1,1) = 'C';";
 									$select = mysqli_query($conexao, $query);
 
 									while($rs = mysqli_fetch_array($select)) {
@@ -63,20 +68,37 @@
 									}
 								?>
 							</select>
-						</div>
 
-						<div id="form_direita">
-							<h4 style="text-align:center;color:#555;display:block;margin:0 0 10px 0;"> Empresa </h4>
+							<select name="cbo_tipo" class="form_cbo" id="tipo">
+								<option value="0"> Selecione um tipo de usuario </option>
 
-							<input type="text" name="txt_empresa" placeholder="Razão social" class="form_txt" id="empresa"/>
-							<input type="email" name="txt_email" placeholder="Email" class="form_txt" id="email" />
-							<input type="text" name="txt_tel" placeholder="Telefone/Celular" class="form_txt" id="tel" maxlength="14" />
+								<?php
+									$query = "select * from tipo_usuario;";
+									$select = mysqli_query($conexao, $query);
+
+									while($rs = mysqli_fetch_array($select)) {
+								?>
+									<option value="<?php echo($rs['tipo_usuario_id']);?>"> <?php echo($rs['nome']);?> </option>
+								<?php
+									}
+									mysqli_close($conexao);
+								?>
+							</select>
+
+							<div class="upload_arquivo">
+								<div id="nome_arquivo"></div>
+								<button id="botao_upload"></button>
+							</div>
+							
+							<input type="file" name="arquivo_foto" class="file" id="arquivo_foto"/>
+	
 						</div>
 						
 						<input type="submit" name="btn_cadastrar" value="Cadastrar" class="form_btn" id="btn_cadastro"/>
 					</form>
 				</div>
 			</div>
-		</div>
+
+			<?php require_once "fragments/info_usuario.php" ?>
 	</body>
 </html>

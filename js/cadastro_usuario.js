@@ -2,40 +2,37 @@ $(function(){
 	imagem = null;
 	loader = new Loader();
 
+
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();
-		var campos_preenchidos = validar_campos_texto(".form_txt") && validar_comboBox(".form_cbo");
+		var campos_preenchidos = validar_campos_texto(".form_txt") && validar_comboBox(".form_cbo") && (imagem != null);
 
 		var nome = $("#nome").val();
+		var cpf = $("#cpf").val();
 		var rg = $("#rg").val();
+		var dt_nascimento = $("#dt_nascimento").val();
 		var documento = $("#documento").val();
-
-		var rz_social = $("#empresa").val();
+		var tipo_usuario = $("#tipo").val();
 		var email = $("#email").val();
 		var tel = $("#tel").val();
-
-		var campos_validos = validar(nome, email, tel);
+	
+		var campos_validos = validar(nome, cpf, dt_nascimento, email, tel);
 
 		if(campos_preenchidos && campos_validos) {
 
 			// Dados a serem enviados
     		var formData = new FormData();
 			formData.append("nome", nome);
+			formData.append("cpf", cpf);
 			formData.append("rg", rg);
+			formData.append("dt_nascimento", dt_nascimento);
 			formData.append("documento", documento);
-			
-			formData.append("empresa", rz_social);
+			formData.append("tipo_usuario", tipo_usuario);
 			formData.append("imagem", imagem);
 			formData.append("email", email);
 			formData.append("tel", tel);
-			console.log("nome: " + nome);
-			console.log("rg: " + rg);
-			console.log("documento: " + documento);
-			console.log("rz_social: " + rz_social);
-			console.log("email: " + email);
-			console.log("tel: " + tel);
 
-			/*$.ajax({
+			$.ajax({
 				url: "api/inserir_usuario.php",
                 data: formData,
                 type: 'post',
@@ -43,7 +40,7 @@ $(function(){
                 contentType: false,                    
                 beforeSend: loader.iniciar(),
                 success: tratar_resultado_envio
-			});*/
+			});
 		}else {
 			alert("Algum campos não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez.");
 		}
@@ -77,6 +74,34 @@ $(function(){
 		}
 	});
 
+	$("#cpf").on("keyup keydown", function(){
+		var cpf = $(this).val();
+		
+		if(cpf.length <= 14) {
+			cpf = cpf.replace(/\D*/g, "");
+			cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
+
+			$(this).val(cpf);	
+		}else{
+			$(this).val(cpf.substring(0,12));
+		}
+		
+	});
+
+	$("#rg").on("keyup keydown", function(){
+		var rg = $(this).val();
+		
+		if(rg.length <= 12) {
+			rg = rg.replace(/\D*/g, "");
+			rg = rg.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/g, "$1.$2.$3-$4");
+
+			$(this).val(rg);	
+		}else{
+			$(this).val(rg.substring(0,12));
+		}
+		
+	});
+
 	$("#tel").on("keyup keydown", function(){
 		var tel = $(this).val();
 		
@@ -92,8 +117,8 @@ $(function(){
 	});
 });
 
-function validar(nome, email, tel){
-	var campos_validos = eTexto(nome) && eEmail(email) && eTel(tel);
+function validar(nome, cpf, dt_nascimento, email, tel){
+	var campos_validos = eTexto(nome) && eCpf(cpf) && eData(dt_nascimento) && eEmail(email) && eTel(tel);
 
 	return campos_validos;
 }
@@ -109,6 +134,8 @@ function tratar_resultado_envio(resultado){
 	if(resultado == 1) {
 		loader.encerrar("img/ic_okay.png", "Usuario cadastrado com sucesso");
 		limpar_caixas();
+
+		carregar_info_usuario("478.911.798-75");
     }else{
     	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);

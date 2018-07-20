@@ -77,7 +77,8 @@ header {
     color: #555;
     font-weight: bold;
     text-align:center;
-    font-size: 24px;
+    font-size: 26px;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 #formulario_cadastro {
