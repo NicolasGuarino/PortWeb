@@ -25,7 +25,7 @@
 				"numero_etiqueta" => utf8_encode($rs['numero_etiqueta']),
 				"tipo_etiqueta" => utf8_encode($rs['tipo_etiqueta']),
 				"numero_documento" => utf8_encode($rs['numero_documento']),
-				"empresa" => $rs['e.nome'],
+				"empresa" => $rs['nome'],
 				"ultima_atualizacao" => utf8_encode($rs['ultima_atualizacao']),
 				"imagem_oculta" => utf8_encode($rs['imagem_oculta']),
 			);		

@@ -25,7 +25,10 @@
 
 	// Verificando se o Usuário Existe
 	if($resultado != null){ // Se Existir
-		$res =  ["valor" => true, "nome" => $rs['nome']];
+		$res =  ["valor" => true, 
+				"nome" => $rs['nome'],
+				"tipo_usuario" => $rs['tipo_usuario_id']
+				];
 		//$res = "true";
 	
 	}else{
