@@ -10,7 +10,7 @@
 	$telefone = $_GET['telefone'];
 	//$data_nascimento = $_GET['data_nascimento'];
 	$email = $_GET['email'];
-	$tipo_etiqueta = $_GET['tipo_etiqueta'];
+	// $tipo_etiqueta = $_GET['tipo_etiqueta'];
 	$rg = $_GET['rg'];
 	$foto = "";
 

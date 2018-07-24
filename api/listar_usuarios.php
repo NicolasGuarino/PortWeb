@@ -6,11 +6,32 @@
 
 	$conexao = conectar();
 
-	$query = "select u.* from usuario as u inner join documento as d on(d.documento_id=u.documento_id) 
-			where u.tipo_usuario_id = 6 order by usuario_id desc";
+	$where = "";
+	if(isset($_GET['filtro'])){
+		$filtro = $_GET['filtro'];
+		$where = " where (u.nome like '%".$filtro."%' or date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$filtro."%') ";
+	}
+
+	if (isset($_GET['filtro_data'])) {
+		date_default_timezone_set('America/Sao_Paulo');
+		$data_hoje = date('d/m/y');
+		$semana_passada = date('Y/m/d', strtotime('-7 days'));;
+
+		if ($_GET['filtro_data'] == "hoje") {
+			$where = " where date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$data_hoje."%' ";
+
+		}else {
+			$where = " where u.ultima_atualizacao > '".$semana_passada."' ";
+		}
+
+	}
+
+
+	$query = "select u.* from usuario as u inner join documento as d on(d.documento_id=u.documento_id) ".$where." order by usuario_id desc";
 
 			//inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) 
 			//inner join empresa as e on(e.empresa_id=ef.empresa_id) 
+
 	$select = mysqli_query($conexao, $query);
  
 	$cont = 0;
