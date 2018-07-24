@@ -27,6 +27,16 @@
 
        return $conecta;                             
     }
+
+    function exec_query($con, $query){
+      $exec = mysqli_query($con, $query);
+      $res = null;
+
+      if(!is_bool($exec)) while($rs = mysqli_fetch_array($exec)) $res[] = $rs;  
+      else $res = $exec;
+
+      return $res;
+    }
                    
 
 ?>
