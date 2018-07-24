@@ -3,7 +3,7 @@
 	width: 100%;
 	height: auto;
 	padding: 10px;
-	overflow:hidden;
+	/* overflow:hidden; */
 }
 
 #info_usuario, #opcoes {
@@ -11,12 +11,17 @@
 	float: left;
 }
 
+#info_principal {
+	width:auto;
+	overflow: hidden;
+	float: left;
+}
+
 #foto_usuario {
 	width:200px;
 	height: 250px;
-	border: solid 1px #000;
 	margin: 10px 25px;
-	float: left;
+	border-radius:2px;
 }
 
 #nome_usuario {
@@ -26,15 +31,14 @@
 	line-height: 25px;
 	font-size: 18px;
 	font-weight: bold;
-	margin: 15px 25px;
+	margin: 5px 25px;
 	text-align: center;
 	font-family:'Source Sans Pro', sans-serif;
-	clear: right;
 }
 
 #outras_info {
 	width: auto;
-	margin: 30px 50px 0 0;
+	margin: 20px 50px 0 0;
 	overflow: hidden;
 	padding: 10px;
 }
@@ -86,3 +90,236 @@
 
 #cadastrar_veiculo:after { content: 'Cadastrar veiculos'; }
 #cadastrar_escala:after { content: 'Cadastrar escala'; }
+
+#veiculos {
+	display: none;
+	width:210px;
+	height: auto;
+	overflow: hidden;
+}
+
+#tit_veiculos {
+	display: block;
+	width: 100%;
+	margin: 0 0 10px 0;
+	font-weight: bold;
+	text-align: center;
+	font-size: 18px;
+	font-family: 'Source Sans Pro', sans-serif;
+	color: #555;
+}
+
+.card_veiculo {
+	width:90%;
+	height: 45px;
+	margin: 10px auto;
+	padding: 5px;
+	border-radius:2px;
+	border: solid 1px #5557;
+	position:relative;
+}
+
+.ic_deletar, .ic_editar {
+	position: absolute;
+	display:inline-block;
+	width: 15px;
+	height: 15px;
+	top: 20px;
+	cursor: pointer;
+}
+
+.ic_editar { background: url("../img/ic_editUser.svg") center / contain no-repeat; right:25px;}
+.ic_deletar { background: url("../img/ic_excluir.svg") center / contain no-repeat; right: 5px; }
+
+.foto_carro {
+	width:50px;
+	height: 45px;
+	background: #FFF;
+	float: left;
+	border-radius:2px;
+	margin:0 5px;
+}
+
+.placa {
+	float: left;
+	margin:15px 10px;
+}
+
+#escala {
+	margin: 0 auto;
+	clear:both;
+	width: auto;
+	display: none;
+}
+
+.sumir {
+	animation: sumir 300ms linear;
+}
+
+@keyframes sumir {
+	25% { left: 0px;  }
+	50% { left: -50px;  }
+	75% { left: -150px;  }
+	100% { left: -220px;  }
+}
+
+#tit_escala {
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18px;
+	color: #555;
+	font-weight: bold;
+	margin: 15px 0;
+}
+
+#ic_editarEscala {
+	color: #555;
+	margin: 0 5px;
+	cursor: pointer;
+}
+
+.dia {
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	background: #eee;
+	font-size: 14px;
+	color: #000;
+	font-weight: bold;
+	line-height: 60px;
+	text-align: center;
+	position: relative;
+}
+
+.seta_cima {
+	display: none;
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-right: transparent solid 10px;
+	border-left: transparent solid 10px;
+	border-top: transparent solid 10px;
+	border-bottom: #eee solid 10px;
+	top: 46px;
+	left: 19px;
+}
+
+.hora_entrada {
+	display:none;
+	position:absolute;
+	width: 78px;
+	padding:0 5px;
+	background:#eee;
+	border-radius: 5px;
+	top: 65px;
+	left: -16px;
+	font-size: 11px;
+}
+
+.dia:hover > .hora_entrada, .dia:hover > .seta_cima {
+	display: block;
+}
+
+#botoes {
+	display: table;
+	width: auto;
+	margin: auto;
+}
+
+#edit_user, #delete_user {
+	display: block;
+    width: 100px;
+    height: 35px;
+    margin: 5px auto;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 2px;
+    cursor: pointer;
+    float: left;
+    margin: 10px 5px;
+}
+
+#edit_user { border: #0275d8 solid 1px;color: #0275d8; }
+
+#delete_user { border: #d9534f solid 1px; color: #d9534f; }
+
+.edit_fundo {
+	width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background: #0002;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.edit_fundo:after {
+	content: '\f040';
+	font-family: 'FontAwesome';
+	font-size: 18px;
+	color: #fff;
+	font-weight: bold;
+}
+
+#container {
+	position: relative;
+	display:table;
+	width:auto;
+	height:auto;
+	background:#fff;
+	padding:20px;
+	margin:100px auto;
+}
+
+.tit_edicao {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin: 0 0 30px 0;
+}
+
+#fechar {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	font-size: 22px;
+	cursor: pointer;
+}
+
+#btn_salvar {
+	width: 200px;
+	height: 35px;
+	margin: 30px auto 5px auto;
+}
+
+.lbl_form {
+	display: block;
+	float: left;
+	width: 120px;
+	font-family: 'Source Sans Pro', sans-serif;
+	margin: 5px 0;
+}
+
+.time_txt {
+	width:150px;
+	height:35px;
+	border-radius: 2px;
+	margin: 10px 0;
+	padding:0px 10px;
+	display:block;
+	outline:none;
+	border:solid 1px #aaa;
+	font-size:17px;
+}
+
+#deletar_escala {
+	display: inline-block;
+	margin:0 5px;
+}

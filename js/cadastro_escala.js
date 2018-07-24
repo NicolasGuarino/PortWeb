@@ -2,6 +2,9 @@ $(function(){
 	imagem = null;
 	loader = new Loader();
 	usuario_id = retorna_parametro_url("id");
+	cpf = retorna_parametro_url("cpf");
+
+	$("#voltar").click(function() { window.location = "cadastro_usuario.php?cpf=" + cpf });
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();

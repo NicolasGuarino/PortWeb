@@ -27,6 +27,8 @@
 					<label> 0 </label>
 				</div>
 			</div>
+
+			<a href="cadastro_usuario.php" id="add_user" class="fa fa-plus"></a>
 			
 
 			<div id="lista_usuarios">

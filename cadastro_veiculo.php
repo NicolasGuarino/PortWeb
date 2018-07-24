@@ -10,10 +10,12 @@
 	
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/cadastro_veiculo.css">
+		<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"	></script>	
 		<script type="text/javascript" src="js/script.js"></script>	
 		<script type="text/javascript" src="js/cadastro_veiculo.js"></script>	
+		<script type="text/javascript" src="js/editar_veiculo.js"></script>	
 	</head>
 	
 	<body>
@@ -33,6 +35,9 @@
 			</header>
 
 			<div id="conteudo">
+
+				<!-- <i class="fas fa-chevron-circle-left"></i> -->
+				<i id="voltar" class="fa fa-chevron-circle-left"></i>
 				<span class="tit"> Cadastro de veiculos </span>
 
 				<div id="formulario_cadastro">
@@ -50,11 +55,14 @@
 
 								<?php
 									$conexao = conectar();
-
 									$query  = "select *, d.documento_id as documento_id from documento as d ";
 									$query .="left join usuario as u on(d.documento_id=u.documento_id) ";
 									$query .="left join veiculo as v on(v.documento_id=d.documento_id) ";
 									$query .="where isnull(u.usuario_id) and isnull(v.veiculo_id) and substring(numero_etiqueta, 1,1) = 'A';";
+
+									if(isset($_REQUEST['modo'])) {
+										$query = "select * from documento where substring(numero_etiqueta, 1,1) = 'A';";
+									}
 									$select = mysqli_query($conexao, $query);
 
 									while($rs = mysqli_fetch_array($select)) {

@@ -8,7 +8,9 @@
 
 	$usuario_id = $_REQUEST['usuario_id'];
 
-	$query = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." group by d.documento_id order by d.documento_id desc;";
+	$query  = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." and u.ativo = 1 ";
+	$query .= "group by d.documento_id order by d.documento_id desc;";
+
 	$select = mysqli_query($conexao, $query);
 	
 	$cont = 0;
@@ -24,7 +26,8 @@
 			"foto" => utf8_encode($rs['foto']),
 			"telefone" => utf8_encode($rs['telefone']),
 			"email" => utf8_encode($rs['email']),
-			"rg" => utf8_encode($rs['rg'])
+			"rg" => utf8_encode($rs['rg']),
+			"cpf" => utf8_encode($rs['cpf'])
 		);		
 
 		$cont++;

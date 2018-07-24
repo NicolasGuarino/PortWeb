@@ -1,12 +1,21 @@
 $(function(){
 	imagem = null;
 	loader = new Loader();
+	cpf_usuario = "";
+	img_edit = "";
+	id_usuario = 0;
+
+	var modo = url_param("modo");
+
+	if(modo == "edit") {
+		editar_usuario(url_param("id"));
+	}
 
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();
 		var campos_preenchidos = validar_campos_texto(".form_txt") && validar_comboBox(".form_cbo") && (imagem != null);
-
+		
 		var nome = $("#nome").val();
 		var cpf = $("#cpf").val();
 		var rg = $("#rg").val();
@@ -17,6 +26,8 @@ $(function(){
 		var tel = $("#tel").val();
 	
 		var campos_validos = validar(nome, cpf, dt_nascimento, email, tel);
+
+		cpf_usuario = cpf;
 
 		if(campos_preenchidos && campos_validos) {
 
@@ -135,7 +146,7 @@ function tratar_resultado_envio(resultado){
 		loader.encerrar("img/ic_okay.png", "Usuario cadastrado com sucesso");
 		limpar_caixas();
 
-		carregar_info_usuario("478.911.798-75");
+		carregar_info_usuario(cpf_usuario);
     }else{
     	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);

@@ -52,6 +52,8 @@ header label {
 	background: #2c8cdb;
 	margin: 10px 20px 5px 20px;
 	color: #fff;
+	float: left;
+	clear: left;
 }
 
 .container_contador .icone {
@@ -203,6 +205,44 @@ header label {
 	border-radius:2px;
 	font-family: 'Source Sans Pro', sans-serif;
 	cursor:pointer;
+}
+
+.btn_detalhes {
+	content: '\f05a';
+	font-family: 'fontAwesome';
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 20px;
+	height: 20px;
+	text-decoration: none;
+	text-align: center;
+	color:#5cb85c;
+	border-radius:100%;
+	font-size: 22px;
+	background: #fff;
+
+}
+
+#add_user {
+	width: 160px;
+	height: 30px;
+	font-size: 18px;
+	color: #000;
+	text-align: center;
+	line-height: 30px;
+	text-decoration: none;
+	float: left;
+	cursor: pointer;
+	margin: 10px 0;
+	padding: 5px;
+	color: #4b9e61;
+}
+
+#add_user:after {
+	content: " Adicionar usuário";
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight:bold;
 }
 
 .card_usuario .nome_usuario { font-size: 22px;color: #000; }

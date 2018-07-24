@@ -44,7 +44,34 @@ function validar_comboBox(classe){
 	return campos_preenchidos;
 }
 
+function url_param(name){
+	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	if(results != null) return results[1] || 0;
+	else return 0;
+}
 
+// function mascara_cpf() {
+// 	var cpf = $(this).val();
+
+// 	if(cpf.length <= 14) {
+// 		cpf = cpf.replace(/\D*/g, "");
+// 		cpf = cpf.replace(/([1-9]{3})([1-9]{1})/g, "$1.$2");
+// 		cpf = cpf.replace(/([1-9]{3}).([1-9]{3})([1-9]{1})/g, "$1.$2.$3");
+// 		// cpf = cpf.replace(/([1-9]{3}).([1-9]{3}).([1-9]{3})([1-9]{1})/g, "$1.$2.$3-$4");
+// 	}else{
+// 		cpf = cpf.substr(0, 14);
+// 	}
+
+// 	$(this).val(cpf);
+// }
+
+function mascara_rg() {
+
+}
+
+function mascara_tel() {
+
+}
 
 function eTexto(texto){
 	var regex = /[0-9_*-+.!@#$%¨¨&*\(\)_+=<>:;?\\\/\]\}\{\[\§£¢¬]/g;
@@ -92,8 +119,8 @@ function eHora(hora){
 
 function retorna_parametro_url(name){
 	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-	
-	return results[1] || 0;
+	if(results != null) return results[1] || 0;
+	else return 0;
 }
 
 function temItem(lista, campo_procurado, item_procurado) {

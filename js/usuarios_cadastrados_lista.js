@@ -118,14 +118,14 @@ function listar_usuario(lista) {
 
 	for(var index in lista) {
 		var usuario = lista[index];
-		$("#usuarios_ativos").append(criar_cardUsuario(usuario.foto, usuario.nome, usuario.documento_id));
+		$("#usuarios_ativos").append(criar_cardUsuario(usuario.foto, usuario.nome, usuario.documento_id, usuario.cpf));
 	}
 
 	lista_usuario_filtrados = lista;
 	$(".qtde_usuarios").children("label").text(lista.length);
 }
 
-function criar_cardUsuario(caminho_img, nome, numDoc) {
+function criar_cardUsuario(caminho_img, nome, numDoc, cpf) {
 	var card_usuario = $(document.createElement("div")).addClass("card_usuario");
 	
 	if(caminho_img == "") caminho_img = "img/ic_noImage.png";
@@ -144,10 +144,15 @@ function criar_cardUsuario(caminho_img, nome, numDoc) {
 		botao_imprimir.attr("target", "_blank");
 		botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
 
+	var botao_detalhe = $(document.createElement("a")).addClass("fa fa-info-circle btn_detalhes");
+		botao_detalhe.attr("target", "_blank");
+		botao_detalhe.attr("href", "cadastro_usuario.php?cpf=" + cpf);
+
 	card_usuario.append(img);
 	card_usuario.append(nome_usuario);
 	card_usuario.append(num_documento);
 	card_usuario.append(botao_imprimir);
+	card_usuario.append(botao_detalhe);
 
 	return card_usuario;
 }
