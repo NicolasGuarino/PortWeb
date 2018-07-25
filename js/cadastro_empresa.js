@@ -2,16 +2,35 @@ $(function(){
 	imagem = null;
 	loader = new Loader();
 
+
+	$("#telefone").on("keyup keydown", function(){
+		var tel = $(this).val();
+		
+		if(tel.length <= 14) {
+			tel = tel.replace(/\D*/g, "");
+			tel = tel.replace(/(\d{2})(\d{4,5})(\d{4})/g, "($1)$2-$3");
+
+			$(this).val(tel);	
+		}else{
+			$(this).val(tel.substring(0,12));
+		}
+		
+	});
+
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();
 		var campos_preenchidos = validar_campos_texto(".form_txt") && (imagem != null);
-
-		if(campos_preenchidos) {
+			
+		if(campos_preenchidos && eTel($("#telefone").val())) {
 			var nome = $("#nome").val();
+			var telefone = $("#telefone").val();
+			var email = $("#email").val();
 			
 			// Dados a serem enviados
     		var formData = new FormData();
 			formData.append("nome", nome);
+			formData.append("telefone", telefone);
+			formData.append("email", email);
 			formData.append("imagem", imagem);
 
 			$.ajax({
@@ -23,6 +42,8 @@ $(function(){
                 beforeSend: loader.iniciar(),
                 success: tratar_resultado_envio
 			});
+		}else{
+			alert("Preencha todos os campos corretamente");
 		}
 			
 	});

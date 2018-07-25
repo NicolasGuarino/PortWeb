@@ -36,6 +36,10 @@
 					<form name="frm_cadastro_empresa" method="post" action="cadastro_empresa.php">
 						<input type="text" name="txt_nome" placeholder="Nome" class="form_txt" id="nome"/>
 
+						<input type="text" name="txt_telefone" placeholder="Telefone" placeholder="Telefone/Celular" class="form_txt" id="telefone" maxlength="14"/>
+
+						<input type="text" name="txt_email" placeholder="Email" class="form_txt" id="email"/>
+
 						<div class="upload_arquivo">
 							<div id="nome_arquivo"></div>
 							<button id="botao_upload"></button>
