@@ -128,7 +128,7 @@ function listar_usuario(lista) {
 function criar_cardUsuario(caminho_img, nome, numDoc, cpf) {
 	var card_usuario = $(document.createElement("div")).addClass("card_usuario");
 	
-	if(caminho_img == "") caminho_img = "img/ic_noImage.png";
+	if(caminho_img == "") caminho_img = "img/icones/ic_noImage.png";
 
 	var img = $(document.createElement("div")).addClass("img"); 
 		img.css("background", "url("+caminho_img+") center / 100% auto no-repeat");

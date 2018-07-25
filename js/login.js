@@ -29,7 +29,7 @@ $(function() {
 			loader.iniciar();	
 
 			$.ajax({
-				url: "api/autenticacao.php",
+				url: "api/autenticacao_web.php",
 				data: {usuario: email, senha: senha}
 			}).done(function(resultado_json){
 				var resultado = $.parseJSON(resultado_json);
@@ -114,9 +114,9 @@ $(function() {
 
 function tratar_retorno(retorno, texto_positivo, texto_negativo) {
 	if(retorno.valor) {
-		loader.encerrar("img/ic_okay.png", texto_positivo);
+		loader.encerrar("img/icones/ic_okay.png", texto_positivo);
     }else{
-    	loader.encerrar("img/ic_erro.png", texto_negativo);
+    	loader.encerrar("img/icones/ic_erro.png", texto_negativo);
     	console.log(retorno);
 	}
 

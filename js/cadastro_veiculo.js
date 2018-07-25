@@ -103,10 +103,10 @@ function retorna_extensao(arquivo) {
 
 function tratar_resultado_envio(resultado){
 	if(resultado == 1) {
-		loader.encerrar("img/ic_okay.png", "Veiculo cadastrado com sucesso");
+		loader.encerrar("img/icones/ic_okay.png", "Veiculo cadastrado com sucesso");
 		setTimeout(function(){ window.location = "cadastro_veiculo.php?cpf=" + cpf; }, 2200);
     }else{
-    	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
+    	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);
     }
 }

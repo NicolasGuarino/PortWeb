@@ -128,8 +128,8 @@
 	cursor: pointer;
 }
 
-.ic_editar { background: url("../img/ic_editUser.svg") center / contain no-repeat; right:25px;}
-.ic_deletar { background: url("../img/ic_excluir.svg") center / contain no-repeat; right: 5px; }
+.ic_editar { background: url("../img/icones/ic_editUser.svg") center / contain no-repeat; right:25px;}
+.ic_deletar { background: url("../img/icones/ic_excluir.svg") center / contain no-repeat; right: 5px; }
 
 .foto_carro {
 	width:50px;

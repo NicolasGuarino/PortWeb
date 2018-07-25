@@ -10,7 +10,7 @@
 		<table align='center' cellpadding='0' cellspacing='0' width='550'>
 			<tr>
 				<td align='center' bgcolor='' style='padding: 40px 0 30px 0;'>
-					<img src='http://www.nuflame.com.br/portaria/img/empresarial_logo.png' alt='Logo' width='250' height='150' style='display: block;' />
+					<img src='http://www.nuflame.com.br/portaria/img/logos/empresarial_logo.png' alt='Logo' width='250' height='150' style='display: block;' />
 				</td>
 			</tr>
 

@@ -13,7 +13,7 @@ header {
 #logo {
 	width: 210px;
 	height: 135px;
-	background: url("../img/empresarial_logo.png") center / contain no-repeat;
+	background: url("../img/logos/empresarial_logo.png") center / contain no-repeat;
 	float: left;
 	margin: 0 10px;
 }

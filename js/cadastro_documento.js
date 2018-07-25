@@ -32,12 +32,12 @@ $(function(){
 
 function tratar_resultado_envio(resultado){
 	if(resultado == 1) {
-		loader.encerrar("img/ic_okay.png", "Documento cadastrado com sucesso");
+		loader.encerrar("img/icones/ic_okay.png", "Documento cadastrado com sucesso");
 
     	$("#nome").val("");
     	imagem = null;
     }else{
-    	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
+    	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);
     }
 }

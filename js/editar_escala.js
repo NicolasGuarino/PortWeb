@@ -43,12 +43,12 @@ $(function() {
 
 function tratar_resultado_edicao(resultado){
 	if(resultado == 1) {
-		loader.encerrar("img/ic_okay.png", "Escala alterada com sucesso");
+		loader.encerrar("img/icones/ic_okay.png", "Escala alterada com sucesso");
 		limpar_caixas();
 
 		setTimeout(function() { window.location.reload(); }, 2200);
     }else{
-    	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
+    	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);
     }
 }

@@ -67,10 +67,10 @@ function validar(placa, modelo, marca, cor){
 
 function tratar_resultado_envio(resultado){
 	if(resultado == $(".radio_checked").length) {
-		loader.encerrar("img/ic_okay.png", "Escala cadastrada com sucesso");
+		loader.encerrar("img/icones/ic_okay.png", "Escala cadastrada com sucesso");
 		setTimeout(function(){ window.location.reload(); }, 2200);
     }else{
-    	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
+    	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);
     }
 }
