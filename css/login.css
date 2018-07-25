@@ -1,0 +1,113 @@
+#corpo {
+	width: 100%;
+	padding: 1px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.container {
+	display: table;
+	width:auto;
+	height: auto;
+	padding: 15px;
+	background: #eee5;
+	box-shadow:0 2px 10px #0002;
+	margin: 50px auto;
+}
+
+#logo {
+	width: 150px;
+	height: 150px;
+	margin: auto;
+	background: url("../img/empresarial_logo.png") center / contain no-repeat
+}
+
+#login_tit {
+	display: block;
+	width: 100%;
+	font-weight: bold;
+	font-size: 24px;
+	text-align: center;
+	margin: 10px 0;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.lbl_login {
+	display: block;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+	margin: 10px 0 5px 0;
+}
+
+.form_txt {
+	display: block;
+	width: 350px;
+	height: 25px;
+	border-radius: 2px;
+	border: none;
+	padding: 5px;
+}
+
+.form_btn {
+	width: 350px;
+	height: 35px;
+	border: none;
+	border-radius: 2px;
+	margin: 20px 0 5px 0;
+	background: #1779ba;
+	font-family:'Source Sans Pro', sans-serif;
+	font-size: 15px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.real_checkbox { display: none; }
+
+.form_chb {
+	width: 100%;
+	margin: 10px 0;
+}
+
+.fake_checkbox {
+	display:inline-block;
+	width: 15px;
+	height: 15px;
+	border: solid 1px #000;
+	border-radius: 2px;
+	cursor: pointer;
+	margin: 2px 5px 2px 0;
+	float: left;
+	position: relative;
+}
+
+.fake_checkbox_active:after {
+	position: absolute;
+	top: -1px;
+	right: -1px;
+	content: '\f00c';
+	font-family: 'FontAwesome';
+	font-size: 16px;
+}
+
+.lbl_checkbox {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+.lbl_info {
+	display: block;
+	width: 100%;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 14px;
+	color: #1779ba;
+	text-align: center;
+	text-decoration: none;
+	margin: 5px 0 0 0;
+	cursor: pointer;
+}
+
+#enviar_email_container .lbl_info { text-align: left; }
+
+#enviar_email_container {display: none;}
+#recuperar_senha_container {display: none;}
