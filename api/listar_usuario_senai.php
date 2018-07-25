@@ -8,7 +8,7 @@ include 'conexao.php';
 
 	$usuario_id = $_REQUEST['usuario_id'];
 
-	$query = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." and tipo_usuario_id = 7 group by d.documento_id order by d.documento_id desc;";
+	$query = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." group by d.documento_id order by d.documento_id desc;";
 	$select = mysqli_query($conexao, $query);
 	
 	$cont = 0;
