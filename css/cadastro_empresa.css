@@ -130,4 +130,11 @@ header {
 	background:#aaa url("../img/ic_upload.png") no-repeat 5px 7px / 80% auto;
 	cursor:pointer;
 }
+
+#ic_home {
+	display: block;
+    width: auto;
+    text-align: right;
+    float: unset;
+}
 /*****************

@@ -35,7 +35,7 @@ $(function() {
 				var resultado = $.parseJSON(resultado_json);
 
 				if(tratar_retorno(resultado, "Login realizado com sucesso", "Certifique-se que digitou o usuário e senha correto")) {
-					setTimeout(function(){ window.location = "menu_principal.php"; }, 2200);
+					setTimeout(function(){ window.location = "dashboard.php"; }, 2200);
 				}
 			});
 		}else{
@@ -82,8 +82,12 @@ $(function() {
 				var resultado = $.parseJSON(resultado_json);
 
 				if(tratar_retorno(resultado, "Senha alterada com sucesso", "Ocorreu algum erro")) {
-					$("#recuperar_senha_container").fadeOut(500);
-					setTimeout(function() { $("#login_container").css("display", 'table'); }, 600)
+					if(url_param("m") == "alsl") {
+						window.location = "dashboard.php";
+					}else{
+						$("#recuperar_senha_container").fadeOut(500);
+						setTimeout(function() { $("#login_container").css("display", 'table'); }, 600);
+					}
 				}
 			});
 		}else{

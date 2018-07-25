@@ -20,6 +20,7 @@
 				<div id="us_info">
 					<span class="us_item"> Portaria	</span>
 					<span class="us_item" id="us_tipo"> Cadastro de empresas </span>
+					<a href="dashboard.php" id="ic_home" class="fa fa-home"> Dashboard </a>
 				</div>
 
 				<div id="centro">

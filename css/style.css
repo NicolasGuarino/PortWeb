@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('../assets/font-awesome/css/font-awesome.css');
 
 *{
 	margin: 0;
@@ -312,3 +313,18 @@
 	line-height:24px;
 	color:#000;
 }
+
+#ic_home {
+	display: block;
+	width: 150px;
+	height: 30px;
+	color: #000;
+	text-decoration: none;
+	margin: 0 0 20px 0;
+	float: left;
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#ic_home:before {font-size: 32px;font-weight:normal;}

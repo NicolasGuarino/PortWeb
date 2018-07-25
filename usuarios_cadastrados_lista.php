@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<title> Usuários cadastrados </title>
 
+		<link rel="stylesheet" type="text/css" href="css/style.css?04">
 		<link rel="stylesheet" type="text/css" href="css/usuarios_cadastrados_lista.css?04">
-		<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"></script>
 		<script type="text/javascript" src="js/usuarios_cadastrados_lista.js?59"></script>
@@ -17,6 +17,7 @@
 				<div id="logo"></div>
 				<label> Usuários cadastrados </label>
 
+				<a href="dashboard.php" id="ic_home" class="fa fa-home"> Dashboard </a>
 			</header>
 
 			<div class="container_contador">

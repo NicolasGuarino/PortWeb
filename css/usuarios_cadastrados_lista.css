@@ -213,15 +213,20 @@ header label {
 	position: absolute;
 	right: 5px;
 	top: 5px;
-	width: 20px;
-	height: 20px;
+	width: 25px;
+	height: 25px;
+	background: #000;
 	text-decoration: none;
 	text-align: center;
 	color:#5cb85c;
 	border-radius:100%;
-	font-size: 22px;
-	background: #fff;
+	font-size: 32px;
+}
 
+.btn_detalhes:before {
+    position: absolute;
+    top: -3px;
+    left: -1px;
 }
 
 #add_user {
@@ -237,6 +242,9 @@ header label {
 	margin: 10px 0;
 	padding: 5px;
 	color: #4b9e61;
+	border: solid 1px #4b9e61;
+	border-radius:5px;
+	box-shadow:0 2px 5px #4b9e6150;
 }
 
 #add_user:after {

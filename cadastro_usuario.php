@@ -99,11 +99,13 @@
 								<?php
 									$query = "select * from tipo_usuario;";
 									$select = mysqli_query($conexao, $query);
-
+									session_start();
 									while($rs = mysqli_fetch_array($select)) {
+										if($rs['tipo_usuario_id'] != 6 || $_SESSION['usuario']['tipo_usuario_id'] == 6) {
 								?>
 									<option value="<?php echo($rs['tipo_usuario_id']);?>"> <?php echo($rs['nome']);?> </option>
 								<?php
+										}
 									}
 									mysqli_close($conexao);
 								?>

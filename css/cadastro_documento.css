@@ -111,3 +111,10 @@ header {
 /* 	float: left; */
 }
 /******************/
+
+#ic_home {
+	display: block;
+    width: auto;
+    text-align: right;
+    float: unset;
+}
