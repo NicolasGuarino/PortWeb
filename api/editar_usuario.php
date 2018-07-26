@@ -32,7 +32,7 @@
 
 	$query  = "update usuario set nome = '".$nome."', cpf = '".$cpf."', data_nascimento = '".$dt_nascimento."', tipo_usuario_id = ".$tipo_usuario.", documento_id = ".$documento.", ";
 	$query .= "foto = '".$caminho_banco."', telefone = '".$tel."', email = '".$email."', rg = '".$rg."' where usuario_id = ".$usuario_id.";";
-	$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));;
+	$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
 	
 	echo intval($result);
 
