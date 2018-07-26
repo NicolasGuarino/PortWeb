@@ -148,7 +148,7 @@ function tratar_resultado_envio(resultado){
 		loader.encerrar("img/icones/ic_okay.png", "Usuario cadastrado com sucesso");
 		limpar_caixas();
 
-		carregar_info_usuario(cpf_usuario);
+		window.location = "cadastro_usuario.php?cpf=" + cpf_usuario; 
     }else{
     	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);

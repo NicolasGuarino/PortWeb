@@ -27,6 +27,8 @@ $(function(){
 		var email = $("#email").val();
 		var tel = $("#tel").val();
 
+		cpf_usuario = cpf;
+
 		var campos_validos = validar(nome, cpf, dt_nascimento, email, tel);
 
 		if(campos_preenchidos && campos_validos) {
