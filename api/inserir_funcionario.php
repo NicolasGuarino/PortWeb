@@ -15,6 +15,13 @@
 	$cpf = $_GET['cpf'];
 	$foto = "";
 
+
+	$disponibilidade = 0;
+
+	if ($tipo_usuario_id == 4) {
+		$disponibilidade = 1;
+	}
+
 	$conexao = conectar();
 
 	// @require_once "imagem_oculta_etiqueta/index.php";
@@ -80,7 +87,7 @@
 
 		//echo ($result3);
 
-		$query_documento = "update documento set imagem_oculta = '".$caminho_salvar."',  disponibilidade = 0 , ultima_atualizacao = now() where documento_id =". $documento_id;
+		$query_documento = "update documento set imagem_oculta = '".$caminho_salvar."',  disponibilidade = ".$disponibilidade." , ultima_atualizacao = now() where documento_id =". $documento_id;
 
 		//echo $query_documento;
 
