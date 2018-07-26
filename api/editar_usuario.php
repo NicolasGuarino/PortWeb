@@ -2,19 +2,20 @@
 	require_once "conexao.php";
 
 	date_default_timezone_set('America/Araguaina');
+	session_start();
 	$conexao = conectar();
 
-	$usuario_id = $_POST['usuario_id'];
-	$nome = $_POST['nome'];
-	$cpf = $_POST['cpf'];
-	$rg = $_POST['rg'];
-	$dt_nascimento = $_POST['dt_nascimento'];
-	$documento = $_POST['documento'];
-	$tipo_usuario = $_POST['tipo_usuario'];
+	$usuario_id = $_REQUEST['usuario_id'];
+	$nome = $_REQUEST['nome'];
+	$cpf = $_REQUEST['cpf'];
+	$rg = $_REQUEST['rg'];
+	$dt_nascimento = $_REQUEST['dt_nascimento'];
+	$documento = $_REQUEST['documento'];
+	$tipo_usuario = $_REQUEST['tipo_usuario'];
 	@$imagem = $_FILES['imagem'];
-	$tel = $_POST['tel'];
-	$email = $_POST['email'];
-	$atualizarImg = $_POST['atualizarImg'];
+	$tel = $_REQUEST['tel'];
+	$email = $_REQUEST['email'];
+	$atualizarImg = $_REQUEST['atualizarImg'];
 	
 	
 
@@ -34,6 +35,12 @@
 	$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));;
 	
 	echo intval($result);
+
+	if($usuario_id == $_SESSION['usuario']['usuario_id']) {
+		$query = "select * from usuario where usuario_id = ".$usuario_id.";";
+		$select = mysqli_query($conexao, $query);
+		$_SESSION['usuario'] = mysqli_fetch_array($select);
+	}
 
 	mysqli_close($conexao);
 ?>

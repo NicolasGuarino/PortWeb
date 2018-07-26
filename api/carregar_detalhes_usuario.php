@@ -7,10 +7,12 @@
 	$cpf = $_REQUEST['cpf'];
 
 	$query  = "select u.usuario_id, u.nome, u.foto as 'foto', u.cpf, u.rg, u.email, DATE_FORMAT(u.data_nascimento, '%d/%m/%Y') as 'data_nascimento_f', ";
-	$query .= "u.data_nascimento, u.telefone, d.numero_etiqueta, d.documento_id, u.tipo_usuario_id ";
+	$query .= "u.data_nascimento, u.telefone, d.numero_etiqueta, d.documento_id, u.tipo_usuario_id, s.nome as 'status', s.status_id ";
 	$query .= "from usuario as u inner join documento as d on(d.documento_id=u.documento_id) ";
-	$query .= "where cpf = '".$cpf."' and u.ativo = 1 order by u.usuario_id desc limit 1;";
-
+	$query .= "inner join rel_status_usuario as su on(su.usuario_id=u.usuario_id) ";
+	$query .= "inner join status as s on(s.status_id=su.status_id) ";
+	$query .= "where cpf = '".$cpf."' and u.ativo = 1 and su.hora = u.ultima_atualizacao order by u.usuario_id desc limit 1;";
+	
 	$select = mysqli_query($conexao, $query);
 
 	$lista = [];
@@ -18,7 +20,9 @@
 	$lista_veiculo[] = [];
 	
 	while($rs = mysqli_fetch_array($select)) {
-		$query_veiculo   = "select * from rel_usuario_veiculo as uv inner join veiculo as v on(v.veiculo_id=uv.veiculo_id) where uv.usuario_id = '".$rs['usuario_id']."' and v.ativo = 1";
+		$query_veiculo   = "select * from rel_usuario_veiculo as uv inner join veiculo as v on(v.veiculo_id=uv.veiculo_id) ";
+		$query_veiculo  .= "inner join documento as d on(d.documento_id=v.documento_id) where uv.usuario_id = '".$rs['usuario_id']."' and v.ativo = 1;";
+	
 		$select_veiculos = mysqli_query($conexao, $query_veiculo);
 
 		while($rs_veiculo = mysqli_fetch_array($select_veiculos)) {

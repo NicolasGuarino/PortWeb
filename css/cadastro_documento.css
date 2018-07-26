@@ -1,26 +1,7 @@
 /* Formatações em geral */
 * {font-family:arial, sans-serif;}
 
-body {margin:0;background-color:#f5f5f5;}
-
-/* Itens de Formulário */
-.form_txt {
-	padding:0px 10px;
-	display:block;
-	outline:none;
-	border:solid 1px #aaa;
-	font-size:17px;
-}
-	
-.form_btn {
-	display:block;
-	outline:solid 2px #333;border:none;
-	color:#333;font-weight:bold;
-	text-transform:uppercase;background-color:#fff;
-	transition:all 100ms;
-	cursor:pointer;
-}
-/******************/
+body {margin:0;}
 
 #corpo {
 	width:100%;min-width:1000px;height:auto;
@@ -108,13 +89,14 @@ header {
 	width: 15px;
 	height: 15px;
 	margin:20px 10px;
-/* 	float: left; */
+}
+
+.radio_box {
+	display: table;
+	width: auto;
+	height: auto;
+	margin: auto;
+	overflow: hidden;
+	padding: 0 10px;
 }
 /******************/
-
-#ic_home {
-	display: block;
-    width: auto;
-    text-align: right;
-    float: unset;
-}

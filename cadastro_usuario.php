@@ -20,9 +20,6 @@
 	</head>
 	
 	<body>
-		<body>
-
-
 		<div id="background">
 			<div id="container">
 				<form name="frm_escala" method="post">
@@ -37,37 +34,46 @@
 			</div>
 		</div>
 
-		<div id="corpo">
+		<div id="principal">
 			<!-- HEADER -->
 			<header>
-				<div id="us_info">
-					<span class="us_item"> Portaria	</span>
-					<span class="us_item" id="us_tipo"> Cadastro de usuarios </span>
-				</div>
+				<div id="logo"></div>
+				<label> Gerenciamento de usuários </label>
 
-				<div id="centro">
-					<div id="logo"> <!-- Logo --> </div>
-				</div>
-
+				<?php include "fragments/menu.php" ?>
 			</header>
 
 			<div id="conteudo">
-				<a id="voltar" class="fa fa-chevron-circle-left" href="usuarios_cadastrados_lista.php"></a>
-				<span class="tit"> Cadastro de usuarios </span>
+				<div class="container" id="login_container">
+					<div class="container_logo"></div>
+					<span class="container_tit"> 
+						<i class="fa fa-chevron-circle-left" id="voltar"></i>
+						<span class="texto"> Cadastro de usuário </span>
+					</span>
 
-				<div id="formulario_cadastro">
-					<form name="frm_cadastro_empresa" method="post">
+					<form name="frm_cadastro_usuario" method="post" id="form_user">
 						<div id="form_esquerda">
+							<label class="lbl_container"> Nome </label>
 							<input type="text" name="txt_nome" placeholder="Nome" class="form_txt" id="nome"/>
+
+							<label class="lbl_container"> CPF </label>
 							<input type="text" name="txt_cpf" placeholder="CPF" class="form_txt" id="cpf" maxlength="14" />
+
+							<label class="lbl_container"> RG </label>
 							<input type="text" name="txt_rg" placeholder="RG" class="form_txt" id="rg" maxlength="12" />
+
+							<label class="lbl_container"> Email </label>
 							<input type="email" name="txt_email" placeholder="Email" class="form_txt" id="email" />
+
+							<label class="lbl_container"> Telefone/Celular </label>
 							<input type="text" name="txt_tel" placeholder="Telefone/Celular" class="form_txt" id="tel" maxlength="14" />	
 						</div>
 
 						<div id="form_direita">
+							<label class="lbl_container"> Data de nascimento </label>
 							<input type="date" name="txt_dt_nascimento" placeholder="aaaa-mm-dd" class="form_txt" id="dt_nascimento"/>
-						
+
+							<label class="lbl_container"> Documento </label>
 							<select name="cbo_documento" class="form_cbo" id="documento">
 								<option value="0"> Selecione um documento </option>
 
@@ -79,10 +85,6 @@
 									$query .="left join veiculo as v on(v.documento_id=d.documento_id) ";
 									$query .="where isnull(u.usuario_id) and isnull(v.veiculo_id) and substring(numero_etiqueta, 1,1) = 'C';";
 
-									if(isset($_REQUEST['modo'])) {
-										$query = "select * from documento where substring(numero_etiqueta, 1,1) = 'C';";
-									}
-
 									$select = mysqli_query($conexao, $query);
 
 									while($rs = mysqli_fetch_array($select)) {
@@ -93,6 +95,7 @@
 								?>
 							</select>
 
+							<label class="lbl_container"> Tipo de usuário </label>
 							<select name="cbo_tipo" class="form_cbo" id="tipo">
 								<option value="0"> Selecione um tipo de usuario </option>
 
@@ -111,18 +114,17 @@
 								?>
 							</select>
 
+							<label class="lbl_container"> Foto </label>
 							<div class="upload_arquivo">
 								<div id="nome_arquivo"></div>
-								<button id="botao_upload"></button>
+								<i class="fa fa-cloud-upload" id="botao_upload"></i>
 							</div>
 							
 							<input type="file" name="arquivo_foto" class="file" id="arquivo_foto"/>
-	
 						</div>
-						
+
 						<input type="submit" name="btn_cadastrar" value="Cadastrar" class="form_btn" id="btn_cadastro"/>
 					</form>
-				</div>
 
 				<?php require_once "fragments/info_usuario.php" ?>
 			</div>

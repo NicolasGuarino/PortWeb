@@ -42,6 +42,8 @@ $(function() {
                 success: tratar_resultado_envio
 			});
 
+			window.location = "cadastro_usuario.php?cpf=" + url_param("cpf");
+
 		}else{
 			alert("Algum campos não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez.");
 		}
@@ -59,8 +61,14 @@ function carregar_info_veiculo(id) {
 	$("#marca").val(veiculo.marca);
 	$("#modelo").val(veiculo.modelo);
 	$("#cor").val(veiculo.cor);
-	$("#documento").val(veiculo.documento_id);
 	$("#nome_arquivo").text(veiculo.foto);
+
+	var opcao_documento = $(document.createElement("option"));
+	opcao_documento.val(veiculo.documento_id);
+	opcao_documento.text(veiculo.num_documento);
+	opcao_documento.prop("selected", true);
+	
+	$("#documento").append(opcao_documento);
 
 	$("#btn_cadastro").val("Editar");
 	$("#btn_cadastro").unbind("click");

@@ -38,7 +38,6 @@ header {
 	width: 150px;
 	height: 150px;
 	border-radius: 100%;
-	border: solid 1px #000;
 	float: left;
 }
 
@@ -63,19 +62,28 @@ header {
 	font-style: italic;
 }
 
-#perfil_responsavel .btn_alterar {
+#perfil_responsavel .btn {
 	display: block;
 	width: 120px;
 	height: 35px;
-	border: solid 1px #0275d8;
 	border-radius: 5px;
-	margin: 45px 15px 0 15px;
+	margin: 45px 0 0 15px;
 	font-family: 'Source Sans Pro', sans-serif;
-	color: #0275d8;
 	text-align: center;
 	text-decoration: none;
 	line-height: 35px;
 	cursor: pointer;
+	float: left;
+}
+
+#perfil_responsavel .alterar {
+	color: #0275d8;
+	border: solid 1px #0275d8;
+}
+
+#perfil_responsavel .logout {
+	color: #c14141;
+	border: solid 1px #c14141;
 }
 
 #opcoes {

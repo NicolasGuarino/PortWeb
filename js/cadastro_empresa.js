@@ -89,7 +89,7 @@ function tratar_resultado_envio(resultado){
 	if(resultado == 1) {
 		loader.encerrar("img/icones/ic_okay.png", "Empresa cadastrada com sucesso");
 
-    	$("#nome").val("");
+    	$(".form_txt").val("");
     	$("#nome_arquivo").text("");
     	imagem = null;
     }else{

@@ -97,7 +97,7 @@ function usuarioAnterior(){
 
 function carregar_usuarios() {
 	$.ajax({
-		url : 'api/listar_usuario_senai.php',
+		url : 'api/listar_usuario.php',
         type : 'POST',
         data: {usuario_id:ultimo_usuario}
 	}).done(function(retorno) {
@@ -145,7 +145,6 @@ function criar_cardUsuario(caminho_img, nome, numDoc, cpf) {
 		botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
 
 	var botao_detalhe = $(document.createElement("a")).addClass("fa fa-info-circle btn_detalhes");
-		botao_detalhe.attr("target", "_blank");
 		botao_detalhe.attr("href", "cadastro_usuario.php?cpf=" + cpf);
 
 	card_usuario.append(img);

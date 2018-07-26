@@ -54,8 +54,14 @@ $(function(){
 	});
 
 	$(".radio").click(function(){
-		$(this).addClass("radio_checked");
-		$(this).prev().attr("checked", "true");
+		$(this).toggleClass("radio_checked");
+
+		if($(this).hasClass("radio_checked")) {
+			$(this).prev().prop("checked", true);	
+		}else{
+			$(this).prev().prop("checked", false);	
+		}
+		
 	});
 });
 
@@ -68,7 +74,7 @@ function validar(placa, modelo, marca, cor){
 function tratar_resultado_envio(resultado){
 	if(resultado == $(".radio_checked").length) {
 		loader.encerrar("img/icones/ic_okay.png", "Escala cadastrada com sucesso");
-		setTimeout(function(){ window.location.reload(); }, 2200);
+		setTimeout(function(){ window.location = "cadastro_usuario.php?cpf=" + url_param("cpf"); }, 2200);
     }else{
     	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);

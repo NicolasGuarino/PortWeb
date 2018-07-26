@@ -1,18 +1,35 @@
 $(function(){
 	cpf = url_param("cpf");
+	usuario_id = 0;
 
 	if(cpf) {
 		carregar_info_usuario(cpf);
+		
+		$("#sl_status").change(function() {
+			var status = $(this).val();
+
+			if(status != 0) {
+				$.ajax({
+					url: "api/atualizar_status.php",
+					data: {status:status, usuario_id: usuario_id}
+				}).done(function(resultado){ console.log(resultado); });
+			}
+		});
 	}
+
 });
 
 function carregar_info_usuario(cpf) {
 	$.getJSON("api/carregar_detalhes_usuario.php", {cpf:cpf}, function(retorno) {
-		$("#formulario_cadastro").fadeOut(600);
+		$("#form_user").fadeOut(600);
 		$("#perfil_usuario").fadeIn(700);
-		$(".tit").text("Detalhes do usuário");
+		$(".container_tit").children(".texto").text("Detalhes usuário");
 
 		var usuario = retorno[0];
+		var foto = usuario.foto;
+		usuario_id = usuario.usuario_id;
+
+		if(foto == null) foto = "img/icones/ic_noImage.png";
 
 		$("#cadastrar_escala").click(function() { window.location = "cadastro_escala.php?id=" + usuario.usuario_id + "&cpf=" + usuario.cpf});
 		$("#cadastrar_veiculo").click(function() { window.location = "cadastro_veiculo.php?id=" + usuario.usuario_id + "&cpf=" + usuario.cpf});
@@ -24,7 +41,8 @@ function carregar_info_usuario(cpf) {
 				email: usuario.email,
 				data_nascimento: usuario.data_nascimento,
 				cpf: usuario.cpf,
-				numero_documento: usuario.documento_id,
+				documento_id: usuario.documento_id,
+				numero_documento: usuario.numero_etiqueta,
 				telefone: usuario.telefone,
 				rg: usuario.rg,
 				tipo_usuario: usuario.tipo_usuario_id
@@ -42,7 +60,7 @@ function carregar_info_usuario(cpf) {
 		});
 		
 		$("#nome_usuario").text(usuario.nome);
-		$("#foto_usuario").css("background", "url('"+ usuario.foto +"') center / cover no-repeat");
+		$("#foto_usuario").css("background", "url('"+ foto +"') center / cover no-repeat");
 		$("#foto_usuario").attr("name", usuario.usuario_id);
 		$("#email_usuario").children(".valor").text(usuario.email);
 		$("#data_nascimento_usuario").children(".valor").text(usuario.data_nascimento_f);
@@ -50,6 +68,7 @@ function carregar_info_usuario(cpf) {
 		$("#documento_usuario").children(".valor").text(usuario.numero_etiqueta);
 		$("#tel_usuario").children(".valor").text(usuario.telefone);
 		$("#rg_usuario").children(".valor").text(usuario.rg);
+		$("#status").children("#sl_status").val(usuario.status_id);
 
 		if(usuario.escala.length > 1) {
 			$("#cadastrar_escala").fadeOut();
@@ -86,6 +105,7 @@ function criar_cardVeiculo(veiculo_info) {
 		var veiculo = {
 			veiculo_id: veiculo_info.veiculo_id,
 			documento_id: veiculo_info.documento_id,
+			num_documento: veiculo_info.numero_etiqueta,
 			placa: veiculo_info.placa,
 			modelo: veiculo_info.modelo,
 			marca: veiculo_info.marca,

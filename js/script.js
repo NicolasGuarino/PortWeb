@@ -157,7 +157,7 @@ function Loader() {
 	this.iniciar = function(){
 		$(this.titulo).text("Carregando...");
 
-		$("#corpo").prepend(this.fundo);
+		$("body").prepend(this.fundo);
 		$(this.fundo).append(this.container)
 		$(this.container).append(this.loader);
 		$(this.container).append(this.titulo);

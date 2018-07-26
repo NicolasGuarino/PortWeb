@@ -13,8 +13,6 @@
 	$conexao = conectar();
 
 
-
-
 	$query   = "insert into veiculo(documento_id, placa, modelo, marca, cor, foto) ";
 	$query  .= "values(".$documento_id.", '".$placa."', '".$modelo."', '".$marca."', '".$cor."', '".$foto."');";
 	$result  = mysqli_query($conexao, $query) or die("Não foi possivel inserir o registro de veiculo<br/><b>Erro: " . mysqli_error($conexao) . "</b>");

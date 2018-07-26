@@ -8,9 +8,10 @@
 
 	$usuario_id = $_REQUEST['usuario_id'];
 
-	$query  = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." and u.ativo = 1 ";
-	$query .= "group by d.documento_id order by d.documento_id desc;";
-
+	$query   = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) ";
+	$query  .= "inner join rel_status_usuario as su on(su.usuario_id=u.usuario_id) ";
+	$query  .= "where u.usuario_id > ".$usuario_id." and u.ativo = 1 group by d.documento_id order by d.documento_id desc;";
+	
 	$select = mysqli_query($conexao, $query);
 	
 	$cont = 0;

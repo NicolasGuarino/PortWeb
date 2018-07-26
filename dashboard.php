@@ -1,10 +1,16 @@
-<?php 
+<?php
 	session_start(); 
+	include "api/verifica_permissao.php";
 	$nome = $_SESSION['usuario']['nome'];
 	$email = $_SESSION['usuario']['email'];
 	$foto = $_SESSION['usuario']['foto'];
 	$usuario_id = $_SESSION['usuario']['usuario_id'];
+
+	if(!$foto) {
+		$foto = "img/icones/ic_noImage.png";
+	}
 ?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,7 +27,7 @@
 	</head>
 
 	<body>
-		<div id="corpo">
+		<div id="principal">
 			<header>
 				<div id="logo"></div>
 				<label class="tit"> Dashboard </label>
@@ -29,14 +35,15 @@
 
 			<div id="perfil_responsavel">
 				<div id="foto"
-					style="background:url(<?php echo $foto; ?>) center / contain no-repeat">
+					style="background:url(<?php echo $foto; ?>) center / cover no-repeat">
 					
 				</div>
 				<div id="info">
 					<span id="nome"> <?php echo $nome; ?> </span>
 					<span id="email"> <?php echo $email ?> </span>
 					
-					<a href="login.php?m=alsl&id=<?php echo $usuario_id;?>" class="btn_alterar"> Alterar senha </a>
+					<a href="login.php?m=alsl&id=<?php echo $usuario_id;?>" class="btn alterar"> Alterar senha </a>
+					<a href="api/logout.php" class="btn logout"> Logout </a>
 				</div>
 
 			</div>

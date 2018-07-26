@@ -11,6 +11,8 @@ $(function(){
 		editar_usuario(url_param("id"));
 	}
 
+	$("#voltar").click(function() { window.location = "usuarios_cadastrados_lista.php" });
+
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();

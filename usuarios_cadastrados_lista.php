@@ -16,8 +16,7 @@
 			<header>
 				<div id="logo"></div>
 				<label> Usuários cadastrados </label>
-
-				<a href="dashboard.php" id="ic_home" class="fa fa-home"> Dashboard </a>
+				<?php include "fragments/menu.php" ?>
 			</header>
 
 			<div class="container_contador">

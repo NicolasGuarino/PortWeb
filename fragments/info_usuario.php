@@ -16,6 +16,23 @@
 			<span class="item_info" id="documento_usuario"> <b> Documento:</b> <span class="valor"></span> </span>
 			<span class="item_info" id="tel_usuario"> <b> Telefone:</b>  <span class="valor"></span> </span>
 			<span class="item_info" id="rg_usuario"> <b> RG:</b> <span class="valor"></span> </span>
+			
+			<span class="item_info" id="status">
+				<b> Status:</b> 
+				<select class="form_cbo" id="sl_status">
+					<?php 
+						require_once "api/conexao.php";
+						$conexao = conectar();
+
+						$query  = "select * from status;";
+						$select = mysqli_query($conexao, $query);
+
+						while ($rs = mysqli_fetch_array($select)) {
+					?>
+						<option value="<?php echo $rs['status_id'] ?>"> <?php echo $rs['nome'] ?> </option>
+					<?php } ?>
+				</select>
+			</span>
 
 			<div id="botoes">
 				<span id="edit_user"> Editar </span>

@@ -323,3 +323,10 @@
 	display: inline-block;
 	margin:0 5px;
 }
+
+#sl_status {
+	width: 200px;
+	height: 30px;
+	float: right;
+	margin:-5px 26px 0 0;
+}

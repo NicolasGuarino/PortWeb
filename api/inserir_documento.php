@@ -13,12 +13,11 @@
 	$rs = mysqli_fetch_array($select);
 
 	$ultimo_documento_id = $rs['documento_id'] + 1;
-
 	while ($i <= $numero_final){
 		$hora = date("Y-m-d H:m:s");
-
-		$query   = "insert into documento (numero_etiqueta, tipo_etiqueta, numero_documento, empresa_id, ultima_atualizacao, disponibilidade) ";
-		$query  .= "values('".$prefixo.sprintf("%023s", $i)."' , 'RFID', '".$i."', 1, '".$hora."', '1');";
+		
+		$query   = "insert into documento (documento_id, numero_etiqueta, tipo_etiqueta, numero_documento, empresa_id, ultima_atualizacao, disponibilidade) ";
+		$query  .= "values(".$ultimo_documento_id.",'".$prefixo.sprintf("%023s", $i)."' , 'RFID', '".$i."', 1, '".$hora."', '1');";
 		$result  = mysqli_query($conexao, $query) or die("Erro: " . mysqli_error($conexao));
 
 		$query  = "insert into rel_status_documento(status_documento_id, documento_id, hora) ";

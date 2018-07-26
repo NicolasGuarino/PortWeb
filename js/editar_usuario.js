@@ -62,11 +62,17 @@ function editar_usuario(id) {
 	$("#email").val(usuario.email);
 	$("#tel").val(usuario.telefone);
 	$("#dt_nascimento").val(usuario.data_nascimento);
-	$("#documento").val(usuario.numero_documento);
 	$("#tipo").val(usuario.tipo_usuario);
 	$("#nome_arquivo").text(usuario.foto);
+	
+	var opcao_documento = $(document.createElement("option"));
+	opcao_documento.val(usuario.documento_id);
+	opcao_documento.text(usuario.numero_documento);
+	opcao_documento.prop("selected", true);
+
+	$("#documento").append(opcao_documento);
 
 	$("#btn_cadastro").val("Editar");
 	$("#btn_cadastro").attr("id", "btn_editar");
-	$(".tit").text("Editar usuário");
+	$(".container_tit").children(".texto").text("Editar usuário");
 }
