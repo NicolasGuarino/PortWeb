@@ -14,7 +14,7 @@ body { box-sizing:border-box;padding:0;margin:0; }
 #principal #logoSextou {
 	width: 150px;
 	height: 40px;
-	background: url("../img/sextou_logo-01.png") center / contain no-repeat;
+	background: url("../img/logos/sextou_logo-01.png") center / contain no-repeat;
 	left:87%;
 	top:80%;
 }
@@ -30,7 +30,7 @@ header #logo {
 	background: #bbb;
 	margin: 10px 22px;
 	float: left;
-	background: url("../img/empresarial_logo.png") center / 100% 100% no-repeat;
+	background: url("../img/logos/empresarial_logo.png") center / 100% 100% no-repeat;
 }
 
 header label {
@@ -57,7 +57,7 @@ header label {
 	height: 20px;
 	margin: 5px;
 	float: left;
-	background: url(../img/ic_usuarioGrupo.png) center / 100% 100% no-repeat;
+	background: url(../img/icones/ic_usuarioGrupo.png) center / 100% 100% no-repeat;
 }
 
 .container_contador label {
@@ -115,7 +115,7 @@ header label {
 	width: 100px;
 	height: 100px;
 	margin: 5px;
-	background: url(../img/icon_persona.png)  contain no-repeat;
+	background: url(../img/icones/icon_persona.png)  contain no-repeat;
 	border-radius:100%;
 }
 

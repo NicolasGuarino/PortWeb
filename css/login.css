@@ -1,0 +1,11 @@
+#corpo {
+	width: 100%;
+	padding: 1px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+#enviar_email_container .lbl_info { text-align: left; }
+
+#enviar_email_container {display: none;}
+#recuperar_senha_container {display: none;}

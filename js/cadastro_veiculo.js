@@ -2,6 +2,9 @@ $(function(){
 	imagem = null;
 	loader = new Loader();
 	var usuario = retorna_parametro_url("id");
+	cpf = retorna_parametro_url("cpf");
+
+	$("#voltar").click(function() { window.location = "cadastro_usuario.php?cpf=" + cpf });
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();
@@ -100,10 +103,10 @@ function retorna_extensao(arquivo) {
 
 function tratar_resultado_envio(resultado){
 	if(resultado == 1) {
-		loader.encerrar("img/ic_okay.png", "Veiculo cadastrado com sucesso");
-		setTimeout(function(){ window.location.reload(); }, 2200);
+		loader.encerrar("img/icones/ic_okay.png", "Veiculo cadastrado com sucesso");
+		setTimeout(function(){ window.location = "cadastro_usuario.php?cpf=" + cpf; }, 2200);
     }else{
-    	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
+    	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);
     }
 }

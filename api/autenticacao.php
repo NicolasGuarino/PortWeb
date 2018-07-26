@@ -13,7 +13,6 @@
 
 	//$query = "call login('".$usuario."', '".$senha."', '".$ip."', @resultado);";
 	$query = "select * from usuario where senha = '".$senha."' and login = '".$usuario."';";
-
 	//$sucesso = mysqli_query($con, $query);
 
 //echo($query);
