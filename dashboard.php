@@ -55,7 +55,7 @@
 				</div>
 
 				<?php 
-					if($_SESSION['usuario']['tipo_usuario_id'] == 6) {
+					if($_SESSION['usuario']['tipo_usuario_id'] == 8) {
 				?>
 					<div class="card_opcao" id="documentos">
 						<div class="icone fa fa-file-text-o"></div>

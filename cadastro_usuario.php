@@ -104,7 +104,7 @@
 									$select = mysqli_query($conexao, $query);
 									session_start();
 									while($rs = mysqli_fetch_array($select)) {
-										if($rs['tipo_usuario_id'] != 6 || $_SESSION['usuario']['tipo_usuario_id'] == 6) {
+										if($rs['tipo_usuario_id'] != 8 || $_SESSION['usuario']['tipo_usuario_id'] == 8) {
 								?>
 									<option value="<?php echo($rs['tipo_usuario_id']);?>"> <?php echo($rs['nome']);?> </option>
 								<?php
