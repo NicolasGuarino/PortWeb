@@ -33,6 +33,9 @@
 					<label class="lbl_container"> Telefone/Celular </label>
 					<input type="text" name="txt_telefone" placeholder="(xx)xxxxx-xxxx" class="form_txt" id="telefone" maxlength="14"/>
 
+					<label class="lbl_container"> Email </label>
+					<input type="text" name="txt_nome" placeholder="empresa@domino.com" class="form_txt" id="email"/>
+
 					<label class="lbl_container"> Logo </label>
 					<div class="upload_arquivo">
 						<div id="nome_arquivo"></div>
