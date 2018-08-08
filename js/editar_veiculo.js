@@ -10,7 +10,7 @@ $(function() {
 		e.preventDefault();
 		var texto_ok = validar_campos_texto(".form_txt");
 		var combobox_ok = validar_comboBox(".form_cbo");
-		var img_ok = validar_campo(imagem != null, $("#nome_arquivo").parent(), "#ff2233", "#aaa");
+		var img_ok = validar_campo($("#nome_arquivo").text() != null, $("#nome_arquivo").parent(), "#ff2233", "#aaa");
 
 		var placa  	  = $("#placa").val();
 		var modelo 	  = $("#modelo").val();

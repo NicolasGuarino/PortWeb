@@ -1,6 +1,7 @@
 <?php
 	session_start(); 
 	include "api/verifica_permissao.php";
+	
 	$nome = $_SESSION['usuario']['nome'];
 	$email = $_SESSION['usuario']['email'];
 	$foto = $_SESSION['usuario']['foto'];

@@ -40,7 +40,7 @@
 	echo intval($result);
 
 	if($usuario_id == $_SESSION['usuario']['usuario_id']) {
-		$query = "select * from usuario where usuario_id = ".$usuario_id.";";
+		$query = "select * from usuario as u left join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) where usuario_id = ".$usuario_id.";";
 		$select = mysqli_query($conexao, $query);
 		$_SESSION['usuario'] = mysqli_fetch_array($select);
 	}
