@@ -10,8 +10,10 @@
 	$empresa_id = $_REQUEST['empresa_id'];
 	$usuario_id = $_REQUEST['usuario_id'];
 
-	if(strpos($dia, "dia") != 0) {
-		$query  = "update escala set hora_entrada = '".$entrada."', hora_saida = '".$saida."' where escala_id = ".$dia.";";
+	
+	
+	if(strpos($dia, "_") == 0) {
+		$query  = "update escala set hora_entrada = '".$entrada."', hora_saida = '".$saida."', empresa_id = ".$empresa_id." where escala_id = ".$dia.";";
 		$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
 	}else{
 		$dia = substr($dia, strpos($dia, "_") + 1);

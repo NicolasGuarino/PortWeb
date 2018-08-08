@@ -1,6 +1,6 @@
 <?php
 	include "api/conexao.php";
-
+	session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@
 	</head>
 	
 	<body>
-		<div id="principal">
+		<div id="principal" name="<?php echo(@$_SESSION['usuario']['empresa_id']); ?>">
 			<!-- HEADER -->
 			<header>
 				<div id="logo"></div>

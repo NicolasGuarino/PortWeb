@@ -29,7 +29,7 @@
 							<td style='padding: 20px 60px 0 30px; color: #79746f; font-family: Arial, sans-serif; font-size: 14px'>
 								Recebemos uma solicitação de redefinição de senha para sua conta. <br/><br/>
 								Para altera-la utilize o link abaixo: <br/><br/>
-								<a href="http://localhost/portaria/login.php?m=als&id=$id" style="text-decoration:none;font-weight:bold;color:#1779ba;text-align:center;"> Alterar senha </a> <br/><br/>
+								<a href="http://www.nuflame.com.br/portaria/login.php?m=als&id=$id" style="text-decoration:none;font-weight:bold;color:#1779ba;text-align:center;"> Alterar senha </a> <br/><br/>
 								Caso você não tenha solicitado, por favor ignore esse email. <br/><br/><br/>
 
 								<span style='color: #79746f; font-family: Arial, sans-serif; font-size: 12px;font-weight: bold;'>

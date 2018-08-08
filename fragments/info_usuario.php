@@ -13,9 +13,23 @@
 			<span class="item_info" id="email_usuario"> <b> Email:</b>  <span class="valor"></span> </span>
 			<span class="item_info" id="data_nascimento_usuario"> <b> Data de nascimento:</b>  <span class="valor"></span> </span>
 			<span class="item_info" id="cpf_usuario"> <b> CPF:</b>  <span class="valor"></span> </span>
-			<span class="item_info" id="documento_usuario"> <b> Documento:</b> <span class="valor"></span> </span>
+			
+			<span class="item_info" id="documento_usuario"> 
+				<b> Documento:</b>
+				<span class="valor"></span> 
+
+				<i class="fa fa-info-circle" id="info_doc">
+					<div id="status_doc_container">
+						<div id="seta"></div>
+						<span id="nome_status"> </span>
+						<i class="fa" id="status_icone"></i>
+					</div>
+				</i>
+			</span>
+
 			<span class="item_info" id="tel_usuario"> <b> Telefone:</b>  <span class="valor"></span> </span>
 			<span class="item_info" id="rg_usuario"> <b> RG:</b> <span class="valor"></span> </span>
+			<span class="item_info" id="empresa_usuario"> <b> Empresa:</b> <span class="valor"></span> </span>
 			
 			<span class="item_info" id="status">
 				<b> Status:</b> 
@@ -61,6 +75,8 @@
 		<div class="dia" id="dia_4"> <span class="nome_dia" id="Sexta"> Sex </span> </div>
 		<div class="dia" id="dia_5"> <span class="nome_dia" id="Sábado"> Sab </span> </div>
 		<div class="dia" id="dia_6"> <span class="nome_dia" id="Domingo"> Dom </span> </div>
+
+		<div id="cadastrar_excecao" class="btn_opcoes"></div>
 	</div>
 </div>
 </div>

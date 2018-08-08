@@ -9,7 +9,7 @@
 	$cpf = $_POST['cpf'];
 	$rg = $_POST['rg'];
 	$dt_nascimento = $_POST['dt_nascimento'];
-	$documento = $_POST['documento'];
+	$empresa = $_POST['empresa'];
 	$tipo_usuario = $_POST['tipo_usuario'];
 	$imagem = $_FILES['imagem'];
 	$tel = $_POST['tel'];
@@ -43,19 +43,24 @@
 	imagedestroy($img);
 
 	if(move_uploaded_file($imagem['tmp_name'], $caminho_upload)) {
+		$query = "select * from documento where disponibilidade = 1 and substring(numero_etiqueta, 1,1) = 'C' order by documento_id asc limit 1;";
+		$result = mysqli_query($conexao, $query);
+		$documento = json_encode(mysqli_fetch_array($result)['documento_id']);
+
 		$hora = date('Y-m-d H:i:s');
 		// INSERINDO USUÁRIO
-		$query  = "insert into usuario(nome, cpf, data_nascimento, tipo_usuario_id, documento_id, foto, telefone, email, ultima_atualizacao, rg) ";
-		$query .= "values('".$nome."', '".$cpf."', '".$dt_nascimento."', ".$tipo_usuario.", ".$documento.", '".$caminho_banco."', '".$tel."', '".$email."', '".$hora."', '".$rg."');";
+		$query  = "insert into usuario(nome, cpf, data_nascimento, tipo_usuario_id, documento_id, foto, telefone, email, ultima_atualizacao, rg, login, senha) ";
+		$query .= "values('".$nome."', '".$cpf."', '".$dt_nascimento."', ".$tipo_usuario.", ".$documento.", '".$caminho_banco."', '".$tel."', '".$email."', '".$hora."', '".$rg."', '".$email."', SHA1('s3nh@P@drao'));";
 
 		$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
 	
 		// PEGANDO O ULTIMO ID INSERIDO
 		$usuario_id = mysqli_insert_id($conexao);
+
 		$query = "insert into rel_status_usuario (status_id,usuario_id,hora) values (1, ".$usuario_id.", '".$hora."');";
 		$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
 
-		$query = "insert into rel_empresa_funcionario (empresa_id,usuario_id) values (1, ".$usuario_id.");";
+		$query = "insert into rel_empresa_funcionario (empresa_id,usuario_id) values (".$empresa.", ".$usuario_id.");";
 		$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
 
 		$query = "update documento set imagem_oculta = '".$caminho_salvar."',  disponibilidade = 0 , ultima_atualizacao = '".$hora."' where documento_id =". $documento;

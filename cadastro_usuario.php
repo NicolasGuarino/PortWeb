@@ -1,6 +1,6 @@
 <?php
 	include "api/conexao.php";
-
+	session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,21 +20,32 @@
 	</head>
 	
 	<body>
-		<div id="background">
+		<div id="background_escala">
 			<div id="container">
-				<form name="frm_escala" method="post">
-					<i class="fa fa-times" id="fechar"></i>
+				<form name="frm_escala" method="post" id="frm_escala">
+					<i class="fa fa-times fechar"></i>
 					<label class="tit_edicao"> Segunda</label>
 
-					<label class="lbl_form"> Horário entrada: </label> <input type="time" name="txt_entrada" class="time_txt" id="entrada">
-					<label class="lbl_form"> Horário saída: </label> <input type="time" name="txt_saida" class="time_txt" id="saida">
+					<label class="lbl_form"> Horário entrada: </label> <input type="time" name="txt_entrada" class="time_txt escala" id="entrada">
+					<label class="lbl_form"> Horário saída: </label> <input type="time" name="txt_saida" class="time_txt escala" id="saida">
 
 					<input type="submit" name="btn_salvar" value="Salvar" class="form_btn" id="btn_salvar" />
+				</form>
+
+				<form name="frm_excecao" method="post" id="frm_excecao">
+					<i class="fa fa-times fechar"></i>
+					<label class="tit_edicao"> Exceção </label>
+
+					<label class="lbl_form"> Data: </label> <input type="date" name="txt_diaExcecao" class="time_txt excecao" id="diaExcecao">
+					<label class="lbl_form"> Horário entrada: </label> <input type="time" name="txt_entradaExcecao" class="time_txt excecao" id="entradaExcecao">
+					<label class="lbl_form"> Horário saída: </label> <input type="time" name="txt_saidaExcecao" class="time_txt excecao" id="saidaExcecao">
+
+					<input type="submit" name="btn_adicionarExcecao" value="Adicionar" class="form_btn" id="btn_adicionarExcecao" />
 				</form>
 			</div>
 		</div>
 
-		<div id="principal">
+		<div id="principal" name="<?php echo $_SESSION['usuario']['empresa_id'] ?>">
 			<!-- HEADER -->
 			<header>
 				<div id="logo"></div>
@@ -73,46 +84,46 @@
 							<label class="lbl_container"> Data de nascimento </label>
 							<input type="date" name="txt_dt_nascimento" placeholder="aaaa-mm-dd" class="form_txt" id="dt_nascimento"/>
 
-							<label class="lbl_container"> Documento </label>
-							<select name="cbo_documento" class="form_cbo" id="documento">
-								<option value="0"> Selecione um documento </option>
+							<?php 
+								if($_SESSION['usuario']['tipo_usuario_id'] == 8) {
+							?>
+								<label class="lbl_container"> Empresa </label>
+								<select name="cbo_documento" class="form_cbo" id="empresa">
+									<option value="0"> Selecione uma empresa </option>
 
-								<?php
-									$conexao = conectar();
+									<?php
+										$conexao = conectar();
 
-									$query  = "select *, d.documento_id as documento_id from documento as d ";
-									$query .="left join usuario as u on(d.documento_id=u.documento_id) ";
-									$query .="left join veiculo as v on(v.documento_id=d.documento_id) ";
-									$query .="where isnull(u.usuario_id) and isnull(v.veiculo_id) and substring(numero_etiqueta, 1,1) = 'C';";
+										$query  = "select * from empresa where ativo = 1;";
+										$select = mysqli_query($conexao, $query);
 
-									$select = mysqli_query($conexao, $query);
-
-									while($rs = mysqli_fetch_array($select)) {
-								?>
-									<option value="<?php echo($rs['documento_id']);?>"> <?php echo($rs['numero_etiqueta']);?> </option>
-								<?php
-									}
-								?>
-							</select>
-
-							<label class="lbl_container"> Tipo de usuário </label>
-							<select name="cbo_tipo" class="form_cbo" id="tipo">
-								<option value="0"> Selecione um tipo de usuario </option>
-
-								<?php
-									$query = "select * from tipo_usuario;";
-									$select = mysqli_query($conexao, $query);
-									session_start();
-									while($rs = mysqli_fetch_array($select)) {
-										if($rs['tipo_usuario_id'] != 8 || $_SESSION['usuario']['tipo_usuario_id'] == 8) {
-								?>
-									<option value="<?php echo($rs['tipo_usuario_id']);?>"> <?php echo($rs['nome']);?> </option>
-								<?php
+										while($rs = mysqli_fetch_array($select)) {
+									?>
+										<option value="<?php echo($rs['empresa_id']);?>"> <?php echo($rs['nome']);?> </option>
+									<?php
 										}
-									}
-									mysqli_close($conexao);
-								?>
-							</select>
+									?>
+								</select>
+
+								<label class="lbl_container"> Tipo de usuário </label>
+								<select name="cbo_tipo" class="form_cbo" id="tipo">
+									<option value="0"> Selecione um tipo de usuario </option>
+
+									<?php
+										$query = "select * from tipo_usuario;";
+										$select = mysqli_query($conexao, $query);
+										session_start();
+										while($rs = mysqli_fetch_array($select)) {
+											if($rs['tipo_usuario_id'] != 8 || $_SESSION['usuario']['tipo_usuario_id'] == 8) {
+									?>
+										<option value="<?php echo($rs['tipo_usuario_id']);?>"> <?php echo($rs['nome']);?> </option>
+									<?php
+											}
+										}
+										mysqli_close($conexao);
+									?>
+								</select>
+							<?php } ?>
 
 							<label class="lbl_container"> Foto </label>
 							<div class="upload_arquivo">

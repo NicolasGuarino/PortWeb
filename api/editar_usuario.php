@@ -10,7 +10,7 @@
 	$cpf = $_REQUEST['cpf'];
 	$rg = $_REQUEST['rg'];
 	$dt_nascimento = $_REQUEST['dt_nascimento'];
-	$documento = $_REQUEST['documento'];
+	$empresa = $_REQUEST['empresa'];
 	$tipo_usuario = $_REQUEST['tipo_usuario'];
 	@$imagem = $_FILES['imagem'];
 	$tel = $_REQUEST['tel'];
@@ -30,9 +30,12 @@
 		$caminho_banco = $atualizarImg;
 	}
 
-	$query  = "update usuario set nome = '".$nome."', cpf = '".$cpf."', data_nascimento = '".$dt_nascimento."', tipo_usuario_id = ".$tipo_usuario.", documento_id = ".$documento.", ";
+	$query  = "update usuario set nome = '".$nome."', cpf = '".$cpf."', data_nascimento = '".$dt_nascimento."', tipo_usuario_id = ".$tipo_usuario.", ";
 	$query .= "foto = '".$caminho_banco."', telefone = '".$tel."', email = '".$email."', rg = '".$rg."' where usuario_id = ".$usuario_id.";";
-	$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
+	$result = mysqli_query($conexao, $query) or die("Erro 35:" . mysqli_error($conexao));
+
+	$query  = "update rel_empresa_funcionario set empresa_id = '".$empresa."' where usuario_id = ".$usuario_id.";";
+	$result = mysqli_query($conexao, $query) or die("Erro 38:" . mysqli_error($conexao));
 	
 	echo intval($result);
 

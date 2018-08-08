@@ -96,10 +96,18 @@ function usuarioAnterior(){
 }
 
 function carregar_usuarios() {
+	var empresa_id = $("#principal").attr("name");
+	var filtrar = "false";
+
+	if(retorna_parametro_url("empresa")){
+		empresa_id = retorna_parametro_url("empresa");
+		filtrar = "true"
+	}
+
 	$.ajax({
 		url : 'api/listar_usuario.php',
         type : 'POST',
-        data: {usuario_id:ultimo_usuario}
+        data: {usuario_id:ultimo_usuario, empresa_id: empresa_id, filtrar:filtrar}
 	}).done(function(retorno) {
 		var dados = $.parseJSON(retorno);
 		
@@ -139,10 +147,12 @@ function criar_cardUsuario(caminho_img, nome, numDoc, cpf) {
 	var num_documento = $(document.createElement("label")).addClass("num_documento"); 
 		num_documento.text(numDoc);
 
-	var botao_imprimir = $(document.createElement("a")).addClass("btn_imprimir");
-		botao_imprimir.text("Imprimir");
-		botao_imprimir.attr("target", "_blank");
-		botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
+	if(tipo_usuario_id == 8) {
+		var botao_imprimir = $(document.createElement("a")).addClass("btn_imprimir");
+			botao_imprimir.text("Imprimir");
+			botao_imprimir.attr("target", "_blank");
+			botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
+	}
 
 	var botao_detalhe = $(document.createElement("a")).addClass("fa fa-info-circle btn_detalhes");
 		botao_detalhe.attr("href", "cadastro_usuario.php?cpf=" + cpf);

@@ -264,7 +264,7 @@
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.7);
-	z-index: 1;
+	z-index: 5;
 }
 
 #loader_container {
@@ -518,4 +518,28 @@ header label {
 .item_menu .fa {
 	font-size: 26px;
 }
+
+/********* NOTIFICAÇÃO *********/
+.sucesso { background:#d6e9c6;color:#3c763d; }
+.info { background:#d9edf7;color:#31708f; }
+.erro { background:#f2dede;color:#a94442; }
+.aviso { background:#fcf8e3;color:#8a6d3b; }
+
+.notificacao {
+	display: none;
+	width:auto;
+	height:25px;
+	margin:10px auto;
+	padding:10px;
+	border-radius:5px;
+	box-shadow:0 2px 5px #0002;
+	line-height:25px;
+}
+
+.notificacao .titulo { font-weight:bold;font-size:16px; }
+.notificacao .conteudo { font-size:16px; }
+.notificacao .fechar { font-size:16px;float:right;line-height:25px;cursor:pointer;margin:0 0 0 15px; }
+
+}
+
 /*****************

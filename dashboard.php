@@ -27,13 +27,18 @@
 	</head>
 
 	<body>
+		<script type="text/javascript">
+			var tipo_usuario_id = "<?php echo($_SESSION['usuario']['tipo_usuario_id']); ?>"
+			localStorage.setItem("tipo_usuario_id", tipo_usuario_id);
+		</script>
+
 		<div id="principal">
 			<header>
 				<div id="logo"></div>
 				<label class="tit"> Dashboard </label>
 			</header>
 
-			<div id="perfil_responsavel">
+			<div id="perfil_responsavel" name="<?php echo($_SESSION['usuario']['tipo_usuario_id']); ?>">
 				<div id="foto"
 					style="background:url(<?php echo $foto; ?>) center / cover no-repeat">
 					

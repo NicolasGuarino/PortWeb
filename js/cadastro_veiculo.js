@@ -1,6 +1,8 @@
 $(function(){
 	imagem = null;
 	loader = new Loader();
+	notificacao = new Notificacao();
+
 	var usuario = retorna_parametro_url("id");
 	cpf = retorna_parametro_url("cpf");
 
@@ -8,7 +10,9 @@ $(function(){
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();
-		var campos_preenchidos = validar_campos_texto(".form_txt") && validar_comboBox(".form_cbo") && (imagem != null);
+		var texto_ok = validar_campos_texto(".form_txt");
+		var combobox_ok = validar_comboBox(".form_cbo");
+		var img_ok = validar_campo(imagem != null, $("#nome_arquivo").parent(), "#ff2233", "#aaa");
 
 		var placa  	  = $("#placa").val();
 		var modelo 	  = $("#modelo").val();
@@ -16,7 +20,8 @@ $(function(){
 		var cor    	  = $("#cor").val();
 		var documento = $("#documento").val();
 		
-		var campos_validos = validar(placa, modelo, marca, cor);
+		var campos_validos = validar(placa, marca, cor);
+		var campos_preenchidos = texto_ok && combobox_ok && img_ok;
 
 		if(campos_preenchidos && campos_validos) {
 
@@ -41,7 +46,7 @@ $(function(){
 			});
 
 		}else {
-			alert("Algum campos não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez.");
+			notificacao.mostrar("Erro! ", "Algum campo não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez", "erro", $("#conteudo"), 1500);
 		}
 			
 	});
@@ -61,7 +66,7 @@ $(function(){
 			lst_ext_permitidas = ['png', 'jpg', 'jpeg'];
 
 			if($.inArray(ext.toLowerCase(), lst_ext_permitidas) == -1) {
-				alert("Extensão inválida");
+				notificacao.mostrar("Erro! ", "Extensão inválida", "erro", $("#conteudo"), 1500);
 			}else{
 				imagem = this.files[0];
 
@@ -73,23 +78,18 @@ $(function(){
 		}
 	});
 
-	$("#placa").on("keyup keydown", function(){
-		var placa = $(this).val();
-		
-		if(placa.length <= 8) {
-			placa = placa.replace(/(^\d{1,3})/g, "");
-			placa = placa.replace(/([a-zA-Z]{3})(\d{4})/g, "$1-$2");
-
-			$(this).val(placa);	
-		}else{
-			$(this).val(placa.substring(0,8));
-		}
-		
-	});
+	$("#placa").on("keyup keydown", mascara_placa);
 });
 
-function validar(placa, modelo, marca, cor){
-	var campos_validos = ePlaca(placa) && eTexto(modelo) && eTexto(cor) && eTexto(marca);
+function validar(placa, marca, cor){
+	var existencia = true;
+	if(!retorna_parametro_url("modo")) existencia = !verificaExistencia("placa", placa);
+
+	var placa_ok = validar_campo(ePlaca(placa), $("#placa"), "#ff2233", "#aaa");
+	var eCor = validar_campo(eTexto(cor), $("#cor"), "#ff2233", "#aaa");
+	var eMarca = validar_campo(eTexto(marca), $("#marca"), "#ff2233", "#aaa");
+	var campos_validos =  placa_ok && eCor && eMarca && existencia;
+
 
 	return campos_validos;
 }

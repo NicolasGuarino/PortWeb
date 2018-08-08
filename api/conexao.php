@@ -1,7 +1,7 @@
 <?php
 	function conectar(){
 		$url 	= $_SERVER['HTTP_HOST'];
-		$array 	= ["127.0.0.1", "localhost", "192.168.1.156"];
+		$array 	= ["127.0.0.1", "localhost", "192.168.1.105"];
 		$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 		//Se for local, conecta com banco local

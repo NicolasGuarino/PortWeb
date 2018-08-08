@@ -3,14 +3,21 @@
 
 	header("Content-Type: text/html; charset=UTF-8", true);
 	ini_set('default_charset', 'UTF-8');
+	session_start();
 
 	$conexao = conectar();
 
 	$usuario_id = $_REQUEST['usuario_id'];
+	$empresa_id = $_REQUEST['empresa_id'];
+	$filtrar    = $_REQUEST['filtrar'];
+
+	$filtro_empresa = "";
+	if($_SESSION['usuario']['tipo_usuario_id'] != 8 || $filtrar == "true") $filtro_empresa = "and ef.empresa_id = ".$empresa_id;
 
 	$query   = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) ";
 	$query  .= "inner join rel_status_usuario as su on(su.usuario_id=u.usuario_id) ";
-	$query  .= "where u.usuario_id > ".$usuario_id." and u.ativo = 1 group by d.documento_id order by d.documento_id desc;";
+	$query  .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) ";
+	$query  .= "where u.usuario_id > ".$usuario_id." and u.ativo = 1 ".$filtro_empresa." group by d.documento_id order by d.documento_id desc;";
 	
 	$select = mysqli_query($conexao, $query);
 	

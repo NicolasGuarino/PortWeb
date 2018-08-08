@@ -7,13 +7,17 @@
 	$cpf = $_REQUEST['cpf'];
 
 	$query  = "select u.usuario_id, u.nome, u.foto as 'foto', u.cpf, u.rg, u.email, DATE_FORMAT(u.data_nascimento, '%d/%m/%Y') as 'data_nascimento_f', ";
-	$query .= "u.data_nascimento, u.telefone, d.numero_etiqueta, d.documento_id, u.tipo_usuario_id, s.nome as 'status', s.status_id ";
+	$query .= "u.data_nascimento, u.telefone, d.numero_etiqueta, d.documento_id, u.tipo_usuario_id, s.nome as 'status', s.status_id, ef.empresa_id, e.nome as 'empresa',  ";
+	$query .= "sd.status_documento_id 'status_documento' ";
 	$query .= "from usuario as u inner join documento as d on(d.documento_id=u.documento_id) ";
+	$query .= "inner join rel_status_documento as sd on(sd.documento_id=d.documento_id) ";
 	$query .= "inner join rel_status_usuario as su on(su.usuario_id=u.usuario_id) ";
+	$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) ";
+	$query .= "inner join empresa as e on(e.empresa_id=ef.empresa_id) ";
 	$query .= "inner join status as s on(s.status_id=su.status_id) ";
-	$query .= "where cpf = '".$cpf."' and u.ativo = 1 and su.hora = u.ultima_atualizacao order by u.usuario_id desc limit 1;";
+	$query .= "where cpf = '".$cpf."' and u.ativo = 1 and su.hora = u.ultima_atualizacao and sd.hora = d.ultima_atualizacao order by u.usuario_id desc limit 1;";
 	
-	$select = mysqli_query($conexao, $query);
+	$select = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
 
 	$lista = [];
 	$lista_escala[] = [];

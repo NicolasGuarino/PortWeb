@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,11 +9,12 @@
 		<link rel="stylesheet" type="text/css" href="css/usuarios_cadastrados_lista.css?04">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
 		<script type="text/javascript" src="js/usuarios_cadastrados_lista.js?59"></script>
 	</head>
 
 	<body>
-		<div id="principal">
+		<div id="principal" name="<?php echo($_SESSION['usuario']['empresa_id']); ?>">
 			<header>
 				<div id="logo"></div>
 				<label> Usuários cadastrados </label>
