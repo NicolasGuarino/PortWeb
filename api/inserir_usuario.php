@@ -78,7 +78,7 @@
 			$corpo = str_replace('$email', $email, $corpo);
 			$parametrosEnvio = array('email_envio' => 'enigma@primi.com.br', 'senha' => 'jeferson@1010', 'nome_envio' => 'Portaria');
 			
-			$retorno = enviarEmail([$email], [], "Recuperar senha", $corpo, $parametrosEnvio);
+			$retorno = enviarEmail([$email], [], "Bem vindo!", $corpo, $parametrosEnvio);
 			if($retorno['status'] == 1) $result = 1;
 			
 		}

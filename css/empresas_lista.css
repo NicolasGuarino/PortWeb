@@ -173,6 +173,8 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	font-size:20px;
 	margin: 5px 0;
 	color: #424242;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .card_empresa .info {

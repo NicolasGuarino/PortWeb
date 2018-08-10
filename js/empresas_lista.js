@@ -165,7 +165,7 @@ function criar_cardEmpresa(caminho_img, nome, email, telefone, id, qtd_funcionar
 	if(caminho_img == null) caminho_img = "img/icones/ic_noImage.png";
 	el_foto.css("background", "url("+ caminho_img +") center / 100% auto no-repeat");
 
-
+	console.log(nome + " " + qtd_funcionario);
 	if(qtd_funcionario > 0) {
 		el_visualizar.addClass("tem_funcionarios");
 		el_visualizar.attr("target", "_blank");
