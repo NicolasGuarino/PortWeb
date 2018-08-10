@@ -4,11 +4,11 @@
 	date_default_timezone_set('America/Araguaina');
 	$conexao = conectar();
 
-	$entrada = $_REQUEST['entrada'];
-	$saida = $_REQUEST['saida'];
-	$dia = $_REQUEST['dia'];
-	$empresa_id = $_REQUEST['empresa_id'];
-	$usuario_id = $_REQUEST['usuario_id'];
+	$entrada = addslashes($_REQUEST['entrada']);
+	$saida = addslashes($_REQUEST['saida']);
+	$dia = addslashes($_REQUEST['dia']);
+	$empresa_id = addslashes($_REQUEST['empresa_id']);
+	$usuario_id = addslashes($_REQUEST['usuario_id']);
 
 	
 	

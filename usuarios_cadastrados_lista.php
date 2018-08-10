@@ -42,7 +42,9 @@
 				<div class="seta" id="proximo"></div>
 				<div class="seta" id="anterior"></div>
 				
-				<div id="usuarios_ativos"></div>
+				<div id="usuarios_ativos">
+					<span class="lbl_nada_encontrado"> Nada Encontrado </span>
+				</div>
 			</div>
 
 			<div id="logoSextou"></div>

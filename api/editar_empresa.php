@@ -5,12 +5,12 @@
 	session_start();
 	$conexao = conectar();
 
-	$empresa_id = $_REQUEST['empresa_id'];
-	$nome = $_REQUEST['nome'];
-	$telefone = $_REQUEST['telefone'];
-	$email = $_REQUEST['email'];
+	$empresa_id = addslashes($_REQUEST['empresa_id']);
+	$nome = addslashes($_REQUEST['nome']);
+	$telefone = addslashes($_REQUEST['telefone']);
+	$email = addslashes($_REQUEST['email']);
 	@$imagem = $_FILES['imagem'];
-	$atualizarImg = $_REQUEST['atualizarImg'];
+	$atualizarImg = addslashes($_REQUEST['atualizarImg']);
 	
 	
 

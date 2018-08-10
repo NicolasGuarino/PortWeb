@@ -110,6 +110,7 @@ function carregar_info_usuario(cpf) {
 			$("#status_doc_container").children("#status_icone").addClass("fa-lock inativo");
 		}
 
+		carregar_info_excecao(usuario.excecao);
 
 		if(usuario.escala.length > 1) {
 			$("#cadastrar_escala").fadeOut();

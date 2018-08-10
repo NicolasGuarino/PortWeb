@@ -395,4 +395,54 @@
 	margin: 35px auto 0 auto;
 }
 
+#excecao {
+	margin: 0 auto;
+	clear:both;
+	width: auto;
+	display: block;
+}
+
 #frm_excecao { display: none; }
+#mostrar_excecao { display: none; }
+
+.lista_excecao {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tit_excecao {
+	font-weight: bold;
+	display: block;
+	text-align: center;
+	margin: 20px 0 0 0;
+	font-size: 20px;
+	font-family:'Source Sans Pro', sans-serif;
+}
+
+.excecao_container {
+	display:table;
+	width: auto;
+	height: auto;
+	padding: 10px;
+	margin: 15px 5px 5px 5px;
+	overflow:hidden;
+	border-radius:2px;
+	font-family:'Source Sans Pro', sans-serif;
+	font-size:18px;
+	float: left;
+}
+
+.excecao_ativa { background:#d6e9c6;color:#709055; }
+.excecao_inativa { background:#eee;color:#aaa; }
+
+.horario_excecao {
+	width:100%;
+}
+
+.horario_excecao .info_excecao {
+	float:left;
+}
+
+.horario_excecao .info_excecao:nth-child(2) { margin:0 0 0 20px; }

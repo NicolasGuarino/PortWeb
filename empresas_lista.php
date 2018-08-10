@@ -41,7 +41,9 @@
 				<div class="seta" id="proximo"></div>
 				<div class="seta" id="anterior"></div>
 				
-				<div id="empresas"></div>
+				<div id="empresas">
+					<span class="lbl_nada_encontrado"> Nada Encontrado </span>
+				</div>
 			</div>
 
 			<div id="logoSextou"></div>

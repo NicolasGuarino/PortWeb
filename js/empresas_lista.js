@@ -72,15 +72,19 @@ function pesquisar(valor_pesquisa){
 	}
 
 	$($(".card_empresa")[0]).css("marginLeft", "0");
+
+	if(nova_lista.length == 0) $(".lbl_nada_encontrado").fadeIn();
+	else $(".lbl_nada_encontrado").fadeOut();
+	
 	listar_empresa(nova_lista);
 }
 
 function proximo() {
-	if(index_atual+3 <= lista_empresa_filtrados.length) {
+	if(index_atual+2 <= lista_empresa_filtrados.length) {
 		var card = $(".card_empresa")[0];
 
 		$(card).animate({
-			marginLeft: "-=400px"
+			marginLeft: "-=495px"
 		}, 100);
 
 		index_atual+=1;
@@ -92,7 +96,7 @@ function anterior(){
 		var card = $(".card_empresa")[0];
 
 		$(card).animate({
-			marginLeft: "+=400px"
+			marginLeft: "+=495px"
 		}, 100);
 
 		index_atual-=1;
@@ -124,7 +128,7 @@ function listar_empresa(lista) {
 
 	for(var index in lista) {
 		var empresa = lista[index];
-		$("#empresas").append(criar_cardEmpresa(empresa.foto, empresa.nome, empresa.email, empresa.telefone, empresa.empresa_id));
+		$("#empresas").append(criar_cardEmpresa(empresa.foto, empresa.nome, empresa.email, empresa.telefone, empresa.empresa_id, empresa.qtd_funcionario));
 	}
 
 
@@ -134,54 +138,71 @@ function listar_empresa(lista) {
 	$(".qtde_empresas").children("label").text(lista.length);
 }
 
-function criar_cardEmpresa(caminho_img, nome, email, telefone, id) {
+function criar_cardEmpresa(caminho_img, nome, email, telefone, id, qtd_funcionario) {
 	var card_empresa = $(document.createElement("div")).addClass("card_empresa");
-	
+	var el_info 	 = $(document.createElement("div")).addClass("info");
+
+	var el_nome  	  = $(document.createElement("label")).addClass("nome_empresa");
+	var el_foto  	  = $(document.createElement("div")).addClass("foto");
+	var el_icInfo 	  = $(document.createElement("div")).addClass("fa fa-info-circle");
+	var el_tit   	  = $(document.createElement("div")).addClass("tit_dados_empresa");
+	var el_email 	  = $(document.createElement("label")).addClass("lbl_dado_empresa");
+	var el_tel   	  = $(document.createElement("label")).addClass("lbl_dado_empresa");
+	var el_visualizar = $(document.createElement("a")).addClass("link_visualizar");
+
+	var el_hr    = $(document.createElement("hr"));
+	var el_opc   = $(document.createElement("div")).addClass("opcoes");
+
+	var el_edit    = $(document.createElement("div")).addClass("edit_empresa");
+	var el_delete  = $(document.createElement("div")).addClass("delete_empresa");
+
+	el_nome.text(nome);
+	el_tit.append(el_icInfo);
+	el_tit.text("Dados da empresa");
+	el_email.text(email);
+	el_tel.text(telefone);
+
 	if(caminho_img == null) caminho_img = "img/icones/ic_noImage.png";
-
-	var ic_nome = $(document.createElement("label")).addClass("nome_empresa"); 
-	var ic_info = $(document.createElement("div")).addClass("info"); 
-	var ic_foto = $(document.createElement("div")).addClass("foto"); 
-	var ic_email = $(document.createElement("label")).addClass("info_empresa"); 
-	var ic_telefone = $(document.createElement("label")).addClass("info_empresa"); 
-	var ic_link = $(document.createElement("a")).addClass("link_visualizar"); 
-	var ic_hr = $(document.createElement("hr")); 
-	var ic_opcao = $(document.createElement("div")).addClass("opcoes"); 
-	var ic_editar = $(document.createElement("div")).addClass("edit_empresa"); 
-	var ic_deletar = $(document.createElement("div")).addClass("delete_empresa"); 
+	el_foto.css("background", "url("+ caminho_img +") center / 100% auto no-repeat");
 
 
-	ic_nome.text(nome);
-	ic_foto.css("background", "url("+caminho_img+") center / 100% auto no-repeat");
-	ic_email.text(email);
-	ic_telefone.text(telefone);
-	ic_editar.text("Editar");
-	ic_deletar.text("Deletar");
-	ic_link.attr("target", "_blank");
-	ic_link.attr("href", "usuarios_cadastrados_lista.php?empresa=" + id);
-	ic_link.text("Visualizar funcionários");
+	if(qtd_funcionario > 0) {
+		el_visualizar.addClass("tem_funcionarios");
+		el_visualizar.attr("target", "_blank");
+		el_visualizar.attr("href", "usuarios_cadastrados_lista.php?empresa=" + id);
+	}else{
+		el_visualizar.addClass("naoTem_funcionarios");
+	}
 
-	ic_deletar.click(deletar_empresa);
-	ic_editar.click(function(){
+	el_visualizar.text("Colaboradores");
+
+	el_delete.text("Deletar");
+	el_edit.text("Editar");
+
+	el_delete.click(deletar_empresa);
+	el_edit.click(function(){
 		var empresa = {id:id, nome: nome, email:email, telefone:telefone, caminho_img:caminho_img};
 		localStorage.setItem("empresa" + id, JSON.stringify(empresa));
 
 		window.location = "cadastro_empresa.php?modo=editar&id=" + id;
 	});
 
-	ic_opcao.append(ic_editar);
-	ic_opcao.append(ic_deletar);
-
-	ic_info.append(ic_foto);
-	ic_info.append(ic_email);
-	ic_info.append(ic_telefone);
-
-	card_empresa.append(ic_nome);
-	card_empresa.append(ic_info);
-	card_empresa.append(ic_link);
-	card_empresa.append(ic_hr);
-	card_empresa.append(ic_opcao);
 	card_empresa.attr("id", id);
+
+
+	el_info.append(el_nome);
+	el_info.append(el_foto);
+	el_info.append(el_tit);
+	el_info.append(el_email);
+	el_info.append(el_tel);
+	el_info.append(el_visualizar);
+
+	el_opc.append(el_edit);
+	el_opc.append(el_delete);
+
+	card_empresa.append(el_info);
+	card_empresa.append(el_hr);
+	card_empresa.append(el_opc);
 
 	return card_empresa;
 }

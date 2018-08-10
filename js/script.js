@@ -159,13 +159,13 @@ function eData(data){
 }
 
 function eEmail(email){
-	var regex = /[a-zA-Z]@[a-zA-Z]/g;
+	var regex = /@/g;
 
 	return regex.test(email);
 }
 
 function eTel(tel){
-	var regex = /\((\d{2})\)(\d{4,5})-(\d{3,4})/g;
+	var regex = /\((\d{2})\)(\d{4,5})-(\d{3,4})/g;;
 	
 	return regex.test(tel);	
 }

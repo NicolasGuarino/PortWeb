@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="css/info_usuario.css">
+<script type="text/javascript" src="js/info_excecao.js"></script>	
 <script type="text/javascript" src="js/info_usuario.js"></script>	
 
 <div id="perfil_usuario"> 
@@ -75,8 +76,31 @@
 		<div class="dia" id="dia_4"> <span class="nome_dia" id="Sexta"> Sex </span> </div>
 		<div class="dia" id="dia_5"> <span class="nome_dia" id="Sábado"> Sab </span> </div>
 		<div class="dia" id="dia_6"> <span class="nome_dia" id="Domingo"> Dom </span> </div>
+	</div>
 
+	<div id="excecao">
 		<div id="cadastrar_excecao" class="btn_opcoes"></div>
+		<div id="mostrar_excecao">
+			<span class="tit_excecao"> Exceções </span>
+			<div class="lista_excecao">
+				
+				<!-- <div class="excecao_container excecao_ativa">
+					<div class="info_excecao">
+						<b> Data: </b> <span class="valor_info_excecao"> 10/08/2018 </span>
+					</div>
+
+					<div class="horario_excecao">
+						<div class="info_excecao">
+							<b> Entrada: </b> <span class="valor_info_excecao"> 07:00 </span>
+						</div>
+
+						<div class="info_excecao">
+							<b> Saída: </b> <span class="valor_info_excecao"> 12:00 </span>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		</div>
 	</div>
 </div>
 </div>

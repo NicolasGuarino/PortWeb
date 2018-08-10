@@ -4,7 +4,7 @@
 
 	$con = conectar();
 
-	$email = $_REQUEST['email'];
+	$email = addslashes($_REQUEST['email']);
 	$retorno = array('valor' => false, 'mensagem' => "Email não existe no banco");
 
 	$query  = "select * from usuario where login = '".$email."';";

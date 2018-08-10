@@ -22,6 +22,7 @@
 	$lista = [];
 	$lista_escala[] = [];
 	$lista_veiculo[] = [];
+	$lista_excecao = [];
 	
 	while($rs = mysqli_fetch_array($select)) {
 		$query_veiculo   = "select * from rel_usuario_veiculo as uv inner join veiculo as v on(v.veiculo_id=uv.veiculo_id) ";
@@ -40,8 +41,18 @@
 			$lista_escala[] = $rs_escala;
 		}
 
+		$query_excecao   = "select e.data, DATE_FORMAT(e.data, '%d/%m/%Y') as data_formatada,  TIME_FORMAT(e.hora_entrada, '%H:%i') as hora_entrada, TIME_FORMAT(e.hora_saida, '%H:%i') as hora_saida from excessao as e where e.usuario_id = '".$rs['usuario_id']."' order by e.data desc";
+		$select_excecao = mysqli_query($conexao, $query_excecao);
+
+		while($rs_excecao = mysqli_fetch_array($select_excecao)) {
+			$lista_excecao[] = $rs_excecao;
+		}
+
+
 		$rs['veiculos'] = $lista_veiculo;
 		$rs['escala'] = $lista_escala;
+		$rs['excecao'] = $lista_excecao;
+
 		$lista[] = $rs;
 	}
 

@@ -2,13 +2,13 @@
 	
 	require_once "conexao.php";
 
-	$documento_id = $_REQUEST['documento_id'];
-	$usuario_id   = $_REQUEST['usuario_id'];
-	$placa  = $_REQUEST['placa'];
-	$modelo = $_REQUEST['modelo'];
-	$marca  = $_REQUEST['marca'];
-	$cor 	= $_REQUEST['cor'];
-	$foto 	= $_REQUEST['foto'];
+	$documento_id = addslashes($_REQUEST['documento_id']);
+	$usuario_id   = addslashes($_REQUEST['usuario_id']);
+	$placa  = addslashes($_REQUEST['placa']);
+	$modelo = addslashes($_REQUEST['modelo']);
+	$marca  = addslashes($_REQUEST['marca']);
+	$cor 	= addslashes($_REQUEST['cor']);
+	$foto 	= addslashes($_REQUEST['foto']);
 
 	$conexao = conectar();
 

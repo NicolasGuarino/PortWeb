@@ -13,13 +13,13 @@
 
 	switch ($campo) {
 		case 'rg':
-			$query = "select rg from usuario where rg = '".$valor."';";
+			$query = "select rg from usuario where rg = '".$valor."' and ativo = 1;";
 			break;
 		case 'cpf':
-			$query = "select cpf from usuario where cpf = '".$valor."';";
+			$query = "select cpf from usuario where cpf = '".$valor."' and ativo = 1;";
 			break;
 		case 'placa':
-			$query = "select placa from veiculo where placa = '".$valor."';";
+			$query = "select placa from veiculo where placa = '".$valor."' and ativo = 1;";
 			break;
 		default:
 			$resultado = array('resultado' => 0, 'mensagem' => 'Parametros incorretos');

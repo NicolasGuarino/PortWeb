@@ -1,14 +1,13 @@
 <?php 
+	include("../../libs/EnviarEmails/funcao.php");
+
+	$corpo = file_get_contents("../corpo_email/email_recuperar_senha.php");
+		
+	$corpo = str_replace('$nome_usuario', "Gabriel Navevaiko", $corpo);
+	$corpo = str_replace('$id', 15, $corpo);
+	$corpo = str_replace('$email', "gabriel@primi.com.br", $corpo);
+	$parametrosEnvio = array('email_envio' => 'enigma@primi.com.br', 'senha' => 'jeferson@1010', 'nome_envio' => 'Portaria');
 	
-	require_once "conexao.php";
-
-	$con = conectar();
-
-	$query = "select * from usuarios;";
-	$exec  = mysqli_query($con, $query) 
-		or die(json_encode(['codigo_erro' => '0', 'erro' => 'Erro na busca dos dados', 'detalhes' =>mysqli_error($con)]));
-
-	while ($rs = mysqli_fetch_array($exec)) {
-		echo $rs['nome']."<br/>";
-	}
+	$retorno = enviarEmail(["gabriel@primi.com.br"], [], "Boas vindas", $corpo, $parametrosEnvio);
+	if($retorno['status'] == 1) $result = 1;
 ?>		

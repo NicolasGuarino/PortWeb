@@ -5,17 +5,17 @@
 	session_start();
 	$conexao = conectar();
 
-	$usuario_id = $_REQUEST['usuario_id'];
-	$nome = $_REQUEST['nome'];
-	$cpf = $_REQUEST['cpf'];
-	$rg = $_REQUEST['rg'];
-	$dt_nascimento = $_REQUEST['dt_nascimento'];
-	$empresa = $_REQUEST['empresa'];
-	$tipo_usuario = $_REQUEST['tipo_usuario'];
+	$usuario_id = addslashes($_REQUEST['usuario_id']);
+	$nome = addslashes($_REQUEST['nome']);
+	$cpf = addslashes($_REQUEST['cpf']);
+	$rg = addslashes($_REQUEST['rg']);
+	$dt_nascimento = addslashes($_REQUEST['dt_nascimento']);
+	$empresa = addslashes($_REQUEST['empresa']);
+	$tipo_usuario = addslashes($_REQUEST['tipo_usuario']);
 	@$imagem = $_FILES['imagem'];
-	$tel = $_REQUEST['tel'];
-	$email = $_REQUEST['email'];
-	$atualizarImg = $_REQUEST['atualizarImg'];
+	$tel = addslashes($_REQUEST['tel']);
+	$email = addslashes($_REQUEST['email']);
+	$atualizarImg = addslashes($_REQUEST['atualizarImg']);
 	
 	
 

@@ -17,7 +17,7 @@
 	$query   = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) ";
 	$query  .= "inner join rel_status_usuario as su on(su.usuario_id=u.usuario_id) ";
 	$query  .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) ";
-	$query  .= "where u.usuario_id > ".$usuario_id." and u.ativo = 1 ".$filtro_empresa." group by d.documento_id order by d.documento_id desc;";
+	$query  .= "where u.usuario_id > ".$usuario_id." and u.ativo = 1 ".$filtro_empresa." group by d.documento_id order by u.usuario_id desc;";
 	
 	$select = mysqli_query($conexao, $query);
 	

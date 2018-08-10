@@ -5,9 +5,9 @@
 	$conexao = conectar();
 
 	if(isset($_POST['nome'])) {
-		$nome 	  = $_POST['nome'];
-		$telefone = $_POST['telefone'];
-		$email 	  = $_POST['email'];
+		$nome 	  = addslashes($_POST['nome']);
+		$telefone = addslashes($_POST['telefone']);
+		$email 	  = addslashes($_POST['email']);
 		$imagem   = $_FILES['imagem'];
 		$caminho  = "img/";
 		$caminho_upload = "../".$caminho.$imagem['name'];

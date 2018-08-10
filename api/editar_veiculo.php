@@ -3,13 +3,13 @@
 
 	$conexao = conectar();
 
-	$veiculo_id	  = $_REQUEST['veiculo_id'];
-	$placa 	 	  = $_REQUEST['placa'];
-	$modelo 	  = $_REQUEST['modelo'];
-	$marca 	 	  = $_REQUEST['marca'];
-	$cor 	 	  = $_REQUEST['cor'];
+	$veiculo_id	  = addslashes($_REQUEST['veiculo_id']);
+	$placa 	 	  = addslashes($_REQUEST['placa']);
+	$modelo 	  = addslashes($_REQUEST['modelo']);
+	$marca 	 	  = addslashes($_REQUEST['marca']);
+	$cor 	 	  = addslashes($_REQUEST['cor']);
 	@$foto  	  = $_FILES['foto'];
-	$atualizarImg = $_REQUEST['atualizarImg'];
+	$atualizarImg = addslashes($_REQUEST['atualizarImg']);
 
 
 	if($atualizarImg == "true") {

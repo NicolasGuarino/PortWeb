@@ -4,8 +4,8 @@
 	date_default_timezone_set('America/Araguaina');
 	$conexao = conectar();
 
-	$qtde = $_REQUEST['qtde'];
-	$prefixo = $_REQUEST['prefixo'];
+	$qtde = addslashes($_REQUEST['qtde']);
+	$prefixo = addslashes($_REQUEST['prefixo']);
 
 	$query  = "select * from documento where substring(numero_etiqueta, 1, 1) = '".$prefixo."' order by numero_etiqueta desc limit 1;";
 	$select = mysqli_query($conexao, $query);

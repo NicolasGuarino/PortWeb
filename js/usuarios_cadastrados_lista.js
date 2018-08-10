@@ -72,6 +72,7 @@ function pesquisar(valor_pesquisa){
 		if(pesquisa_nome != -1 || pesquisa_rg != -1 || pesquisa_documento != -1) nova_lista.push(usuario);
 	}
 
+	if(nova_lista.length == 0) $(".lbl_nada_encontrado").fadeIn();
 	$("#usuarios_ativos").css("marginLeft", "0");
 	listar_usuario(nova_lista);
 }
