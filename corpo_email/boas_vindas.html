@@ -11,8 +11,8 @@
 	<body style='margin: 0; padding: 0;'>
 		<table align='center' cellpadding='0' cellspacing='0' width='550'>
 			<tr>
-				<td align='center' bgcolor='' style='padding: 40px 0 0 0;'>
-					<img src='http://www.nuflame.com.br/portaria/img/logos/empresarial_logo.png' alt='Logo' width='550' height='150' style='display: block;' />
+				<td align='center' bgcolor='' style='padding: 40px 0 10px 0;'>
+					<img src='http://www.nuflame.com.br/portaria/img/logos/empresarial_logo.png' alt='Logo' width='250' height='150' style='display: block;' />
 				</td>
 			</tr>
 
