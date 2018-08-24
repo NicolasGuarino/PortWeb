@@ -8,7 +8,7 @@
 		$tipo_etiqueta = $_REQUEST['tipo_etiqueta'];
 		$tipo_usuario_responsavel = $_REQUEST['tipo_usuario_responsavel'];
 
-
+	
 		$conexao = conectar();
 		
 		$query = "select d.documento_id, d.numero_etiqueta, d.tipo_etiqueta, d.numero_documento, d.ultima_atualizacao, d.imagem_oculta, e.nome from documento as d ";
