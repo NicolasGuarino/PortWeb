@@ -40,7 +40,7 @@
 			if($array_dados_documento) {
 				date_default_timezone_set('America/Sao_Paulo');
 				$dtObj = date_create(date('Y-m-d H:i:s'));
-				date_sub($dtObj, date_interval_create_from_date_string("15 seconds"));
+				// date_sub($dtObj, date_interval_create_from_date_string("15 seconds"));
 
 				$agora = $dtObj->format('Y-m-d H:i:s')."<br/>";
 				
@@ -48,7 +48,7 @@
 				$sql_tipo_acao  = "select * from usuario as u inner join rel_registro_usuario as ru on(ru.usuario_id=u.usuario_id) ";
 				$sql_tipo_acao .= "inner join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
 				$sql_tipo_acao .= "where u.usuario_id = ".$array_dados_documento['usuario_id']." order by ru.registro_acesso_id desc limit 1;";
-
+				
 				$select_tipo_acao = mysqli_query($conexao, $sql_tipo_acao);
 				$rs = mysqli_fetch_array($select_tipo_acao);
 
