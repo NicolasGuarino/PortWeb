@@ -1,5 +1,5 @@
 $(function(){
-	cpf = url_param("cpf");
+	cpf = retorna_parametro_url("cpf");
 	usuario_id = 0;
 
 	if(cpf) {
@@ -15,13 +15,41 @@ $(function(){
 				}).done(function(resultado){ console.log(resultado); });
 			}
 		});
+
+		$("#info_doc").click(function(e){
+			if($(e.target).hasClass("fa-info-circle")) {
+				if($("#status_doc_container").css("display") != "none") $("#status_doc_container").fadeOut();
+				else $("#status_doc_container").fadeIn();
+			}
+		});
+
+		$("#status_icone").click(function(){
+			var status = 0;
+			var documento_id = $("#status_doc_container").attr("name");
+
+			if($(this).hasClass("ativo")) {
+				$(this).removeClass("ativo fa-unlock");
+				$(this).addClass("inativo fa-lock");
+				$(this).prev().text("Documento bloqueado");
+				
+				status = 2;
+			}else{
+				$(this).removeClass("inativo fa-lock");
+				$(this).addClass("ativo fa-unlock");
+				$(this).prev().text("Documento ativo");
+				
+				status = 1;
+			}
+
+			$.ajax({url: "api/alterar_status_documento.php", data: { status:status, documento_id:documento_id }});
+		});
 	}
 
 });
 
 function carregar_info_usuario(cpf) {
 	$.getJSON("api/carregar_detalhes_usuario.php", {cpf:cpf}, function(retorno) {
-		$("#form_user").fadeOut(600);
+		$("#form_user").fadeOut(20);
 		$("#perfil_usuario").fadeIn(700);
 		$(".container_tit").children(".texto").text("Detalhes usuário");
 
@@ -34,6 +62,7 @@ function carregar_info_usuario(cpf) {
 		$("#cadastrar_escala").click(function() { window.location = "cadastro_escala.php?id=" + usuario.usuario_id + "&cpf=" + usuario.cpf});
 		$("#cadastrar_veiculo").click(function() { window.location = "cadastro_veiculo.php?id=" + usuario.usuario_id + "&cpf=" + usuario.cpf});
 		
+		
 		$("#edit_user").click(function() { 
 			var usuario_editar = {
 				nome: usuario.nome,
@@ -45,7 +74,8 @@ function carregar_info_usuario(cpf) {
 				numero_documento: usuario.numero_etiqueta,
 				telefone: usuario.telefone,
 				rg: usuario.rg,
-				tipo_usuario: usuario.tipo_usuario_id
+				tipo_usuario: usuario.tipo_usuario_id,
+				empresa_id: usuario.empresa_id
 			};
 
 			localStorage.setItem("usuario" + usuario.usuario_id, JSON.stringify(usuario_editar));
@@ -69,6 +99,18 @@ function carregar_info_usuario(cpf) {
 		$("#tel_usuario").children(".valor").text(usuario.telefone);
 		$("#rg_usuario").children(".valor").text(usuario.rg);
 		$("#status").children("#sl_status").val(usuario.status_id);
+		$("#empresa_usuario").children(".valor").text(usuario.empresa);
+
+		$("#status_doc_container").attr("name", usuario.documento_id);
+		if(usuario.status_documento == 1) {
+			$("#status_doc_container").children("#nome_status").text("Documento ativo");
+			$("#status_doc_container").children("#status_icone").addClass("fa-unlock ativo");
+		}else if(usuario.status_documento == 2) {
+			$("#status_doc_container").children("#nome_status").text("Documento bloqueado");
+			$("#status_doc_container").children("#status_icone").addClass("fa-lock inativo");
+		}
+
+		carregar_info_excecao(usuario.excecao);
 
 		if(usuario.escala.length > 1) {
 			$("#cadastrar_escala").fadeOut();
@@ -104,8 +146,6 @@ function criar_cardVeiculo(veiculo_info) {
 	ic_editar.click(function() { 
 		var veiculo = {
 			veiculo_id: veiculo_info.veiculo_id,
-			documento_id: veiculo_info.documento_id,
-			num_documento: veiculo_info.numero_etiqueta,
 			placa: veiculo_info.placa,
 			modelo: veiculo_info.modelo,
 			marca: veiculo_info.marca,

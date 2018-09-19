@@ -28,11 +28,8 @@
 					<div class="container_tit"> Cadastro de documentos </div>
 
 					<form name="frm_cadastro_documento" method="post" action="cadastro_documento.php">
-						<label class="lbl_container"> Número inicial </label>
-						<input type="number" name="txt_num_inicial" placeholder="000"class="form_txt" id="txt_num_inicial"/>
-
-						<label class="lbl_container"> Número final </label>
-						<input type="number" name="txt_num_final" placeholder="000"class="form_txt" id="txt_num_final"/>
+						<label class="lbl_container"> Quantidade de documentos </label>
+						<input type="number" min='0' name="txt_qtde" placeholder="0"class="form_txt" id="qtde"/>
 
 						<div class="radio_box">
 							<div class="form_chb"> 

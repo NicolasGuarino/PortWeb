@@ -1,6 +1,7 @@
 $(function(){
 	imagem = null;
 	loader = new Loader();
+	notificacao = new Notificacao();
 	usuario_id = retorna_parametro_url("id");
 	cpf = retorna_parametro_url("cpf");
 
@@ -8,13 +9,20 @@ $(function(){
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();
-		var campos_preenchidos = validar_campos_texto(".form_txt") && ($("input[type='checkbox']:checked").length > 0);
+		var texto_ok = validar_campos_texto(".form_txt");
+		var radio_ok = validar_campo($("input[type='checkbox']:checked").length > 0, $(".radio"), "#ff2233", "#aaa");
 
 		var horario_entrada = $("#horario_entrada").val();
 		var horario_saida   = $("#horario_saida").val();
+		var empresa   = $("#principal").attr("name");
 		
-		var campos_validos = eHora(horario_entrada) && eHora(horario_saida);
+		var hora_entrada_ok = validar_campo(eHora(horario_entrada) , $("#horario_entrada"), "#ff2233", "#aaa");
+		var hora_saida_ok = validar_campo(eHora(horario_saida), $("#horario_saida"), "#ff2233", "#aaa");
+		var horas_validas = validar_campo((horario_entrada < horario_saida), $(".form_txt"), "#ff2233", "#aaa");
 
+		var campos_validos = hora_entrada_ok && hora_saida_ok && horas_validas;
+
+		var campos_preenchidos = texto_ok && radio_ok;
 		if(campos_preenchidos && campos_validos) {
 
 			loader.iniciar();
@@ -29,7 +37,7 @@ $(function(){
 				formData.append("hora_saida", horario_saida);
 				formData.append("dia_da_semana", dia);
 				formData.append("usuario_id", usuario_id);
-				formData.append("empresa_id", "1"); // VERIFICAR COM A JULIA O PQ DESSE CAMPO
+				formData.append("empresa_id", empresa);
 
 				$.ajax({
 					url: "api/inserir_escala.php",
@@ -41,14 +49,13 @@ $(function(){
 	                	resultado += parseInt(res);
 
 	                	if(index == $(".radio_checked").length) tratar_resultado_envio(resultado);
-	                	console.log(index);
 	                	index++;
 	                }
 				});
 			});
 
 		}else {
-			alert("Algum campos não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez.");
+			notificacao.mostrar("Erro! ", "Algum campo não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente novamente.", "erro", $("#conteudo"), 1500);
 		}
 			
 	});
@@ -65,16 +72,10 @@ $(function(){
 	});
 });
 
-function validar(placa, modelo, marca, cor){
-	var campos_validos = ePlaca(placa) && eTexto(modelo) && eTexto(cor) && eTexto(marca);
-
-	return campos_validos;
-}
-
 function tratar_resultado_envio(resultado){
 	if(resultado == $(".radio_checked").length) {
 		loader.encerrar("img/icones/ic_okay.png", "Escala cadastrada com sucesso");
-		setTimeout(function(){ window.location = "cadastro_usuario.php?cpf=" + url_param("cpf"); }, 2200);
+		setTimeout(function(){ window.location = "cadastro_usuario.php?cpf=" + retorna_parametro_url("cpf"); }, 2200);
     }else{
     	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     	console.log(resultado);

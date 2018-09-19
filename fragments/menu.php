@@ -7,6 +7,6 @@
 		if($_SESSION['usuario']['tipo_usuario_id'] == 8) {
 	?>
 		<a href="cadastro_documento.php" class="item_menu"> <i class="fa fa-file-text-o"></i> Cadastro de documento </a> 
-		<a href="cadastro_empresa.php" class="item_menu"> <i class="fa fa-building-o"></i> Cadastro de empresa </a> 
+		<a href="empresas_lista.php" class="item_menu"> <i class="fa fa-building-o"></i> Gerenciamento de empresa </a> 
 	<?php } ?>
 </div>

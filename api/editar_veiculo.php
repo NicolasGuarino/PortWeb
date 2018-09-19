@@ -3,14 +3,13 @@
 
 	$conexao = conectar();
 
-	$veiculo_id	  = $_REQUEST['veiculo_id'];
-	$documento 	  = $_REQUEST['documento'];
-	$placa 	 	  = $_REQUEST['placa'];
-	$modelo 	  = $_REQUEST['modelo'];
-	$marca 	 	  = $_REQUEST['marca'];
-	$cor 	 	  = $_REQUEST['cor'];
+	$veiculo_id	  = addslashes($_REQUEST['veiculo_id']);
+	$placa 	 	  = addslashes($_REQUEST['placa']);
+	$modelo 	  = addslashes($_REQUEST['modelo']);
+	$marca 	 	  = addslashes($_REQUEST['marca']);
+	$cor 	 	  = addslashes($_REQUEST['cor']);
 	@$foto  	  = $_FILES['foto'];
-	$atualizarImg = $_REQUEST['atualizarImg'];
+	$atualizarImg = addslashes($_REQUEST['atualizarImg']);
 
 
 	if($atualizarImg == "true") {
@@ -24,7 +23,7 @@
 		$caminho_banco = $atualizarImg;
 	}
 
-	$query  = "update veiculo set documento_id=".$documento.", placa='".$placa."', modelo='".$modelo."', marca='".$marca."', cor='".$cor."', foto='".$caminho_banco."' where veiculo_id = ".$veiculo_id.";";
+	$query  = "update veiculo set placa='".$placa."', modelo='".$modelo."', marca='".$marca."', cor='".$cor."', foto='".$caminho_banco."' where veiculo_id = ".$veiculo_id.";";
 	$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
 	
 	echo intval($result);

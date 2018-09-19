@@ -38,7 +38,7 @@
 					<form name="frm_cadastro_veiculo" method="post" action="cadastro_veiculo.php">
 						<div id="form_esquerda">
 							<label class="lbl_container"> Placa </label>
-							<input type="text" name="txt_placa" placeholder="Placa" class="form_txt" id="placa" maxlength="8" />
+							<input type="text" name="txt_placa" placeholder="Placa" class="form_txt" id="placa" maxlength="10" />
 
 							<label class="lbl_container"> Marca </label>
 							<input type="text" name="txt_marca" placeholder="Marca" class="form_txt" id="marca" />
@@ -50,27 +50,6 @@
 						<div id="form_direita">
 							<label class="lbl_container"> Cor </label>			
 							<input type="text" name="txt_cor" placeholder="Cor" class="form_txt" id="cor" />
-
-							<label class="lbl_container"> Documento </label>
-							<select name="cbo_documento" class="form_cbo" id="documento">
-								<option value="0"> Selecione um documento </option>
-
-								<?php
-									$conexao = conectar();
-									$query  = "select *, d.documento_id as documento_id from documento as d ";
-									$query .="left join usuario as u on(d.documento_id=u.documento_id) ";
-									$query .="left join veiculo as v on(v.documento_id=d.documento_id) ";
-									$query .="where isnull(u.usuario_id) and isnull(v.veiculo_id) and substring(numero_etiqueta, 1,1) = 'A';";
-
-									$select = mysqli_query($conexao, $query);
-
-									while($rs = mysqli_fetch_array($select)) {
-								?>
-									<option value="<?php echo($rs['documento_id']);?>"> <?php echo($rs['numero_etiqueta']);?> </option>
-								<?php
-									}
-								?>
-							</select>
 
 							<label class="lbl_container"> Foto </label>
 							<div class="upload_arquivo">

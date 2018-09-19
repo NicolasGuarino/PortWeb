@@ -1,4 +1,6 @@
 $(function() {
+	notificacao = new Notificacao();
+
 	$(".dia").hover(function(){
 		var fundo = $(document.createElement("div")).addClass("edit_fundo");
 		fundo.click(abrir_popup);
@@ -11,8 +13,8 @@ $(function() {
 		$(".edit_fundo").remove();
 	});
 
-	$("#fechar").click(function() {
-		$("#background").fadeOut();
+	$(".fechar").click(function() {
+		$("#background_escala").fadeOut();
 
 		$("#entrada").val("");
 		$("#saida").val("");
@@ -24,8 +26,9 @@ $(function() {
 		var entrada = $("#entrada").val();
 		var saida = $("#saida").val();
 		var dia = $("#container").attr("name");
+		var empresa = $("#principal").attr("name");
 
-		var campos_preenchidos = validar_campos_texto(".time_txt");
+		var campos_preenchidos = validar_campos_texto(".escala");
 		var campos_validos = validar_hora(entrada, saida);
 
 		if(campos_validos && campos_preenchidos) {
@@ -33,17 +36,46 @@ $(function() {
 
 			$.ajax({
 				url: "api/editar_escala.php",
-				data: {dia:dia, entrada:entrada, saida:saida, empresa_id:1, usuario_id:$("#foto_usuario").attr("name")}
+				data: {dia:dia, entrada:entrada, saida:saida, empresa_id:empresa, usuario_id:$("#foto_usuario").attr("name")}
 			}).done(tratar_resultado_edicao);
 		}else{
-			alert("Algum campos não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez.");
+			notificacao.mostrar("Erro! ", "Algum campo não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez", "erro", $("#background_escala"), 1500);
+		}
+	});
+
+	$("#cadastrar_excecao").click(function(){
+		$("#background_escala").fadeIn(600);
+		$("#frm_escala").fadeOut(100);
+		$("#frm_excecao").fadeIn(100);
+	});
+
+	$("#btn_adicionarExcecao").click(function(e){
+		e.preventDefault();
+
+		var entrada = $("#entradaExcecao").val();
+		var saida = $("#saidaExcecao").val();
+		var dia = $("#diaExcecao").val();
+		var usuario_id = $("#foto_usuario").attr("name");
+
+		var campos_preenchidos = validar_campos_texto(".excecao");
+		var campos_validos = validar_hora(entrada, saida, dia);
+
+		if(campos_validos && campos_preenchidos) {
+			loader.iniciar();
+
+			$.ajax({
+				url: "api/inserir_excecao_site.php",
+				data: {data:dia, hora_entrada:entrada, hora_saida:saida, usuario_id:usuario_id}
+			}).done(tratar_resultado_edicao);
+		}else{
+			notificacao.mostrar("Erro! ", "Algum campo não foi preenchido ou foi preenchido incorretamente, por favor verifique e tente outra vez", "erro", $("#background_escala"), 1500);
 		}
 	});
 });
 
 function tratar_resultado_edicao(resultado){
 	if(resultado == 1) {
-		loader.encerrar("img/icones/ic_okay.png", "Escala alterada com sucesso");
+		loader.encerrar("img/icones/ic_okay.png", "Ação realizada com sucesso");
 		limpar_caixas();
 
 		setTimeout(function() { window.location.reload(); }, 2200);
@@ -53,8 +85,13 @@ function tratar_resultado_edicao(resultado){
     }
 }
 
-function validar_hora(entrada, saida) {
-	return eHora(entrada) && eHora(saida);
+function validar_hora(entrada, saida, dia = '2018-07-07') {
+	var hora_entrada_ok = validar_campo(eHora(entrada) , $("#horario_entrada"), "#ff2233", "#aaa");
+	var hora_saida_ok = validar_campo(eHora(saida), $("#horario_saida"), "#ff2233", "#aaa");
+	var horas_validas = validar_campo((entrada < saida), $(".time_txt"), "#ff2233", "#aaa");
+	var e_data = validar_campo(eData(dia), $("#diaExcecao"), "#ff2233", "#aaa");
+
+	return hora_entrada_ok && hora_saida_ok && horas_validas && e_data;
 }
 
 function abrir_popup() {
@@ -77,10 +114,12 @@ function abrir_popup() {
 		});
 	});
 
-	$("#background").fadeIn();
+	$("#background_escala").fadeIn(600);
+	$("#frm_excecao").fadeOut(100);
+	$("#frm_escala").fadeIn(100);
 
-	$(".tit_edicao").text(dia_texto);
-	$(".tit_edicao").append(ic_deletar);
+	$("#frm_escala").children(".tit_edicao").text(dia_texto);
+	$("#frm_escala").children(".tit_edicao").append(ic_deletar);
 	$("#entrada").val(entrada);
 	$("#saida").val(saida);
 	$("#container").attr("name", dia);

@@ -4,14 +4,16 @@
 	date_default_timezone_set('America/Araguaina');
 	$conexao = conectar();
 
-	$entrada = $_REQUEST['entrada'];
-	$saida = $_REQUEST['saida'];
-	$dia = $_REQUEST['dia'];
-	$empresa_id = $_REQUEST['empresa_id'];
-	$usuario_id = $_REQUEST['usuario_id'];
+	$entrada = addslashes($_REQUEST['entrada']);
+	$saida = addslashes($_REQUEST['saida']);
+	$dia = addslashes($_REQUEST['dia']);
+	$empresa_id = addslashes($_REQUEST['empresa_id']);
+	$usuario_id = addslashes($_REQUEST['usuario_id']);
 
-	if(strpos($dia, "dia")) {
-		$query  = "update escala set hora_entrada = '".$entrada."', hora_saida = '".$saida."' where escala_id = ".$dia.";";
+	
+	
+	if(strpos($dia, "_") == 0) {
+		$query  = "update escala set hora_entrada = '".$entrada."', hora_saida = '".$saida."', empresa_id = ".$empresa_id." where escala_id = ".$dia.";";
 		$result = mysqli_query($conexao, $query) or die("Erro:" . mysqli_error($conexao));
 	}else{
 		$dia = substr($dia, strpos($dia, "_") + 1);

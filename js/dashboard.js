@@ -10,7 +10,7 @@ $(function(){
 				window.location = "cadastro_documento.php";
 				break;
 			case 'empresa':
-				window.location = "cadastro_empresa.php";
+				window.location = "empresas_lista.php";
 				break;
 		}
 	});

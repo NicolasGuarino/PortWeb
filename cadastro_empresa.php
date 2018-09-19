@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="js/jquery-2.2.2.js"	></script>	
 		<script type="text/javascript" src="js/script.js"></script>	
 		<script type="text/javascript" src="js/cadastro_empresa.js"></script>	
+		<script type="text/javascript" src="js/editar_empresa.js"></script>	
 	</head>
 	
 	<body>
@@ -24,7 +25,8 @@
 
 			<div class="container" id="login_container">
 				<div class="container_logo"></div>
-				<span class="container_tit"> Cadastro de empresa </span>
+
+				<span class="container_tit"> <i class="fa fa-chevron-circle-left" id="voltar"></i> Cadastro de empresa </span>
 
 				<form name="frm_cadastro_empresa" method="post" action="cadastro_empresa.php">
 					<label class="lbl_container"> Nome </label>
@@ -32,6 +34,9 @@
 
 					<label class="lbl_container"> Telefone/Celular </label>
 					<input type="text" name="txt_telefone" placeholder="(xx)xxxxx-xxxx" class="form_txt" id="telefone" maxlength="14"/>
+
+					<label class="lbl_container"> Email </label>
+					<input type="text" name="txt_nome" placeholder="empresa@domino.com" class="form_txt" id="email"/>
 
 					<label class="lbl_container"> Logo </label>
 					<div class="upload_arquivo">

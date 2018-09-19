@@ -6,8 +6,8 @@
 	$con = conectar();
 	$res = ["valor" => null, "pagina" => null];
 
-	$usuario   	 = $_REQUEST['usuario'];
-	$senha 	   	 = sha1($_REQUEST['senha']);
+	$usuario   	 = addslashes($_REQUEST['usuario']);
+	$senha 	   	 = sha1(addslashes($_REQUEST['senha']));
 	$ip 	   	 = $_SERVER['REMOTE_ADDR'];
 	$resultado 	 = 0;
 

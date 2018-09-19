@@ -1,7 +1,8 @@
 $(function() {
 	loader = new Loader();
+	notificacao = new Notificacao();
 
-	if(url_param("id")) {
+	if(retorna_parametro_url("id")) {
 		$("#login_container").fadeOut(600);
 		setTimeout(function() { $("#recuperar_senha_container").css("display", 'table'); }, 600)
 	}
@@ -39,7 +40,7 @@ $(function() {
 				}
 			});
 		}else{
-			alert("Por favor, preencha todos os campos");
+			notificacao.mostrar("Erro! ", "Por favor, preencha todos os campos", "erro", $("#principal"), 1500);
 		}
 	});
 
@@ -61,7 +62,7 @@ $(function() {
 				}
 			});
 		}else{
-			alert("Por favor, preencha todos os campos");
+			notificacao.mostrar("Erro! ", "Por favor, preencha todos os campos", "erro", $("#principal"), 1500);
 		}
 	});
 
@@ -70,9 +71,12 @@ $(function() {
 	$("#btn_alterar").click(function(){
 		var nova_senha = $("#nova_senha").val();
 		var confirmar_senha = $("#confirmar_senha").val();
-		var usuario_id = url_param("id");
+		var usuario_id = retorna_parametro_url("id");
 
-		if(nova_senha != "" && confirmar_senha != "" && nova_senha == confirmar_senha) {
+		var campos_preenchidos = nova_senha != "" && confirmar_senha != "";
+		var campos_validos 	= nova_senha == confirmar_senha;
+
+		if(campos_preenchidos && campos_validos) {
 			loader.iniciar();
 
 			$.ajax({
@@ -82,7 +86,7 @@ $(function() {
 				var resultado = $.parseJSON(resultado_json);
 
 				if(tratar_retorno(resultado, "Senha alterada com sucesso", "Ocorreu algum erro")) {
-					if(url_param("m") == "alsl") {
+					if(retorna_parametro_url("m") == "alsl") {
 						window.location = "dashboard.php";
 					}else{
 						$("#recuperar_senha_container").fadeOut(500);
@@ -91,7 +95,8 @@ $(function() {
 				}
 			});
 		}else{
-			alert("Por favor, preencha todos os campos corretamente");
+			if(!campos_preenchidos) notificacao.mostrar("Erro! ", "Por favor, preencha todos os campos", "erro", $("#principal"), 1500);
+			else if(!campos_validos) notificacao.mostrar("Erro! ", "As senhas precisam ser iguais", "erro", $("#principal"), 1500);
 		}
 	});
 
