@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title> Registro de acesso </title>
 
+		<link rel="stylesheet" type="text/css" href="css/style.css?53">
 		<link rel="stylesheet" type="text/css" href="css/registro_acesso_eclusa.css?53">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"></script>
@@ -15,7 +16,6 @@
 			<header>
 				<div id="logo"></div>
 				<label> Registro de acesso </label>
-				<?php include "fragments/menu.php" ?>
 			</header>
 
 			<div class="container_contador">

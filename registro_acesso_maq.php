@@ -15,7 +15,6 @@
 			<header>
 				<div id="logo"></div>
 				<label> Registro de acesso </label>
-				<?php include "fragments/menu.php" ?>
 			</header>
 
 			<div id="cards">
