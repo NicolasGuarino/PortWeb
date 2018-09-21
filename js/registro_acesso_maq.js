@@ -1,18 +1,13 @@
 $(function(){
-	lst_verificado = [];
-	
-	/*$("#vazio").fadeOut(100);
-	$("#aviso_acesso").animate({ width: "90%",height: "25px",padding: "10px" }, 200, "linear");
-	$("#cards").append(criar_card(1, {caminho_img:'img/Carro_azul.jpg', lbl_principal:'Gol - Volkswagem', lbl_secundaria:'ABC-1234'}));
-	$("#cards").append(criar_card(0, {caminho_img:'img/1525799849443.JPG', lbl_principal:'Daniela Lira', lbl_secundaria:'59'}));*/
+	estaMostrando = false;
+	id_atual = 0;
+	timeout = null;
 
-	setInterval(function() {
-		verificarAcesso();
-	}, 500);
+	verificarAcesso();
 });
 
 function verificarAcesso() {
-	$.ajax({
+	var requisicao = $.ajax({
 		url : 'api/lista_acesso_maquete.php', /* URL que será chamada */ 
         type : 'POST', /* Tipo da requisição */
         async: false
@@ -20,31 +15,43 @@ function verificarAcesso() {
 		var dados = $.parseJSON(retorno);
 		
 		if(dados != undefined) {
-			if(lst_verificado.indexOf(dados.veiculo_id) == -1) {
-				lst_verificado.push(dados.veiculo_id);
-				$("#vazio").fadeOut(100);
-				$("#aviso_acesso").animate({ width: "90%",height: "25px",padding: "10px" }, 200, "linear");
-				
-				setTimeout(function() {
-					$("#cards").append(criar_card(1, {caminho_img:dados.foto_veiculo, lbl_principal:dados.carro, lbl_secundaria:dados.placa}));
-					$("#cards").append(criar_card(0, {caminho_img:dados.foto_usuario, lbl_principal:dados.nome, lbl_secundaria:dados.documento_id}));
+			if(!estaMostrando) {
+				estaMostrando = true;
 
-					setTimeout(function() {
-						$(".card").remove();
-						$("#aviso_acesso").animate({ width: "0px",height: "0px",padding: "0px" }, 300, "linear");
-						$("#vazio").fadeIn(300);
-						lst_verificado = [];
-					}, 20000);
-				}, 100);
-			}else{
-				$(".card").remove();
-				lst_verificado = [];
-				lst_verificado.push(dados.veiculo_id);
-
-				$("#cards").append(criar_card(1, {caminho_img:dados.foto_veiculo, lbl_principal:dados.carro, lbl_secundaria:dados.placa}));
-				$("#cards").append(criar_card(0, {caminho_img:dados.foto_usuario, lbl_principal:dados.nome, lbl_secundaria:dados.documento_id}));
+				id_atual = dados.usuario_id;
+				exibir_acesso(dados);
+			}else if(dados.usuario_id != id_atual){
+				remover_acesso(dados, exibir_acesso);	
 			}
 		}
+
+		setTimeout(verificarAcesso, 500);
+	});
+}
+
+function exibir_acesso(dados) {
+	clearTimeout(timeout);
+	
+	$("#vazio").fadeOut(100, function () {
+		$("#aviso_acesso").animate({ width: "90%", height: "25px", padding: "10px" }, 200, "linear", function () {
+			$(".card").remove();
+			$("#cards").append(criar_card(1, { caminho_img: dados.foto_veiculo, lbl_principal: dados.carro, lbl_secundaria: dados.placa }));
+			$("#cards").append(criar_card(0, { caminho_img: dados.foto_usuario, lbl_principal: dados.nome, lbl_secundaria: dados.documento_id }));
+		});
+	});
+	
+	timeout = setTimeout(function () {
+		remover_acesso(dados);
+	}, 5000);
+}
+
+function remover_acesso(dados, callback = function(x){}) {
+	$("#aviso_acesso").animate({ width: "0", height: "0", padding: "0" }, 200, "linear", function () {
+		$(".card").remove();
+		$("#vazio").fadeIn(100, function () { 
+			estaMostrando = false; 
+			setTimeout(function() { callback(dados); }, 50);
+		});
 	});
 }
 
