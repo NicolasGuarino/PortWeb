@@ -19,13 +19,13 @@
 	$ultimo_documento_id = $rs['documento_id'] + 1;
 
 	$i = 0;
-	$query_documento  	   = "insert into documento (documento_id, numero_etiqueta, tipo_etiqueta, empresa_id, ultima_atualizacao, disponibilidade) values";
+	$query_documento  	   = "insert into documento (documento_id, numero_etiqueta, tipo_etiqueta, empresa_id, ultima_atualizacao, disponibilidade, numero_documento) values";
 	$query_relacionamento  = "insert into rel_status_documento(status_documento_id, documento_id, hora) values";
 
 	while ($i < $qtde){
 		$hora = date("Y-m-d H:m:s");
 		
-		$query_documento  .= "(".$ultimo_documento_id.", '".$prefixo.sprintf("%023s", $numero_etiqueta)."', 'RFID', 1, '".$hora."', '1'), ";
+		$query_documento  .= "(".$ultimo_documento_id.", '".$prefixo.sprintf("%023s", $numero_etiqueta)."', 'RFID', 1, '".$hora."', '1', ".$numero_etiqueta."), ";
 
 
 		$query_relacionamento .= "(1, ".$ultimo_documento_id.", '".$hora."'), ";
