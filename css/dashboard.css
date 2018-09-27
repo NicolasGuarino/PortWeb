@@ -1,0 +1,132 @@
+#corpo {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+header {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+}
+
+#logo {
+	width: 210px;
+	height: 135px;
+	background: url("../img/logos/empresarial_logo.png") center / contain no-repeat;
+	float: left;
+	margin: 0 10px;
+}
+
+.tit {
+	display: inline-block;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 32px;
+	color: #000;
+	font-weight: bold;
+	margin: 50px;
+}
+
+#perfil_responsavel {
+	display: table;
+	width: auto;
+	height: 150px;
+	margin: 10px 150px;
+}
+
+#perfil_responsavel #foto {
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
+	float: left;
+}
+
+#perfil_responsavel #info {
+	width: auto;
+	float: left;
+}
+
+#perfil_responsavel #nome {
+	display: block;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+	margin: 10px 20px 2px 20px;
+	font-weight: bold;
+}
+
+#perfil_responsavel #email {
+	display: block;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 14px;
+	margin: 2px 20px;
+	font-style: italic;
+}
+
+#perfil_responsavel .btn {
+	display: block;
+	width: 120px;
+	height: 35px;
+	border-radius: 5px;
+	margin: 45px 0 0 15px;
+	font-family: 'Source Sans Pro', sans-serif;
+	text-align: center;
+	text-decoration: none;
+	line-height: 35px;
+	cursor: pointer;
+	float: left;
+}
+
+#perfil_responsavel .alterar {
+	color: #0275d8;
+	border: solid 1px #0275d8;
+}
+
+#perfil_responsavel .logout {
+	color: #c14141;
+	border: solid 1px #c14141;
+}
+
+#opcoes {
+	width: auto;
+	display: table;
+	margin: 50px auto 30px auto;
+}
+
+.card_opcao {
+	width: 350px;
+	height: 200px;
+	background: #1779ba;
+	border-radius: 10px;
+	margin: 5px;
+	padding: 5px 20px 10px 20px;
+	color: #fff;
+	float: left;
+	cursor: pointer;
+	transition: all 500ms ease;
+	box-shadow: 0 10px 10px #0005;
+}
+
+.card_opcao:hover {
+	transform: scale(1.05);
+	box-shadow: 0 15px 10px #0005;
+}
+
+.card_opcao .icone {
+	display: block;
+	width: 160px;
+	height: 160px;
+	border-radius: 100%;
+	margin: 0 auto;
+	font-size: 100px;
+	text-align: center;
+	line-height: 160px;
+}
+
+.card_opcao .tit_card {
+	display: block;
+	width: 100%;
+	text-align: center;	
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 26px;
+	margin: 2px 0;
+}

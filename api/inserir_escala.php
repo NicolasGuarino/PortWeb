@@ -1,11 +1,11 @@
 <?php
 	require_once "conexao.php";	
 
-	$usuario_id = $_REQUEST['usuario_id'];
-	$dia_da_semana = $_REQUEST['dia_da_semana'];
-	$hora_entrada = $_REQUEST['hora_entrada'];
-	$hora_saida = $_REQUEST['hora_saida'];
-	$empresa_id = $_REQUEST['empresa_id'];
+	$usuario_id = addslashes($_REQUEST['usuario_id']);
+	$dia_da_semana = addslashes($_REQUEST['dia_da_semana']);
+	$hora_entrada = addslashes($_REQUEST['hora_entrada']);
+	$hora_saida = addslashes($_REQUEST['hora_saida']);
+	$empresa_id = addslashes($_REQUEST['empresa_id']);
 
 	$conexao = conectar();
 

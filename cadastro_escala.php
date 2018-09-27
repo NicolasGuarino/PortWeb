@@ -1,6 +1,6 @@
 <?php
 	include "api/conexao.php";
-
+	session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,80 +10,78 @@
 	
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/cadastro_escala.css">
+		<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"	></script>	
 		<script type="text/javascript" src="js/script.js"></script>	
-		<script type="text/javascript" src="js/cadastro_escala.js"></script>	
+		<script type="text/javascript" src="js/cadastro_escala.js"></script>
 	</head>
 	
 	<body>
-		<body>
-		<div id="corpo">
+		<div id="principal" name="<?php echo(@$_SESSION['usuario']['empresa_id']); ?>">
 			<!-- HEADER -->
 			<header>
-				<div id="us_info">
-					<span class="us_item"> Portaria	</span>
-					<span class="us_item" id="us_tipo"> Cadastro de escala </span>
-				</div>
+				<div id="logo"></div>
+				<label> Escala </label>
 
-				<div id="centro">
-					<div id="logo"> <!-- Logo --> </div>
-				</div>
-
+				<?php include "fragments/menu.php" ?>
 			</header>
 
 			<div id="conteudo">
-				<span class="tit"> Cadastro de escala </span>
+				<div class="container" id="login_container">
+					<div class="container_logo"></div>
+					<span class="container_tit"> Cadastro de escala </span>
 
-				<div id="formulario_cadastro">
 					<form name="frm_cadastro_escala" method="post" action="cadastro_escala.php">
-					
-					<div id="dias_da_semana">
-						<div class="radio_container">
-							<input type="checkbox" name="radio_dia_da_semana" value="0" />
-							<div class="radio"></div>
-							<label> Seg </label>
+						<div id="dias_da_semana">
+							<div class="radio_container" id="0">
+								<input type="checkbox" name="radio_dia_da_semana" value="0" />
+								<div class="radio"></div>
+								<label> Seg </label>
+							</div>
+
+							<div class="radio_container" id="1">
+								<input type="checkbox" name="radio_dia_da_semana" value="1" />
+								<div class="radio "></div>
+								<label> Ter </label>
+							</div>
+
+							<div class="radio_container" id="2">
+								<input type="checkbox" name="radio_dia_da_semana" value="2" />
+								<div class="radio"></div>
+								<label> Qua </label>
+							</div>
+
+							<div class="radio_container" id="3">
+								<input type="checkbox" name="radio_dia_da_semana" value="3" />
+								<div class="radio "></div>
+								<label> Qui </label>
+							</div>
+
+							<div class="radio_container" id="4">
+								<input type="checkbox" name="radio_dia_da_semana" value="4" />
+								<div class="radio"></div>
+								<label> Sex </label>
+							</div>
+
+							<div class="radio_container" id="5">
+								<input type="checkbox" name="radio_dia_da_semana" value="5" />
+								<div class="radio "></div>
+								<label> Sáb </label>
+							</div>
+
+							<div class="radio_container" id="6">
+								<input type="checkbox" name="radio_dia_da_semana" value="6" />
+								<div class="radio "></div>
+								<label> Dom </label>
+							</div>
 						</div>
 
-						<div class="radio_container">
-							<input type="checkbox" name="radio_dia_da_semana" value="1" />
-							<div class="radio "></div>
-							<label> Ter </label>
-						</div>
+						<label class="lbl_container"> Horário entrada </label> 
+						<input type="time" name="txt_horario_entrada" class="form_txt" id="horario_entrada"/>
 
-						<div class="radio_container">
-							<input type="checkbox" name="radio_dia_da_semana" value="2" />
-							<div class="radio"></div>
-							<label> Qua </label>
-						</div>
-
-						<div class="radio_container">
-							<input type="checkbox" name="radio_dia_da_semana" value="3" />
-							<div class="radio "></div>
-							<label> Qui </label>
-						</div>
-
-						<div class="radio_container">
-							<input type="checkbox" name="radio_dia_da_semana" value="4" />
-							<div class="radio"></div>
-							<label> Sex </label>
-						</div>
-
-						<div class="radio_container">
-							<input type="checkbox" name="radio_dia_da_semana" value="5" />
-							<div class="radio "></div>
-							<label> Sáb </label>
-						</div>
-
-						<div class="radio_container">
-							<input type="checkbox" name="radio_dia_da_semana" value="6" />
-							<div class="radio "></div>
-							<label> Dom </label>
-						</div>
-					</div>
-						
-						<label> Horário entrada </label> <input type="time" name="txt_horario_entrada" class="form_txt" id="horario_entrada"/>
-						<label> Horário saida </label> <input type="time" name="txt_horario_saida" class="form_txt" id="horario_saida"/>
+						<label class="lbl_container"> Horário saida </label> 
+						<input type="time" name="txt_horario_saida" class="form_txt" id="horario_saida"/>
 
 						<input type="submit" name="btn_cadastrar" value="Cadastrar" class="form_btn" id="btn_cadastro"/>
 					</form>

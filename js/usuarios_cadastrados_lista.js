@@ -72,6 +72,7 @@ function pesquisar(valor_pesquisa){
 		if(pesquisa_nome != -1 || pesquisa_rg != -1 || pesquisa_documento != -1) nova_lista.push(usuario);
 	}
 
+	if(nova_lista.length == 0) $(".lbl_nada_encontrado").fadeIn();
 	$("#usuarios_ativos").css("marginLeft", "0");
 	listar_usuario(nova_lista);
 }
@@ -96,10 +97,18 @@ function usuarioAnterior(){
 }
 
 function carregar_usuarios() {
+	var empresa_id = $("#principal").attr("name");
+	var filtrar = "false";
+
+	if(retorna_parametro_url("empresa")){
+		empresa_id = retorna_parametro_url("empresa");
+		filtrar = "true"
+	}
+
 	$.ajax({
-		url : 'api/listar_usuario_senai.php',
+		url : 'api/listar_usuario.php',
         type : 'POST',
-        data: {usuario_id:ultimo_usuario}
+        data: {usuario_id:ultimo_usuario, empresa_id: empresa_id, filtrar:filtrar}
 	}).done(function(retorno) {
 		var dados = $.parseJSON(retorno);
 		
@@ -118,17 +127,17 @@ function listar_usuario(lista) {
 
 	for(var index in lista) {
 		var usuario = lista[index];
-		$("#usuarios_ativos").append(criar_cardUsuario(usuario.foto, usuario.nome, usuario.documento_id));
+		$("#usuarios_ativos").append(criar_cardUsuario(usuario.foto, usuario.nome, usuario.documento_id, usuario.cpf));
 	}
 
 	lista_usuario_filtrados = lista;
 	$(".qtde_usuarios").children("label").text(lista.length);
 }
 
-function criar_cardUsuario(caminho_img, nome, numDoc) {
+function criar_cardUsuario(caminho_img, nome, numDoc, cpf) {
 	var card_usuario = $(document.createElement("div")).addClass("card_usuario");
 	
-	if(caminho_img == "") caminho_img = "img/ic_noImage.png";
+	if(caminho_img == "") caminho_img = "img/icones/ic_noImage.png";
 
 	var img = $(document.createElement("div")).addClass("img"); 
 		img.css("background", "url("+caminho_img+") center / 100% auto no-repeat");
@@ -139,15 +148,21 @@ function criar_cardUsuario(caminho_img, nome, numDoc) {
 	var num_documento = $(document.createElement("label")).addClass("num_documento"); 
 		num_documento.text(numDoc);
 
-	var botao_imprimir = $(document.createElement("a")).addClass("btn_imprimir");
-		botao_imprimir.text("Imprimir");
-		botao_imprimir.attr("target", "_blank");
-		botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
+	if(tipo_usuario_id == 8) {
+		var botao_imprimir = $(document.createElement("a")).addClass("btn_imprimir");
+			botao_imprimir.text("Imprimir");
+			botao_imprimir.attr("target", "_blank");
+			botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
+	}
+
+	var botao_detalhe = $(document.createElement("a")).addClass("fa fa-info-circle btn_detalhes");
+		botao_detalhe.attr("href", "cadastro_usuario.php?cpf=" + cpf);
 
 	card_usuario.append(img);
 	card_usuario.append(nome_usuario);
 	card_usuario.append(num_documento);
 	card_usuario.append(botao_imprimir);
+	card_usuario.append(botao_detalhe);
 
 	return card_usuario;
 }

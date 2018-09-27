@@ -1,0 +1,278 @@
+body { box-sizing:border-box;padding:0;margin:0; }
+
+#principal {
+	width: 1500px;
+	height: auto;
+	overflow: hidden;
+	margin: auto;
+	padding: 5px;
+}
+
+#principal #logoSextou {
+	width: 150px;
+	height: 40px;
+	/*background: url("../img/logos/sextou_logo-01.png") center / contain no-repeat;*/
+	left:87%;
+	top:80%;
+
+}
+
+.container_contador {
+	width: 225px;
+	height: 30px;
+	padding: 5px;
+	border-radius: 5px;
+	background: #2c8cdb;
+	margin: 10px 20px 5px 20px;
+	color: #fff;
+	float: left;
+	clear: left;
+}
+
+.container_contador .icone {
+	width: 20px;
+	height: 20px;
+	margin: 5px;
+	float: left;
+	background: url(../img/icones/ic_usuarioGrupo.png) center / 100% 100% no-repeat;
+}
+
+.container_contador label {
+	display: block;
+	height: 100%;
+	line-height: 30px;
+	font-weight: bold;
+	font-family: 'Source Sans Pro', sans-serif;
+	margin: 0 2px;
+	float: left;
+}
+
+.container_contador .qtde_empresas {
+	width: 30px;
+	height: 30px;
+	background: #ccefa1;
+	float: left;
+	margin: 0 0 0 10px;
+	border-radius: 100%;
+}
+
+.container_contador .qtde_empresas label {
+	display: block;
+	width: 90%;
+	font-size: 12px;
+	text-align: center;
+	color: #000;
+}
+
+#pesquisa {
+	position:relative;
+	width:400px;
+	height:35px;
+	margin:20px 20px;
+	border-radius:2px;
+	border:none;
+	box-shadow:0 0 2px #00000055;
+}
+
+#campo_pesquisa {
+	width:355px;
+	height:15px;
+	padding:5px 10px;
+	float:left;
+	border:none;
+	margin:5px 0;
+}
+
+#campo_pesquisa:focus {outline:none;}
+
+#botao_pesquisa {
+	position:absolute;
+	font-size:22px;
+	right:2px;
+	top:5px;
+	cursor:pointer;
+}
+
+#lista_empresas {
+	position: relative;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.seta {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	z-index:10;
+	transition: all 1s ease;
+	opacity: 0.2;
+	cursor: pointer;
+	top:50%;
+}
+
+.seta:hover {
+	opacity: 1;
+}
+
+#proximo {
+	background: url(../img/icones/ic_proximo.png) center / contain no-repeat;
+	left:95%;
+}
+
+#anterior {
+	background: url(../img/icones/ic_anterior.png) center / contain no-repeat;
+}
+
+#empresas {
+	display:flex;
+	width: 970px;
+	height: 300px;
+	margin: 10px auto 20px auto;
+	padding:10px;
+	overflow: hidden;
+}
+
+#add_empresa {
+	width: 160px;
+	height: 30px;
+	font-size: 18px;
+	color: #000;
+	text-align: center;
+	line-height: 30px;
+	text-decoration: none;
+	float: left;
+	cursor: pointer;
+	margin: 10px 0;
+	padding: 5px;
+	color: #4b9e61;
+	border: solid 1px #4b9e61;
+	border-radius:5px;
+}
+
+#add_empresa:after {
+	content: " Adicionar empresa";
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight:bold;
+}
+
+.card_empresa {
+	min-width: 450px;
+	max-width: 450px;
+	height:auto;
+	padding:10px;
+	box-shadow:0 2px 5px #0005;
+	font-family:'Source Sans Pro', sans-serif;
+	margin: 0 10px;
+}
+
+.card_empresa .nome_empresa {
+	display: block;
+	width:100%;
+	height:25px;
+	font-size:20px;
+	margin: 5px 0;
+	color: #424242;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.card_empresa .info {
+	width: 315px;
+    overflow: hidden;
+    height: auto;
+    padding: 5px;
+    background: transparent;
+    margin: 0 auto;
+}
+
+.card_empresa .foto {
+	width:120px;
+	height:120px;
+	float:left;
+}
+
+.card_empresa .tit_dados_empresa {
+	width: auto;
+    display: block;
+    height: 25px;
+    margin: 0 15px;
+    float: left;
+    font-weight: bold;
+}
+
+.card_empresa .tit_dados_empresa .fa { font-weight: normal; }
+
+.card_empresa .lbl_dado_empresa {
+	display: block;
+	width: 165px;
+	float:left;
+	font-size:16px;
+	margin:5px 5px 0 15px;
+	color:#000;
+	font-family:'Source sans Pro', sans-serif;
+}
+
+.card_empresa .link_visualizar {
+	display:table;
+	float: left;
+	padding:10px;
+	border-radius: 5px;
+	margin:10px 15px;
+	text-decoration:none;
+	cursor:pointer;
+	font-family:'Source sans Pro', sans-serif;
+}
+
+.card_empresa .tem_funcionarios { background:#81b4dd;color:#FFF; }
+.card_empresa .naoTem_funcionarios { background:#e0e0e0;color:#9e9e9e;cursor:unset; }
+
+
+.card_empresa .link_visualizar:before {
+	content: '\f007';
+	font-family: FontAwesome;
+	margin-right: 5px;
+}
+
+
+.card_empresa hr { margin:15px 0; }
+
+.card_empresa .opcoes {
+	display:table;
+	margin:10px auto;
+	overflow: hidden;
+}
+
+.edit_empresa, .delete_empresa {
+	display: block;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    margin: 10px 5px;
+    color:#fff;
+    border: none;
+}
+
+.edit_empresa { background:#487ca9; }
+.delete_empresa { background:#bd4e4b; }
+
+.lbl_nada_encontrado {
+	display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 300px;
+    font-family: 'Source sans Pro', sans-serif;
+    font-size: 40px;
+    color: #aaa;
+}
+
+
+.lbl_nada_encontrado:before {
+	content:"\f071";
+	font-family:"FontAwesome";
+}

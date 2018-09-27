@@ -1,19 +1,34 @@
 $(function(){
 	loader = new Loader();
+	notificacao = new Notificacao();
+
+
+	$(".fake_checkbox").click(function() {
+		$(".fake_checkbox_active").removeClass("fake_checkbox_active");
+		$(this).toggleClass("fake_checkbox_active");
+
+		if($(this).hasClass("fake_checkbox_active")) {
+			$(this).prev().prop("checked", true);
+		}else{
+			$(this).prev().prop("checked", false);
+		}
+	});
+
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();
-		var campos_preenchidos = validar_campos_texto(".form_txt") && validar_radio(".radio_prefixo");		
+		var textoOk = validar_campos_texto(".form_txt");
+		var radioOk = validar_radio(".radio_prefixo");
 
+		var campos_preenchidos = textoOk && radioOk;
+		
 		if(campos_preenchidos) {
-			var numero_inicial = $("#txt_num_inicial").val();
-			var numero_final   = $("#txt_num_final").val();
-			var prefixo 	   = $(".radio_prefixo:checked").val();
+			var qtde = $("#qtde").val();
+			var prefixo = $(".radio_prefixo:checked").val();
 
 			// Dados a serem enviados
     		var formData = new FormData();
-			formData.append("numero_inicial", numero_inicial);
-			formData.append("numero_final", numero_final);
+			formData.append("qtde", qtde);
 			formData.append("prefixo", prefixo);
 
 			$.ajax({
@@ -25,19 +40,22 @@ $(function(){
                 beforeSend: loader.iniciar(),
                 success: tratar_resultado_envio
 			});
+		}else{
+			notificacao.mostrar("Erro! ", "Por favor preencha todos os campos", "erro", $("#conteudo"), 2500);
 		}
 			
 	});
 });
 
 function tratar_resultado_envio(resultado){
+	resultado = JSON.parse(resultado);
 	if(resultado == 1) {
-		loader.encerrar("img/ic_okay.png", "Documento cadastrado com sucesso");
+		loader.encerrar("img/icones/ic_okay.png", "Documento cadastrado com sucesso");
 
-    	$("#nome").val("");
-    	imagem = null;
+    	$(".form_txt").val("");
+    	$(".radio_prefixo").prop("checked", false);
+    	$(".fake_checkbox").removeClass("fake_checkbox_active");
     }else{
-    	loader.encerrar("img/ic_erro.png", "Ocorreu algum erro");
-    	console.log(resultado);
+    	loader.encerrar("img/icones/ic_erro.png", "Ocorreu algum erro");
     }
 }
