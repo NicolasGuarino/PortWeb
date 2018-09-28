@@ -42,10 +42,11 @@
 					inner join usuario as u on(u.usuario_id=ru.usuario_id)
 					inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) 
 					inner join empresa as e on(e.empresa_id=ef.empresa_id) 
-					left join rel_usuario_veiculo as uv on(uv.usuario_id=ru.usuario_id) 
-					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where r.responsavel_id = 34 and isNull(v.veiculo_id) ".$where." 
+					left join rel_usuario_veiculo as uv on(uv.usuario_id=ru.usuario_id)
+					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where isNull(v.veiculo_id) ".$where." 
 					group by u.usuario_id order by (select r.hora from usuario as us inner join rel_registro_usuario as ru on(ru.usuario_id=us.usuario_id) inner join registro_acesso as r on(r.registro_acesso_id=ru.registro_acesso_id) where us.usuario_id = u.usuario_id and r.responsavel_id=34 order by r.hora desc limit 1) desc;";
 		$cont = 0;
+		//r.responsavel_id = 34 and
 
 		$select = mysqli_query($conexao, $query);
 			

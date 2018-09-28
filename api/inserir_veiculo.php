@@ -16,7 +16,7 @@
 	$query   = "insert into veiculo(documento_id, placa, modelo, marca, cor, foto) ";
 	$query  .= "values(".$documento_id.", '".$placa."', '".$modelo."', '".$marca."', '".$cor."', '".$foto."');";
 	$result  = mysqli_query($conexao, $query) or die("Não foi possivel inserir o registro de veiculo<br/><b>Erro: " . mysqli_error($conexao) . "</b>");
-
+	
 	$query   = "select last_insert_id() as veiculo_id;";
 	$select  = mysqli_query($conexao, $query) or die("Não foi possivel recuperar o ultimo id inserido<br/><b>Erro: " . mysqli_error($conexao) . "</b>");
 	$rs = mysqli_fetch_array($select);
@@ -26,6 +26,9 @@
 	$query   = "insert into rel_usuario_veiculo(usuario_id, veiculo_id) ";
 	$query  .= "values(".$usuario_id.", ".$veiculo_id.");";
 	$result  = mysqli_query($conexao, $query) or die("Não foi possivel inserir o registro de relacionamento entre o usuario e o veiculo<br/><b>Erro: " . mysqli_error($conexao) . "</b>");
+
+	$query = "update documento set disponibilidade = 0 where documento_id =".$documento_id.";";
+	$result = mysqli_query($conexao, $query) or die ("Não foi possível atualizar o documento utilizado para o veículo");
 ?>
 
 
