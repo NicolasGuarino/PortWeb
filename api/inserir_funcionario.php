@@ -62,8 +62,8 @@
 	$result_verificacao = exec_query($conexao, $select)[0]['usuario_id'];
 	if ($result_verificacao == null) {
 
-		$query   = "insert into usuario(tipo_usuario_id, documento_id, ultima_atualizacao, nome, cpf, rg, email, telefone) ";
-		$query  .= "values(".$tipo_usuario_id.", ".$documento_id.", now(), '".$nome."', '".$cpf."', '".$rg."',  '".$email."', '".$telefone."');";
+		$query   = "insert into usuario(tipo_usuario_id, documento_id, ultima_atualizacao, nome, cpf, login, senha,  rg, email, telefone) ";
+		$query  .= "values(".$tipo_usuario_id.", ".$documento_id.", now(), '".$nome."', '".$cpf."', '".$email."', 'baea1da5d31cf6f42f32db9c2bef25af993509c2', '".$rg."',  '".$email."', '".$telefone."');";
 
 		//echo ($query);
 

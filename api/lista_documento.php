@@ -23,12 +23,12 @@
 			
 		while($rs = mysqli_fetch_array($select)){
 			$obj_retorno[$cont] = array(
-				"documento_id" => utf8_encode($rs['documento_id']),
-				"numero_etiqueta" => utf8_encode($rs['numero_etiqueta']),
+				"documento_id" => $rs['documento_id'],
+				"numero_etiqueta" => $rs['numero_etiqueta'],
 				"tipo_etiqueta" => utf8_encode($rs['tipo_etiqueta']),
-				"numero_documento" => utf8_encode($rs['numero_documento']),
-				"empresa" => $rs['nome'],
-				"ultima_atualizacao" => utf8_encode($rs['ultima_atualizacao']),
+				"numero_documento" => $rs['numero_documento'],
+				"empresa" => utf8_encode($rs['nome']),
+				"ultima_atualizacao" => $rs['ultima_atualizacao'],
 				"imagem_oculta" => utf8_encode($rs['imagem_oculta']),
 			);		
 
