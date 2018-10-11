@@ -9,6 +9,8 @@
 		$numero_etiqueta = $_GET['numero_etiqueta']; // NUMERO DA ETIQUETA LIDA
 		$responsavel_id = $_GET['responsavel_id']; // ID DO USUÁRIO LOGADO NO APP
 		$dupla_autenticacao = $_GET['dupla_autenticacao']; // TRUE OU FALSE
+		$liberado = 0;
+		$registro_acesso_id = 0;
 
 		$tipo_autenticacao = ($dupla_autenticacao == "true")?  1 : 3;
 
@@ -29,23 +31,32 @@
 
 		$sql .= "where d.numero_etiqueta = '".$numero_etiqueta."' limit 1;";
 		$select = mysqli_query($conexao, $sql);
-		
+		// echo $sql;
 		if(mysqli_num_rows($select) != 0) {
 			$array_dados_documento = mysqli_fetch_array($select);
 			
 			$query = "select * from escala where usuario_id = ".$array_dados_documento['usuario_id']." and weekday(now()) = dia_da_semana and now() between hora_entrada and hora_saida;";
 			$select = mysqli_query($conexao, $query);
 			
-			if(mysqli_num_rows($select) != 0) {
-				// echo json_encode(mysqli_fetch_array($select));
+			if(mysqli_num_rows($select) == 0) {
+				$query = "select * from excessao where usuario_id = ".$array_dados_documento['usuario_id']." and date_format(now(), '%Y-%m-%d') = data and now() between hora_entrada and hora_saida;";
+				$select = mysqli_query($conexao, $query);
+				
+				if(mysqli_num_rows($select) != 0) {
+
+					$liberado = 1;
+					$title = "Acesso liberado";
+					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às ".date('H:m:s');
+				}else{
+					$liberado = 0;
+					$registro_acesso_id = 0;
+					$title = "Acesso negado";
+					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às ".date('H:m:s');
+				}
+			}else{
 				$liberado = 1;
 				$title = "Acesso liberado";
 				$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às ".date('H:m:s');
-			}else{
-				$liberado = 0;
-				$registro_acesso_id = 0;
-				$title = "Acesso negado";
-				$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às ".date('H:m:s');
 			}
 
 			if($array_dados_documento) {
@@ -103,7 +114,7 @@
 					$click_action = "Notificacao";
 					$object_in_array = array("registro_acesso" => $array_dados_registro_acesso['registro_acesso_id']);
 					$retorno = push_notification($title, $description, $click_action, $object_in_array, $registration_ids);
-				}			
+				}
 			}
 		}
 

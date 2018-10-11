@@ -18,6 +18,10 @@
 
 	$disponibilidade = 0;
 
+	if ($tipo_usuario_id == 0) {
+		$tipo_usuario_id = 1;
+	}
+
 	if ($tipo_usuario_id == 4) {
 		$disponibilidade = 1;
 	}

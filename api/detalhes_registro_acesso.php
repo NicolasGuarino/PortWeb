@@ -4,6 +4,7 @@
 
 	header("Content-Type: text/html; charset=UTF-8", true);
 	ini_set('default_charset', 'UTF-8');
+	
 
 	// mysqli_set_c
 
@@ -89,7 +90,8 @@
 		$rs = mysqli_fetch_array($select);
 
 		$usuario = $rs['usuario'];
-
+		$liberacao = $rs['liberacao'];
+		
 		$obj_retorno = array(
 			"foto_carro" => utf8_encode($rs['foto_carro']),
 			"carro" => utf8_encode($rs['carro']),
@@ -97,7 +99,7 @@
 			"foto_usuario" => utf8_encode($rs['foto_usuario']),
 			"usuario" => $rs['usuario'],
 			"empresa" => utf8_encode($rs['empresa']),
-			"liberacao" => utf8_encode($rs['liberacao']),
+			"liberacao" => utf8_encode($liberacao),
 			"hora" => utf8_encode($rs['hora']),
 		);
 

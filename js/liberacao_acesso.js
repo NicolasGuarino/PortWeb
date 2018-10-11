@@ -62,7 +62,8 @@ function remover_acesso(dados, callback = function(x){}) {
     $(".tipo_leitura").remove();
     $(".aviso_liberacao").text("");
     $(".aviso_liberacao").removeClass("negado permitido");
-
+	id_atual = 0;
+	
     $("#vazio").fadeIn(100, function () { 
         estaMostrando = false;
         setTimeout(function() { callback(dados); }, 50);

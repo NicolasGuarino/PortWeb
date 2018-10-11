@@ -6,10 +6,11 @@
 
 	$conexao = conectar();
 
+	$obj_retorno = [];
 	$where = "";
 	if(isset($_GET['filtro'])){
 		$filtro = $_GET['filtro'];
-		$where = " where (u.nome like '%".$filtro."%' or date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$filtro."%') ";
+		$where = " and (u.nome like '%".$filtro."%' or date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$filtro."%') ";
 	}
 
 	if (isset($_GET['filtro_data'])) {
@@ -18,21 +19,22 @@
 		$semana_passada = date('Y/m/d', strtotime('-7 days'));;
 
 		if ($_GET['filtro_data'] == "hoje") {
-			$where = " where date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$data_hoje."%' ";
+			$where = " and date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$data_hoje."%' ";
 
 		}else {
-			$where = " where u.ultima_atualizacao > '".$semana_passada."' ";
+			$where = " and u.ultima_atualizacao > '".$semana_passada."' ";
 		}
 
 	}
 
 	if (isset($_GET['tipo_usuario_id'])) {
 		$tipo_usuario_id = $_GET['tipo_usuario_id'];
-		$where = " where tipo_usuario_id = ".$tipo_usuario_id;
+		if($tipo_usuario_id == 0) $where = "";
+		else $where = " and tipo_usuario_id = ".$tipo_usuario_id;
 	}
 
 
-	$query = "select u.* from usuario as u inner join documento as d on(d.documento_id=u.documento_id) ".$where." order by usuario_id desc";
+	$query = "select u.* from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where u.ativo = 1 ".$where." order by usuario_id desc";
 
 			//inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) 
 			//inner join empresa as e on(e.empresa_id=ef.empresa_id) 
