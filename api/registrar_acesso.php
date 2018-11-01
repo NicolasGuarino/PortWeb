@@ -3,12 +3,23 @@
 	include 'conexao.php';
 	include 'push_notification.php';
 
-	if(isset($_GET['numero_etiqueta'])){
-		$conexao = conectar();
+	
 
-		$numero_etiqueta = $_GET['numero_etiqueta']; // NUMERO DA ETIQUETA LIDA
+	
+	if(isset($_GET['numero_etiqueta']) || isset($_REQUEST['documento_id'])){
+		$conexao = conectar();
+		$numero_etiqueta = $_GET['numero_etiqueta']; // NUMERO DO DOCUMENTO LIDA
 		$responsavel_id = $_GET['responsavel_id']; // ID DO USUÁRIO LOGADO NO APP
 		$dupla_autenticacao = $_GET['dupla_autenticacao']; // TRUE OU FALSE
+
+		if(isset($_REQUEST['documento_id'])){
+			$sql  = "select * from documento as d where documento_id = ".$_REQUEST['documento_id'];
+			$numero_etiqueta =  exec_query($conexao, $sql)[0]['numero_etiqueta'];
+		}
+
+
+		
+		
 		$liberado = 0;
 		$registro_acesso_id = 0;
 
@@ -75,7 +86,7 @@
 				$rs = mysqli_fetch_array($select_tipo_acao);
 
 				$tipo_acao = ($rs['tipo_acao'] == "ENTRADA") ? "SAIDA" : "ENTRADA";
-
+					
 				$veiculo_id = (eCarro($numero_etiqueta)) ? $array_dados_documento['veiculo_id'] : "null";
 
 				// INSERINDO REGISTRO DE ACESSO

@@ -53,10 +53,10 @@
 						ra.tipo_locomocao,
 						u.documento_id AS documento_pessoa,
 						u.usuario_id from registro_acesso as ra 
-					inner join rel_registro_usuario as ru on(ru.registro_acesso_id=ra.registro_acesso_id)
-					inner join usuario as u on(u.usuario_id=ru.usuario_id)
-					inner join rel_empresa_funcionario as ef on ef.usuario_id = u.usuario_id
-					inner join empresa as e on e.empresa_id = ef.empresa_id
+					left join rel_registro_usuario as ru on(ru.registro_acesso_id=ra.registro_acesso_id)
+					left join usuario as u on(u.usuario_id=ru.usuario_id)
+					left join rel_empresa_funcionario as ef on ef.usuario_id = u.usuario_id
+					left join empresa as e on e.empresa_id = ef.empresa_id
 					left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
 					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) ".$where."
 					order by ra.hora desc;";
