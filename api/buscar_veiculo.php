@@ -9,8 +9,9 @@
 	$placa_veiculo = $_REQUEST['placa'];
 
 	$query = "select v.*, u.nome, u.email, u.telefone, u.data_nascimento, u.ultima_atualizacao, u.foto as foto_usuario from veiculo as v
-			left join usuario as u
-			on u.documento_id = v.documento_id where v.placa = '".$placa_veiculo."';";
+					left join rel_usuario_veiculo as rel_uv on v.veiculo_id = rel_uv.veiculo_id
+					left join usuario as u on u.usuario_id = rel_uv.usuario_id
+					where v.placa = '".$placa_veiculo."';";
 			
 	$select = mysqli_query($conexao, $query);
 	
