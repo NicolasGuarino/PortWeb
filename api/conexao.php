@@ -11,7 +11,7 @@
 		//Se não, produção
 		}else{
             // echo "REAl";
-			$conecta = mysqli_connect('portaria_db.mysql.dbaas.com.br', 'portaria_db', 'Pot@r1@_Pr1m1','portaria_db');
+			$conecta = mysqli_connect('portaria_db.mysql.dbaas.com.br', 'portaria_db', 'Port@r1@_Pr1m1','portaria_db');
 		}
 		
         mysqli_set_charset($conecta,'utf8');
