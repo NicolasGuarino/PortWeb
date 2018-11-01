@@ -4,16 +4,14 @@
 		$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		
 		//Se for servidor de homologação online, banco de homologação
-        if (strpos($actual_link, 'homologacao') !== false || 
-            strpos($actual_link, 'localhost') !== false || 
-            strpos($actual_link, '127.0.0.1') !== false || 
-            strpos($actual_link, '192.168.1.153') !== false) {
-		    $conecta = mysqli_connect('portaria_db_h.mysql.dbaas.com.br', 'portaria_db_h', 'P0rt@ri@','portaria_db_h');
-            // echo "HOMOLOGACAO";
+		if (strpos($actual_link, 'homologacao') !== false || strpos($actual_link, 'localhost') !== false || strpos($actual_link, '192.168') !== false) {
+            // $conecta = mysqli_connect('portaria_db_h.mysql.dbaas.com.br', 'portaria_db_h', 'P0rt@ri@','portaria_db_h');
+            $conecta = mysqli_connect('192.168.1.107', 'root', '','portaria_db');
+
 		//Se não, produção
 		}else{
             // echo "REAl";
-			$conecta = mysqli_connect('portaria_db.mysql.dbaas.com.br', 'portaria_db', 'P0rt@ri@','portaria_db');
+			$conecta = mysqli_connect('portaria_db.mysql.dbaas.com.br', 'portaria_db', 'Port@r1@_Pr1m1','portaria_db');
 		}
 		
         mysqli_set_charset($conecta,'utf8');

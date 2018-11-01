@@ -11,9 +11,7 @@
 	$empresa_id = $_REQUEST['empresa_id'];
 	$filtrar    = $_REQUEST['filtrar'];
 
-<<<<<<< HEAD:api/listar_usuario_senai.php
-	$query = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." group by d.documento_id order by d.documento_id desc;";
-=======
+	// $query = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." group by d.documento_id order by d.documento_id desc;";
 	$filtro_empresa = "";
 	if($_SESSION['usuario']['tipo_usuario_id'] != 8 || $filtrar == "true") $filtro_empresa = "and ef.empresa_id = ".$empresa_id;
 
@@ -22,7 +20,6 @@
 	$query  .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) ";
 	$query  .= "where u.usuario_id > ".$usuario_id." and u.ativo = 1 ".$filtro_empresa." group by d.documento_id order by u.usuario_id desc;";
 	
->>>>>>> 3484fe5c37491fb93843e85ffec674f23ddff225:api/listar_usuario.php
 	$select = mysqli_query($conexao, $query);
 	
 	$cont = 0;
