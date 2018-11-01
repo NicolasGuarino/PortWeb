@@ -45,14 +45,9 @@
 		$query .= "where u.usuario_id = ". $usuario_id .";";
 
 		$exec = mysqli_query($con, $query);		// Executando a query
-
-		// Lista de usuário
-		$lista_usuario = [];
-
-		// Preenchendo a lista de usuario
-		while($usuario = mysqli_fetch_array($exec)) $lista_usuario[] = $usuario;
+		$usuario = mysqli_fetch_array($exec);	// Recuperando o usuário
 
 		// Transformando em JSON
-		echo json_encode($lista_usuario);
+		echo json_encode($usuario);
 
 	}else echo "Nome e RG não enviado(s)";
