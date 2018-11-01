@@ -15,6 +15,8 @@
 	$query  .= "where e.empresa_id > ".$empresa_id." and e.ativo = 1 group by e.empresa_id;";
 	$result	 = mysqli_query($conexao, $query);
 
+	echo $query;
+
 	$lista_empresa = [];
 	while($rs=mysqli_fetch_array($result)) $lista_empresa[] = $rs;
 
