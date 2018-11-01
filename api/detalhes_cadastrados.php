@@ -75,7 +75,7 @@
 		array_push($registro_acesso_obj, "excessao_obj"=> $array_excessao);
 		mysqli_close($conexao);*/
 
-			$query = "select v.foto as foto_carro, CONCAT(v.marca, ' ', v.modelo, ',', v.cor) as carro, v.placa, u.foto as foto_usuario, u.usuario_id, u.nome as nome ";/*, e.nome as empresa ";*/
+		$query = "select v.foto as foto_carro, CONCAT(v.marca, ' ', v.modelo, ',', v.cor) as carro, v.placa, u.foto as foto_usuario, u.usuario_id, u.nome as nome, u.email, u.rg ";/*, e.nome as empresa ";*/
 		$query .= "from usuario as u ";
 		//$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) ";
 	//	$query .= "inner join empresa as e on(e.empresa_id=ef.empresa_id) ";
@@ -88,15 +88,17 @@
 		$select = mysqli_query($conexao, $query);
 		$rs = mysqli_fetch_array($select);
 
-		$usuario = $rs['usuario'];
+		// $usuario = $rs['usuario'];
 
 		$obj_retorno = array(
 			"foto_carro" => utf8_encode($rs['foto_carro']),
-			"carro" => utf8_encode($rs['carro']),
+			"carro"  => utf8_encode($rs['carro']),
 			"placa" => utf8_encode($rs['placa']),
 			"foto_usuario" => utf8_encode($rs['foto_usuario']),
 			"nome" => $rs['nome'],
 			"usuario_id" => utf8_encode($rs['usuario_id']),
+			"rg" => utf8_encode($rs['rg']),
+			"email" => utf8_encode($rs['email'])
 		);
 
 		echo json_encode($obj_retorno, JSON_UNESCAPED_UNICODE);

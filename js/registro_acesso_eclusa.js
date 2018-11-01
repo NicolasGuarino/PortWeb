@@ -6,13 +6,13 @@ $(function(){
 	carregar_usuariosAtivos();
 	carregar_usuariosInativos();
 
-	setInterval(function() {
+	// setInterval(function() {
 		carregar_usuariosAtivos();
 		carregar_usuariosInativos();
 
 		var elemento = $(".card_usuario_inativo").first();
 		elemento.insertAfter($(".card_usuario_inativo").last());
-	}, 500);
+	// }, 500);
 });
 
 function carregar_usuariosAtivos() {

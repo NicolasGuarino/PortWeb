@@ -6,14 +6,22 @@
 		ini_set('default_charset', 'UTF-8');
 
 		$tipo_etiqueta = $_REQUEST['tipo_etiqueta'];
+		$tipo_usuario_responsavel = $_REQUEST['tipo_usuario_responsavel'];
 
+		$where_and ="";
+		if(isset($_REQUEST['modelo_etiqueta'])){
+			$modelo_etiqueta = $_REQUEST['modelo_etiqueta'];
+			$where_and = "and d.numero_etiqueta like '%A%' ";
+		}
+
+	
 		$conexao = conectar();
 		
 		$query = "select d.documento_id, d.numero_etiqueta, d.tipo_etiqueta, d.numero_documento, d.ultima_atualizacao, d.imagem_oculta, e.nome from documento as d ";
 		$query .= "inner join empresa as e on (e.empresa_id = d.empresa_id)";
-		$query .= "where d.tipo_etiqueta = '".$tipo_etiqueta."' and disponibilidade = 1";
+		$query .= "where d.tipo_etiqueta = '".$tipo_etiqueta."' ".$where_and." and disponibilidade = 1 and tipo_usuario_responsavel=".$tipo_usuario_responsavel.";";
 
-		//echo($query);
+		// echo($query);
 
 		$cont = 0;
 
@@ -21,12 +29,12 @@
 			
 		while($rs = mysqli_fetch_array($select)){
 			$obj_retorno[$cont] = array(
-				"documento_id" => utf8_encode($rs['documento_id']),
-				"numero_etiqueta" => utf8_encode($rs['numero_etiqueta']),
+				"documento_id" => $rs['documento_id'],
+				"numero_etiqueta" => $rs['numero_etiqueta'],
 				"tipo_etiqueta" => utf8_encode($rs['tipo_etiqueta']),
-				"numero_documento" => utf8_encode($rs['numero_documento']),
-				"empresa" => $rs['e.nome'],
-				"ultima_atualizacao" => utf8_encode($rs['ultima_atualizacao']),
+				"numero_documento" => $rs['numero_documento'],
+				"empresa" => utf8_encode($rs['nome']),
+				"ultima_atualizacao" => $rs['ultima_atualizacao'],
 				"imagem_oculta" => utf8_encode($rs['imagem_oculta']),
 			);		
 

@@ -11,6 +11,7 @@
 	$empresa_id = $_REQUEST['empresa_id'];
 	$filtrar    = $_REQUEST['filtrar'];
 
+	// $query = "select * from usuario as u inner join documento as d on(d.documento_id=u.documento_id) where usuario_id > ".$usuario_id." group by d.documento_id order by d.documento_id desc;";
 	$filtro_empresa = "";
 	if($_SESSION['usuario']['tipo_usuario_id'] != 8 || $filtrar == "true") $filtro_empresa = "and ef.empresa_id = ".$empresa_id;
 
