@@ -6,7 +6,7 @@
 		//Se for servidor de homologação online, banco de homologação
 		if (strpos($actual_link, 'homologacao') !== false || strpos($actual_link, 'localhost') !== false || strpos($actual_link, '192.168') !== false) {
             // $conecta = mysqli_connect('portaria_db_h.mysql.dbaas.com.br', 'portaria_db_h', 'P0rt@ri@','portaria_db_h');
-            $conecta = mysqli_connect('192.168.1.107', 'root', '','portaria_db');
+            $conecta = mysqli_connect('192.168.1.44', 'root', '','portaria_db');
 
 		//Se não, produção
 		}else{
