@@ -49,6 +49,9 @@
 		array_push($registrationIds, "cPI9xlqRjcw:APA91bFHZuHTFSjlcVizxns1ftKbxQaNY3QHvq1-q6p5sWhKHTI2kH1fsxVMwqAX_rvA3NQ4ZOiB7ZmKg9YRWg3Fx06kdtGTYXGZ5-dE6RnYnY6PkuwDJE2puMJsjVkHgF5LcWgWEx15"); //ASUS
 		array_push($registrationIds, "digpLQDTbmE:APA91bGatTF-AIM4NXM0el_gOdbyZV9OU-Kgzje_H8nmU8AiTilXMTuTFRNQNFfWqhJ2RpFWg5RTv_rUrudvaoVcYPror-DwUUutX4c8WfrhghiUM3Q-RJga9idr3P6tSzSe94Vj5p2g"); //GALAXY J5
 
+		// Teste
+		array_push($registrationIds, "fCx58Dqztk8:APA91bEdGYSPYpU4Vn9XPLm2D9aM9OXyPxOmJlXlG7RJPC7wcAIrzaUkA-rAHxB56a2RHzeT1I1u9qSfo4G-TIh4MMsPQXmiS_timZwQqArbfkJk6De8T9nnLW-2Cd6_WznB5wAD1rY-");
+
 		//Montando a notificação
 		$notifications = [
 		    'title'         => $title,

@@ -16,9 +16,6 @@
 			$sql  = "select * from documento as d where documento_id = ".$_REQUEST['documento_id'];
 			$numero_etiqueta =  exec_query($conexao, $sql)[0]['numero_etiqueta'];
 		}
-
-
-		
 		
 		$liberado = 0;
 		$registro_acesso_id = 0;
