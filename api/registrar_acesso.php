@@ -39,7 +39,7 @@
 
 		$sql .= "where d.numero_etiqueta = '".$numero_etiqueta."' limit 1;";
 		$select = mysqli_query($conexao, $sql);
-		// echo $sql;
+
 		if(mysqli_num_rows($select) != 0) {
 			$array_dados_documento = mysqli_fetch_array($select);
 			
@@ -89,6 +89,7 @@
 				// INSERINDO REGISTRO DE ACESSO
 				$sql  = "insert into registro_acesso (veiculo_id, responsavel_id, tipo_acao, acionamento_id, tipo_locomocao, hora, liberacao, tipo_autenticacao) ";
 				$sql .= "values (".$veiculo_id.", ".$responsavel_id.", '".$tipo_acao."', 3, '".$tipo_locomocao."', '".$agora."', " . $liberado . ", ".$tipo_autenticacao.");";
+
 				mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
 				// COLETANDO O ID CADASTRADO
@@ -108,6 +109,7 @@
 				$sql .= "inner join rel_empresa_funcionario as reu on reu.empresa_id = e.empresa_id ";
 				$sql .= "inner join usuario as u on u.usuario_id = reu.usuario_id ";
 				$sql .= "where u.usuario_id = ".$array_dados_documento['usuario_id'].";";
+
 				$select = mysqli_query($conexao, $sql);
 				$array_dados_empresa = mysqli_fetch_array($select);
 
@@ -116,12 +118,34 @@
 				$sql .= "values (".$array_dados_empresa['empresa_id'].", ".$registro_acesso_id.");";
 				mysqli_query($conexao, $sql);
 
-				if($responsavel_id == '35'){
-					// ENVIANDO NOTIFICAÇÃO
-					$registration_ids = array();
-					$click_action = "Notificacao";
-					$object_in_array = array("registro_acesso" => $array_dados_registro_acesso['registro_acesso_id']);
-					$retorno = push_notification($title, $description, $click_action, $object_in_array, $registration_ids);
+				// ENVIO DE NOTIFICAÇÃO PARA O RESPONSÁVEL DA EMPRESA
+				// Lista de token dos usuários responsáveis
+				$lista_token = [];
+
+				// Verificando se a empresa é a Primi
+				if($array_dados_empresa['empresa_id'] == 1){
+
+					// Consultando o token dos usuários responsáveis da empresa
+					$query  = "select u.usuario_id, u.nome, u.token_firebase, tp.nome as 'tipo', e.empresa_id from usuario as u ";
+					$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id = u.usuario_id) ";
+					$query .= "inner join empresa as e on(e.empresa_id = ef.empresa_id) ";
+					$query .= "inner join tipo_usuario as tp on(tp.tipo_usuario_id = u.tipo_usuario_id) ";
+					$query .= "where tp.tipo_usuario_id = 3 and e.empresa_id = ". $array_dados_empresa['empresa_id'] .";";
+
+					// Executando a query
+					$exec = mysqli_query($conexao, $query);
+
+					// Preenchendo a lista de token
+					while($usuario_responsavel = mysqli_fetch_array($exec)) $lista_token[] = $usuario_responsavel['token_firebase'];
+
+					// Verificando se existe algum token
+					if(count($lista_token) > 0){
+
+						// ENVIANDO NOTIFICAÇÃO
+						$click_action = "INICIAR_PORTARIA";
+						$object_in_array = array("id" => "123");
+						$retorno = push_notification($title, $description, $click_action, $object_in_array, $lista_token);
+					}
 				}
 			}
 		}
