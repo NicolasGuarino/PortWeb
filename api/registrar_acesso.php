@@ -141,9 +141,34 @@
 					// Verificando se existe algum token
 					if(count($lista_token) > 0){
 
-						// ENVIANDO NOTIFICAÇÃO
+
+						// Consultando o registro de acesso realizado
+						$query  = "select * from registro_acesso ";
+						$query .= "where registro_acesso_id = ". $registro_acesso_id .";";
+
+						// Executando a query
+						$exec 	  		 = mysqli_query($conexao, $query);
+						$registro_acesso = mysqli_fetch_array($exec);
+
+						// Obtendo a data e hora
+						$hora = date_format(date_create($registro_acesso['hora']), "H:i");
+						$data = date_format(date_create($registro_acesso['hora']), "d/m/Y");
+
+						// ENVIO DE NOTIFICAÇÃO
 						$click_action = "INICIAR_PORTARIA";
-						$object_in_array = array("id" => "123");
+
+						// Dados da notificação
+						$object_in_array = [
+							"usuario" 		 => $array_dados_documento['nome'],
+							"foto_usuario" 	 => $array_dados_documento['foto'],
+							"empresa" 		 => $array_dados_empresa['nome'],
+							"tipo_locomocao" => $registro_acesso['tipo_locomocao'],
+							"tipo_acao" 	 => $registro_acesso['tipo_acao'],
+							"hora" 			 => $hora,
+							"data" 			 => $data
+						];
+
+						// Enviando notificação
 						$retorno = push_notification($title, $description, $click_action, $object_in_array, $lista_token);
 					}
 				}
