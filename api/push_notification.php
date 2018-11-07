@@ -33,21 +33,14 @@
 		$retorno = push_notification($title, $description, $click_action, $object_in_array, $registration_ids);	
 		echo $retorno; */
 
-	function push_notification( $title, $description, $click_action, $object_in_array, $registration_ids ){
+	function push_notification( $title, $description, $click_action, $object_in_array, $registration_ids){
 
 		//Definindo a chave de acesso do servidor do firebase.
 		//Essa chave é obtida ao criar um projeto no firebase e acessando às configurações > chave do servidor
 		define( 'API_ACCESS_KEY', 'AAAACupSSgA:APA91bG89KQ8U_8z4GmxfnVpEIhEBA9hdbKHBKsyFtvmufPQIBnTSAmTQoMarIUP7h0jT0Yb5Qm_eok6B6JggCcEt6okoUInbCJLMavq-80mTI64jd9e9VFOlClS_mnLwQCIox_DOl9t');
 
-		//Recebendo o array com os ids dos dispositivos móveis que serão enviados
-		// $registrationIds = $registration_ids;
-		$registrationIds = array();
-
-		array_push($registrationIds, "chYe3MlOeW0:APA91bFSxwGEBB5FADBAhHVL9x6ws5N0t0lukhjpkdhPp9DxCRZ-QDsQAL5Ra_MjBKDBKAWmzMG1E6s-PvQfk1FPKoyOYSogtH274VRNQ9PQoKC7_akfLJFqwiP1DDTD6cFIQEQ_OMJK"); // MOTOROLA
-		array_push($registrationIds, "fzlr3ab9hBM:APA91bFU0Hk4R435Q8aMsRl5ebxaYo3fb0Lp2KToKMVAzhbEmcHkAGLVM8xQicqD5RLHK-cGGPALKDs3MVoV9rVS6PA-G9QgdJ4gkprHQTNbyN4Y9bH_lkYEiCxcbIk1qTyEiy_cQ8sC"); // SAMSUNG 1 (VERMELHO ATRÁS)
-		array_push($registrationIds, "f4w9oNCTsP8:APA91bEsUQ4FRN5wk254Nb1d87XHJ8DecXeEHzSu-RS57woiKGiTEz_IXPe_lJ0qTvKhd4N_ScsqUCAKDhJPIaOIXeVj8bgiSeiVsrb-c3YumSMXmzxPa4BZnlWjiddoJd0dFHP77PH1"); // SAMSUNG 2
-		array_push($registrationIds, "cPI9xlqRjcw:APA91bFHZuHTFSjlcVizxns1ftKbxQaNY3QHvq1-q6p5sWhKHTI2kH1fsxVMwqAX_rvA3NQ4ZOiB7ZmKg9YRWg3Fx06kdtGTYXGZ5-dE6RnYnY6PkuwDJE2puMJsjVkHgF5LcWgWEx15"); //ASUS
-		array_push($registrationIds, "digpLQDTbmE:APA91bGatTF-AIM4NXM0el_gOdbyZV9OU-Kgzje_H8nmU8AiTilXMTuTFRNQNFfWqhJ2RpFWg5RTv_rUrudvaoVcYPror-DwUUutX4c8WfrhghiUM3Q-RJga9idr3P6tSzSe94Vj5p2g"); //GALAXY J5
+		// Teste
+		array_push($registration_ids, "fCx58Dqztk8:APA91bEdGYSPYpU4Vn9XPLm2D9aM9OXyPxOmJlXlG7RJPC7wcAIrzaUkA-rAHxB56a2RHzeT1I1u9qSfo4G-TIh4MMsPQXmiS_timZwQqArbfkJk6De8T9nnLW-2Cd6_WznB5wAD1rY-");
 
 		//Montando a notificação
 		$notifications = [
@@ -63,7 +56,7 @@
 
 		//Montando o objeto propriamente dito da notificação para o firebase
 		$fields = [
-		    'registration_ids'  => $registrationIds,
+		    'registration_ids'  => $registration_ids,
 		    'notification'              => $notifications,
 		    'data' => $data
 		];	

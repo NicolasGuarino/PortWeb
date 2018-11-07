@@ -15,9 +15,23 @@
 		$foto_usuario	 = "img/icone/person.png";		// Imagem padrão
 		$foto_veiculo	 = "img/icones/ic_carro.png";	// Imagem padrão
 
+		// Consultando o primeiro documento disponível
+		$query  = "select documento_id from documento ";
+		$query .= "where disponibilidade = 1 ";
+		$query .= "order by documento_id asc limit 1;";
+
+		$exec 	   	  = mysqli_query($con, $query);					// Executando a query
+		$documento_id = mysqli_fetch_array($exec)['documento_id'];	// Recuperando o ID do documento
+
+		// Atualizando a disponibilidade do documento para indisponível (0)
+		$query  = "update documento set disponibilidade = '0' ";
+		$query .= "where documento_id = " . $documento_id;
+
+		$exec = mysqli_query($con, $query);		// Executando a query
+
 		// Inserindo na tabela de 'usuário'
-		$campos  = "tipo_usuario_id, ultima_atualizacao, nome, foto, rg, ativo";								// Campos da tabela
-		$valores = $tipo_usuario_id . ", now(), '" . $nome . "', '" . $foto_usuario . "', '" . $rg . "', 1";	// Valores a serem inseridos
+		$campos  = "tipo_usuario_id, documento_id, ultima_atualizacao, nome, foto, rg, ativo";								// Campos da tabela
+		$valores = $tipo_usuario_id . ", " . $documento_id . ", now(), '" . $nome . "', '" . $foto_usuario . "', '" . $rg . "', 1";	// Valores a serem inseridos
 		$query   = "insert into usuario(". $campos .") values(". $valores .");";								// Query completa
 
 		mysqli_query($con, $query);				// Executando a query
@@ -44,10 +58,10 @@
 		$query .= "inner join veiculo as v on(v.veiculo_id = uv.veiculo_id) ";
 		$query .= "where u.usuario_id = ". $usuario_id .";";
 
-		$exec = mysqli_query($con, $query);		// Executando a query
+		$exec 	 = mysqli_query($con, $query);	// Executando a query
 		$usuario = mysqli_fetch_array($exec);	// Recuperando o usuário
 
-		// Transformando em JSON
+		// Imprimindo o resultado (JSON)
 		echo json_encode($usuario);
 
 	}else echo "Nome e RG não enviado(s)";
