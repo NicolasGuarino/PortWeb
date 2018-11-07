@@ -39,16 +39,13 @@
 		//Essa chave é obtida ao criar um projeto no firebase e acessando às configurações > chave do servidor
 		define( 'API_ACCESS_KEY', 'AAAACupSSgA:APA91bG89KQ8U_8z4GmxfnVpEIhEBA9hdbKHBKsyFtvmufPQIBnTSAmTQoMarIUP7h0jT0Yb5Qm_eok6B6JggCcEt6okoUInbCJLMavq-80mTI64jd9e9VFOlClS_mnLwQCIox_DOl9t');
 
-		// Teste
-		array_push($registration_ids, "fCx58Dqztk8:APA91bEdGYSPYpU4Vn9XPLm2D9aM9OXyPxOmJlXlG7RJPC7wcAIrzaUkA-rAHxB56a2RHzeT1I1u9qSfo4G-TIh4MMsPQXmiS_timZwQqArbfkJk6De8T9nnLW-2Cd6_WznB5wAD1rY-");
-
 		//Montando a notificação
 		$notifications = [
 		    'title'         => $title,
 			'body'          => $description,
 			'click_action'  => $click_action,
 			'sound' => "default",
-			'color' => '#000000'
+			'color' => '#FFFFFF'
 		];
 
 		//Recebendo o objeto com as informações que será mostrada na tela do aplicativo
