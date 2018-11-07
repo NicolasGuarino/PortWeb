@@ -17,7 +17,7 @@
 
 		// Consultando o primeiro documento disponível
 		$query  = "select documento_id from documento ";
-		$query .= "where disponibilidade = 1 ";
+		$query .= "where disponibilidade = 1 and numero_etiqueta like 'C%'";
 		$query .= "order by documento_id asc limit 1;";
 
 		$exec 	   	  = mysqli_query($con, $query);					// Executando a query
@@ -36,14 +36,27 @@
 
 		mysqli_query($con, $query);				// Executando a query
 		$usuario_id = mysqli_insert_id($con);	// Recuperando o ID do usuário
+		
+
+		// Consultando o primeiro documento disponível
+		$query  = "select documento_id from documento ";
+		$query .= "where disponibilidade = 1 and numero_etiqueta like 'A%'";
+		$query .= "order by documento_id asc limit 1;";
+
+		$exec 	   	  = mysqli_query($con, $query);					// Executando a query
+		$documento_veiculo_id = mysqli_fetch_array($exec)['documento_id'];	// Recuperando o ID do documento
 
 		// Inserindo na tabela de 'veículo'
-		$campos  = "placa, foto, ativo";											// Campos da tabela
-		$valores = "'" . $placa . "', '" . $foto_veiculo . "', 1";					// Valores a serem inseridos
+		$campos  = "documento_id, placa, foto, ativo";											// Campos da tabela
+		$valores = "'".$documento_veiculo_id."', '" . $placa . "', '" . $foto_veiculo . "', 1";					// Valores a serem inseridos
 		$query   = "insert into veiculo(". $campos .") values(". $valores .");";	// Query completa
 
 		mysqli_query($con, $query);				// Executando a query
 		$veiculo_id = mysqli_insert_id($con);	// Recuperando o ID do veículo
+
+		// Atualizando a disponibilidade do documento para indisponível (0)
+		$query  = "update documento set disponibilidade = '0' ";
+		$query .= "where documento_id = " . $documento_veiculo_id;
 
 		// Inserindo na tabela de relacionamento entre usuário e veículo
 		$campos  = "usuario_id, veiculo_id";													// Campos da tabela
