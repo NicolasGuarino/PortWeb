@@ -34,7 +34,7 @@
 	mysqli_query($con, $query);				// Executando a query
 	$usuario_id = mysqli_insert_id($con);	// Recuperando o ID do usuário
 
-	// Inserindo veículo somente se houver placa
+	// Inserindo veículo somente se houver placa 
 	if($placa != ""){
 
 		// Consultando o primeiro documento disponível para automovel
