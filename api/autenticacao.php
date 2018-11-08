@@ -12,7 +12,10 @@
 	$resultado 	 = 0;
 
 	//$query = "call login('".$usuario."', '".$senha."', '".$ip."', @resultado);";
-	$query = "select * from usuario where senha = '".$senha."' and login = '".$usuario."';";
+	$query  = "select * from usuario as u ";
+	$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) ";
+	$query .= "inner join empresa as e on(e.empresa_id=ef.empresa_id) ";
+	$query .= "where senha = '".$senha."' and login = '".$usuario."';";
 	//$sucesso = mysqli_query($con, $query);
 
 //echo($query);
@@ -27,7 +30,8 @@
 		$res =  ["valor" => true, 
 				"nome" => $rs['nome'],
 				"tipo_usuario" => $rs['tipo_usuario_id'],
-				"usuario_id" =>$rs['usuario_id']
+				"usuario_id" => $rs['usuario_id'],
+				"empresa_id" => $rs['empresa_id']
 				];
 		//$res = "true";
 	

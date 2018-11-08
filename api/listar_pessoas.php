@@ -9,6 +9,7 @@
 		
 		$obj_retorno = [];
 		$where = "";
+
 		if(isset($_GET['filtro'])){
 			$filtro = $_GET['filtro'];
 			$where = " where (u.nome like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
@@ -27,15 +28,13 @@
 			}
 
 		}
-		/*$query = "select distinct u.usuario_id, r.registro_acesso_id, v.foto as foto_carro, CONCAT(v.marca, ' ', v.modelo, ',', v.cor) as carro, v.placa, u.foto as foto_usuario, u.nome as usuario, e.nome as empresa, r.liberacao,date_format(r.hora, '%d/%m/%y') as data, date_format(r.hora, '%H:%i:%s') as hora , r.tipo_acao, r.tipo_locomocao, u.documento_id as documento_pessoa, u.usuario_id
-					from registro_acesso as r 
-					inner join rel_registro_usuario as ru on(ru.registro_acesso_id=r.registro_acesso_id) 
-					inner join usuario as u on(u.usuario_id=ru.usuario_id)
-					inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) 
-					inner join empresa as e on(e.empresa_id=ef.empresa_id) 
-					left join rel_usuario_veiculo as uv on(uv.usuario_id=ru.usuario_id) 
-					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where r.responsavel_id = 34 and isNull(v.veiculo_id) and u.ativo = 1
-					group by u.usuario_id order by r.registro_acesso_id desc;";*/
+
+		if(isset($_REQUEST['empresa_id'])) {
+			$empresa_id = $_REQUEST['empresa_id'];
+			if($where == '') $where = "where ";
+			else $where = " and ";
+			$where .= " e.empresa_id = ". $empresa_id. " ";
+		}
 
 		$query = "select 
 						u.usuario_id,
@@ -59,7 +58,7 @@
 					left join empresa as e on e.empresa_id = ef.empresa_id
 					left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
 					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) ".$where."
-					order by ra.hora desc;";
+					order by ra.hora desc limit 100;";
 		$cont = 0;
 		//r.responsavel_id = 34 and
 
