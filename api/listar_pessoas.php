@@ -12,7 +12,7 @@
 
 		if(isset($_GET['filtro'])){
 			$filtro = $_GET['filtro'];
-			$where = " where (u.nome like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
+			$where = " and (u.nome like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
 		}
 
 		if (isset($_GET['filtro_data'])) {
@@ -21,19 +21,17 @@
 			$semana_passada = date('Y/m/d', strtotime('-7 days'));;
 
 			if ($_GET['filtro_data'] == "hoje") {
-				$where = " where date_format(ra.hora, '%d/%m/%y') like '%".$data_hoje."%' ";
+				$where = " and date_format(ra.hora, '%d/%m/%y') like '%".$data_hoje."%' ";
 
 			}else {
-				$where = " where ra.hora> '".$semana_passada."' ";
+				$where = " and ra.hora> '".$semana_passada."' ";
 			}
 
 		}
 
 		if(isset($_REQUEST['empresa_id'])) {
 			$empresa_id = $_REQUEST['empresa_id'];
-			if($where == '') $where = "where ";
-			else $where = " and ";
-			$where .= " e.empresa_id = ". $empresa_id. " ";
+			$where .= " and e.empresa_id = ". $empresa_id. " ";
 		}
 
 		$query = "select 
@@ -57,7 +55,7 @@
 					left join rel_empresa_funcionario as ef on ef.usuario_id = u.usuario_id
 					left join empresa as e on e.empresa_id = ef.empresa_id
 					left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
-					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) ".$where."
+					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (1,4) ".$where."
 					order by ra.hora desc limit 100;";
 		$cont = 0;
 		//r.responsavel_id = 34 and
