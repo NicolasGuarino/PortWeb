@@ -70,7 +70,7 @@ function mascara_cpf() {
 		cpf = cpf.replace(/\D*/g, "");
 		cpf = cpf.replace(/([0-9]{3})([0-9]{1})/y, "$1.$2");
 		cpf = cpf.replace(/([0-9]{3})\.([0-9]{3})([0-9]{1})/y, "$1.$2.$3");
-		cpf = cpf.replace(/([0-9]{3})\.([0-9]{3})\.([0-9]{3})([0-9]{1})/y, "$1.$2.$3-$4");
+		cpf = cpf.replace(/([0-9]{3})\.([0-9]{3})\.([0-9]{3})([0-9\X]{1})/y, "$1.$2.$3-$4");
 	}else{
 		cpf = cpf.substr(0, 14);
 	}
@@ -82,10 +82,9 @@ function mascara_rg() {
 	var rg = $(this).val();
 
 	if(rg.length <= 12) {
-		rg = rg.replace(/\D*/g, "");
 		rg = rg.replace(/([0-9]{2})([0-9]{1})/y, "$1.$2");
 		rg = rg.replace(/([0-9]{2})\.([0-9]{3})([0-9]{1})/y, "$1.$2.$3");
-		rg = rg.replace(/([0-9]{2})\.([0-9]{3})\.([0-9]{3})([0-9]{1})/y, "$1.$2.$3-$4");
+		rg = rg.replace(/([0-9]{2})\.([0-9]{3})\.([0-9]{3})([0-9\X\x]{1})/y, "$1.$2.$3-$4");
 	}else{
 		rg = rg.substr(0, 12);
 	}
@@ -141,13 +140,10 @@ function eCpf(cpf){
 }
 
 function eRG(rg){
-	var regex  = /(\d{2}).(\d{3}).(\d{3})-(\d{1})/g;
+	var regex  = /(\d{2}).(\d{3}).(\d{3})-((\d{1}) || \x\X{1})/g;
 	var valido = false;
 
-	if(regex.test(rg)) {
-		valido = validaRG(rg);
-	}
-
+	if(regex.test(rg)) valido = true;
 	return valido;	
 }
 
@@ -205,25 +201,6 @@ function validaCPF(cpf) {
 
     // Verificando se o primeiro numero do digito verificador é igual ao numero calculado
     if (resto != parseInt(cpf.substring(10, 11))) valido = false;
-
-    return valido;
-}
-
-function validaRG(rg) {
-	var valido = true;
-	var soma = 0, resto;
-
-	// Removendo a formatação
-	rg = rg.replace(/\./g, "");
-	rg = rg.replace(/\-/g, "");
-
-	// Verificando se o último digito é valido
-    for (i=1; i<=9; i++) {
-    	if(i == 9) soma += parseInt(rg.substring(i-1, i)) * 100;
-    	else soma += parseInt(rg.substring(i-1, i)) * (i+1);
-    }
-
-    if(soma % 11 != 0) valido = false;
 
     return valido;
 }
