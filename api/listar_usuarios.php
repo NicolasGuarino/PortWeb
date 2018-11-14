@@ -10,7 +10,7 @@
 	$where = "";
 	if(isset($_GET['filtro'])){
 		$filtro = $_GET['filtro'];
-		$where = " and (u.nome like '%".$filtro."%' or u.cpf like '%".$filtro."%' or u.rg like '%".$filtro."%' or date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$filtro."%') ";
+		$where = " and (u.nome like '".$filtro."%' or u.cpf like '%".$filtro."%' or u.rg like '%".$filtro."%' or date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$filtro."%') ";
 	}
 
 	if (isset($_GET['filtro_funcionario'])) {
