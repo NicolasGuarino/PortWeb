@@ -8,6 +8,8 @@
 		$conexao = conectar();
 		
 		$obj_retorno = [];
+		$limite = (isset($_REQUEST['limite'])) ? $_REQUEST['limite'] : 10;
+		$pagina = $_REQUEST['pagina'];
 		$where = "";
 
 		if(isset($_GET['filtro'])){
@@ -56,9 +58,8 @@
 					left join empresa as e on e.empresa_id = ef.empresa_id
 					left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
 					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (1,4) ".$where."
-					order by ra.hora desc limit 100;";
+					group by ra.registro_acesso_id order by ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
 		$cont = 0;
-		//r.responsavel_id = 34 and
 
 		$select = mysqli_query($conexao, $query);
 			

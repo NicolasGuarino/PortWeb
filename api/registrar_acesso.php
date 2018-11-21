@@ -165,7 +165,8 @@
 							"tipo_locomocao" => $registro_acesso['tipo_locomocao'],
 							"tipo_acao" 	 => $registro_acesso['tipo_acao'],
 							"hora" 			 => $hora,
-							"data" 			 => $data
+							"data" 			 => $data,
+							"liberacao"		 => $liberado
 						];
 
 						// Enviando notificação

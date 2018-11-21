@@ -18,7 +18,7 @@ $(function(){
 		var tel_ok = validar_campo(eTel(telefone), $("#telefone"), "#ff2233", "#aaa");
 		var email_ok = validar_campo(eEmail(email), $("#email"), "#ff2233", "#aaa");
 
-		if(campos_preenchidos && img_ok && tel_ok && email_ok) {
+		if(campos_preenchidos && tel_ok && email_ok) {
 			// Dados a serem enviados
     		var formData = new FormData();
 			formData.append("nome", nome);
