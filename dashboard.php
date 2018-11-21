@@ -60,17 +60,17 @@
 					<span class="tit_card"> Gerenciamento de usuário </span>
 				</div>
 
+				<div class="card_opcao" id="empresa">
+					<div class="icone fa fa-building-o"></div>
+					<span class="tit_card"> Gerenciamento de empresas </span>
+				</div>
+
 				<?php 
 					if($_SESSION['usuario']['tipo_usuario_id'] == 8) {
 				?>
 					<div class="card_opcao" id="documentos">
 						<div class="icone fa fa-file-text-o"></div>
 						<span class="tit_card"> Gerenciamento de documentos </span>
-					</div>
-
-					<div class="card_opcao" id="empresa">
-						<div class="icone fa fa-building-o"></div>
-						<span class="tit_card"> Gerenciamento de empresas </span>
 					</div>
 				<?php } ?>
 			</div>
