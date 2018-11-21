@@ -10,7 +10,7 @@
 	$where = "";
 	if(isset($_GET['filtro'])){
 		$filtro = $_GET['filtro'];
-		$where = " and (u.nome like '%".$filtro."%' or u.cpf like '%".$filtro."%' or u.rg like '%".$filtro."%' or date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$filtro."%') ";
+		$where = " and (u.nome like '".$filtro."%' or u.cpf like '%".$filtro."%' or u.rg like '%".$filtro."%' or date_format(u.ultima_atualizacao, '%d/%m/%y') like '%".$filtro."%') ";
 	}
 
 	if (isset($_GET['filtro_funcionario'])) {
@@ -31,7 +31,7 @@
 	}
 
 
-	$query = "select u.* from usuario as u left join documento as d on(d.documento_id=u.documento_id) where u.ativo = 1 and u.tipo_usuario_id in (1,4) ".$where." order by usuario_id desc";
+	$query = "select u.* from usuario as u left join documento as d on(d.documento_id=u.documento_id) where u.ativo = 1 and u.tipo_usuario_id in (1,4,8) ".$where." order by nome asc";
 
 			//inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) 
 			//inner join empresa as e on(e.empresa_id=ef.empresa_id) 

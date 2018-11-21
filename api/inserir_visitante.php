@@ -74,7 +74,7 @@
 			$exec = mysqli_query($con, $query);		// Executando a query
 		}
 	}
-
+	
 	// Consultando informações do usuário e veículo
 	$query  = "select u.usuario_id, u.nome, u.rg, v.veiculo_id, v.placa from usuario as u ";
 	$query .= "left join rel_usuario_veiculo as uv on(u.usuario_id = uv.usuario_id) ";
