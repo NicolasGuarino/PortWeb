@@ -19,7 +19,7 @@ $(function() {
 		var email_ok = validar_campo(eEmail(email), $("#email"), "#ff2233", "#aaa");
 
 
-		if(campos_preenchidos && img_ok && tel_ok && email_ok) {
+		if(campos_preenchidos && tel_ok && email_ok) {
 			if(imagem != null) var atualizarImg = "true";
 			else var atualizarImg = img_edit;
 

@@ -9,7 +9,7 @@
 		
 		$obj_retorno = [];
 		$limite = (isset($_REQUEST['limite'])) ? $_REQUEST['limite'] : 10;
-		$pagina = (isset($_REQUEST['pagina'])) ? $_REQUEST['limite'] : 1;
+		$pagina = (isset($_REQUEST['pagina'])) ? $_REQUEST['pagina'] : 1;
 		$where = "";
 
 		if(isset($_GET['filtro'])){

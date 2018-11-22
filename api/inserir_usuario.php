@@ -12,13 +12,18 @@
 	$dt_nascimento = addslashes($_REQUEST['dt_nascimento']);
 	$empresa = addslashes($_REQUEST['empresa']);
 	$tipo_usuario = addslashes($_REQUEST['tipo_usuario']);
-	$imagem = $_FILES['imagem'];
+	@$imagem = $_FILES['imagem'];
 	$tel = addslashes($_REQUEST['tel']);
 	$email = addslashes($_REQUEST['email']);
 	
-	$caminho = "img/";
-	$caminho_upload = "../".$caminho.$imagem['name'];
-	$caminho_banco  = $caminho.$imagem['name'];;
+
+	if($imagem != NULL) {
+		$caminho = "img/";
+		$caminho_upload = "../".$caminho.$imagem['name'];
+		$caminho_banco  = $caminho.$imagem['name'];
+	}else{
+		$caminho_banco  = 'img/icones/icon_persona.png';
+	}
 
 	// GERANDO A IMAGEM OCULTA
 	set_time_limit(60);
@@ -42,8 +47,10 @@
 	// Salvando a imagem gerada
 	imagepng($img, $caminho_salvar);
 	imagedestroy($img);
+	
+	$upload_ok = move_uploaded_file($imagem['tmp_name'], $caminho_upload);
 
-	if(move_uploaded_file($imagem['tmp_name'], $caminho_upload)) {
+	if($upload_ok || $imagem == NULL) {
 		$query = "select * from documento where disponibilidade = 1 and substring(numero_etiqueta, 1,1) = 'C' order by documento_id asc limit 1;";
 		$result = mysqli_query($conexao, $query);
 		$documento = json_encode(mysqli_fetch_array($result)['documento_id']);

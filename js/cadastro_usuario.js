@@ -42,7 +42,7 @@ $(function(){
 
 		cpf_usuario = cpf;
 
-		var campos_preenchidos = texto_ok && combobox_ok && img_ok;
+		var campos_preenchidos = texto_ok && combobox_ok;
 
 		if(campos_preenchidos && campos_validos) {
 			// Dados a serem enviados
