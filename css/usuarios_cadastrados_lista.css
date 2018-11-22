@@ -131,7 +131,6 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	position: relative;
 	width: 1000000px;
 	height: 350px;
-	overflow: hidden;
 	margin: 10px 0 20px 0;
 }
 
@@ -139,9 +138,9 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	position:relative;
 	display: block;
 	width: 250px;
-	height: 320px;
+	height: auto;
 	margin: 10px 20px;
-	padding: 5px;
+	padding:5px;
 	float: left;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
@@ -167,17 +166,18 @@ body { box-sizing:border-box;padding:0;margin:0; }
 }
 
 .card_usuario .btn_imprimir {
-	position:absolute;
+/* 	position:absolute; */
 	display:block;
-	width:80px;
+	width:100%px;
 	height:25px;
-	border:solid 1px #5cb85c;
+	margin:10px auto 5px auto;
+	border:solid 1px #0275d8;
 	padding:5px;
 	top:87%;
 	left:62%;
 	text-align:center;
 	text-decoration:none;
-	color:#5cb85c;
+	color:#0275d8;
 	line-height:25px;
 	border-radius:2px;
 	font-family: 'Source Sans Pro', sans-serif;
@@ -188,23 +188,24 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	content: '\f05a';
 	font-family: 'fontAwesome';
 	position: absolute;
-	right: 5px;
-	top: 5px;
-	width: 25px;
-	height: 25px;
-	background: #000;
+	right: 0;
+	top: 0;
+	width: 35px;
+	height: 35px;
+	background: #888;
 	text-decoration: none;
 	text-align: center;
-	color:#5cb85c;
-	border-radius:100%;
-	font-size: 32px;
+	line-height:35px;
+	color:#fff;
+	border-radius:0 0 0 60%;
+	font-size: 25px;
 }
 
-.btn_detalhes:before {
+/*.btn_detalhes:before {
     position: absolute;
     top: -3px;
     left: -1px;
-}
+}*/
 
 #add_user {
 	width: 160px;
@@ -224,7 +225,7 @@ body { box-sizing:border-box;padding:0;margin:0; }
 }
 
 #add_user:after {
-	content: " Adicionar usuário";
+	content: "Â Adicionar usuÃ¡rio";
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight:bold;
 }

@@ -14,6 +14,9 @@ $(function(){
 		}
 	});
 
+	$("#voltar").click(function(){
+		window.location = "dashboard.php";
+	});
 
 	$("#btn_cadastro").click(function(e){
 		e.preventDefault();

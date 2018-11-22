@@ -373,13 +373,21 @@ header label {
 }
 
 .container_tit {
+	padding:10px 0;
 	display: block;
 	width: 100%;
 	font-weight: bold;
 	font-size: 24px;
 	text-align: center;
-	margin: 10px 0;
+	line-height:31px;
+	margin:10px 0;
 	font-family: 'Source Sans Pro', sans-serif;
+}
+
+#voltar {
+	cursor:pointer;
+	float:left;
+	font-size:45px;line-height:31px;
 }
 
 .lbl_container {

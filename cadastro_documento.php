@@ -24,8 +24,12 @@
 
 			<div id="conteudo">
 				<div class="container">
-					<div class="container_logo"></div>
-					<div class="container_tit"> Cadastro de documentos </div>
+					<!-- <div class="container_logo"></div> -->
+					
+					<div class="container_tit">
+						<i class="fa fa-chevron-circle-left" id="voltar"></i>
+						<span class="texto"> Cadastro de documentos </span>
+					</div>
 
 					<form name="frm_cadastro_documento" method="post" action="cadastro_documento.php">
 						<label class="lbl_container"> Quantidade de documentos </label>

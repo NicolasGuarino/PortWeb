@@ -24,7 +24,7 @@
 			</header>
 
 			<div class="container" id="login_container">
-				<div class="container_logo"></div>
+				<!-- <div class="container_logo"></div> -->
 
 				<span class="container_tit"> <i class="fa fa-chevron-circle-left" id="voltar"></i> Cadastro de empresa </span>
 
