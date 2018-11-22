@@ -19,7 +19,7 @@ $(function() {
 		var documento = $("#documento").val();
 		
 		var campos_validos = validar(placa, marca, cor);
-		var campos_preenchidos = texto_ok && combobox_ok && img_ok;
+		var campos_preenchidos = texto_ok && combobox_ok;
 		
 		if(campos_preenchidos && campos_validos) {
 			if(imagem != null) var atualizarImg = "true"; 

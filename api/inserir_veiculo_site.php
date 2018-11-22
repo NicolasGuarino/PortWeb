@@ -8,15 +8,21 @@
 	$modelo 	 = $_REQUEST['modelo'];
 	$marca 	 	 = $_REQUEST['marca'];
 	$cor 	 	 = $_REQUEST['cor'];
-	$foto  	 	 = $_FILES['foto'];
+	@$foto  	 	 = $_FILES['foto'];
 	$caminho 	 = "img/";
 	
-	$caminho_upload = "../".$caminho.$foto['name'];
-	$caminho_banco = $caminho.$foto['name'];
+	if($foto != NULL) {
+		$caminho_upload = "../".$caminho.$foto['name'];
+		$caminho_banco = $caminho.$foto['name'];
+	}else{
+		$caminho_banco = "img/icones/ic_carro.png";
+	}
 
 	$hora = date('Y-m-d H:i:s');
 	
-	if(move_uploaded_file($foto['tmp_name'], $caminho_upload)) {
+	@$upload_ok = move_uploaded_file($foto['tmp_name'], $caminho_upload);
+
+	if($upload_ok || $foto == NULL) {
 		$query = "select * from documento where substring(numero_etiqueta, 1,1) = 'A' and disponibilidade = 1 order by documento_id asc limit 1;";
 		$result = mysqli_query($conexao, $query);
 		$documento = mysqli_fetch_array($result)['documento_id'];
