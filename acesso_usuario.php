@@ -35,6 +35,7 @@
 				</div>
 
 				<div id="lista">
+
 					<div v-for="acesso of lista_acesso" class="linha" v-bind:class="liberacaoStyle(acesso.liberacao)">
 						<div class="esquerda">
 							<!-- <div class="img_usuario" v-bind:style="{backgroundImage: backgroundImageUrl(acesso.foto_usuario)}"></div> -->
