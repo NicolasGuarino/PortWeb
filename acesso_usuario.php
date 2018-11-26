@@ -37,7 +37,8 @@
 				<div id="lista">
 					<div v-for="acesso of lista_acesso" class="linha" v-bind:class="liberacaoStyle(acesso.liberacao)">
 						<div class="esquerda">
-							<div class="img_usuario" v-bind:style="{backgroundImage: 'url(' + acesso.foto_usuario + ')'}"></div>
+							<!-- <div class="img_usuario" v-bind:style="{backgroundImage: backgroundImageUrl(acesso.foto_usuario)}"></div> -->
+							<div class="img_usuario" v-bind:style="{backgroundImage: backgroundImageUrl(acesso.foto_usuario)}"></div>
 						</div>
 
 						<div class="direita">
@@ -77,17 +78,6 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- <div class="linha" v-for="acesso of lista_acesso">
-						<div class="coluna">
-							<div class="img_usuario" v-bind:style="{backgroundImage: 'url(' + acesso.foto_usuario + ')'}"></div>
-						</div>
-						<div class="coluna">{{acesso.usuario}}</div>
-						<div class="coluna">{{acesso.empresa}}</div>
-						<div class="coluna">{{acesso.tipo_locomocao}}</div>
-						<div class="coluna">{{acesso.tipo_acao}}</div>
-						<div class="coluna">{{acesso.data + ' - ' + acesso.hora}}</div>
-					</div> -->
 				</div>
 			</div>
 
