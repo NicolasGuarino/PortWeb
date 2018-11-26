@@ -3,9 +3,6 @@
 	include 'conexao.php';
 	include 'push_notification.php';
 
-	
-
-	
 	if(isset($_GET['numero_etiqueta']) || isset($_REQUEST['documento_id'])){
 		$conexao = conectar();
 		$numero_etiqueta = $_GET['numero_etiqueta']; // NUMERO DO DOCUMENTO LIDA
@@ -39,7 +36,7 @@
 
 		$sql .= "where d.numero_etiqueta = '".$numero_etiqueta."' limit 1;";
 		$select = mysqli_query($conexao, $sql);
-
+		
 		if(mysqli_num_rows($select) != 0) {
 			$array_dados_documento = mysqli_fetch_array($select);
 			
@@ -123,7 +120,7 @@
 				$lista_token = [];
 
 				// Verificando se a empresa é a Primi
-				if($array_dados_empresa['empresa_id'] == 1){
+				// if($array_dados_empresa['empresa_id'] == 1){
 
 					// Consultando o token dos usuários responsáveis da empresa
 					$query  = "select u.usuario_id, u.nome, u.token_firebase, tp.nome as 'tipo', e.empresa_id from usuario as u ";
@@ -134,10 +131,10 @@
 
 					// Executando a query
 					$exec = mysqli_query($conexao, $query);
-
+					
 					// Preenchendo a lista de token
 					while($usuario_responsavel = mysqli_fetch_array($exec)) $lista_token[] = $usuario_responsavel['token_firebase'];
-
+					
 					// Verificando se existe algum token
 					if(count($lista_token) > 0){
 
@@ -145,7 +142,7 @@
 						// Consultando o registro de acesso realizado
 						$query  = "select * from registro_acesso ";
 						$query .= "where registro_acesso_id = ". $registro_acesso_id .";";
-
+						
 						// Executando a query
 						$exec 	  		 = mysqli_query($conexao, $query);
 						$registro_acesso = mysqli_fetch_array($exec);
@@ -173,7 +170,7 @@
 						$retorno = push_notification($title, $description, $click_action, $object_in_array, $lista_token);
 					}
 				}
-			}
+			// }
 		}
 
 		$liberacao_acesso = array("liberacao_acesso" => $liberado, "registro_acesso_id" => $registro_acesso_id);
