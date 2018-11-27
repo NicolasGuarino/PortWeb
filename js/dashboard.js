@@ -12,6 +12,10 @@ $(function(){
 			case 'empresa':
 				window.location = "empresas_lista.php";
 				break;
+
+			case 'lista_acesso':
+				window.location = "acesso_usuario.php";
+				break;
 		}
 	});
 });
