@@ -17,9 +17,6 @@
 	$query .= "inner join status as s on(s.status_id=su.status_id) ";
 	$query .= "where cpf = '".$cpf."' and u.ativo = 1 and su.hora = u.ultima_atualizacao and sd.hora = d.ultima_atualizacao order by u.usuario_id desc limit 1;";
 	
-	echo $query;
-	echo "<br />";
-
 	$select = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
 
 	$lista = [];
