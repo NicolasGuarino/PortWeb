@@ -63,8 +63,6 @@
 					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (1,4) ".$where."
 					group by ra.registro_acesso_id order by ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
 		$cont = 0;
-		echo $query;
-		echo "<br />";
 		$select = mysqli_query($conexao, $query);
 			
 		while($rs = mysqli_fetch_array($select)){
