@@ -40,6 +40,9 @@ $("#campo_pesquisa").keyup(function(){
 		if(valor != "") listarAcesso(valor);
 		else listarAcesso();
 
+		// Mostrando o loader
+		$(".loader").fadeIn(250);
+
 	}, 500);
 });
 
@@ -74,6 +77,5 @@ function listarAcesso(nome){
 
 		// Escondendo o loader
 		$(".loader").fadeOut(250);
-
 	});
 }
