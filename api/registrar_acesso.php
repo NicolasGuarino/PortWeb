@@ -126,7 +126,6 @@
 				mysqli_query($conexao, $sql);
 
 				// ATUALIZANDO O CAMPO 'ULTIMA_ATUALIZACAO' DO RELACIONAMENTO ENTRE USUÁRIO E STATUS
-				// $sql  = "update rel_status_usuario set hora = '".$agora."' where usuario_id = " .$array_dados_documento['usuario_id']. ";";
 				$sql  = "update rel_status_usuario set hora = '". $agora ."' where usuario_id = ". $rs['usuario_id'] ." and hora = '". $rs['ultima_atualizacao'] ."';";
 				mysqli_query($conexao, $sql);
 
