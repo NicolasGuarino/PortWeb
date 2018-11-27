@@ -13,8 +13,8 @@
 		$where = "";
 
 		if(isset($_GET['filtro'])){
-			$filtro = $_GET['filtro'];
-			$where = " and (u.nome like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
+			$filtro = strtolower($_GET['filtro']);
+			$where = " and (lower(u.nome) like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
 		}
 
 		if (isset($_GET['filtro_data'])) {
@@ -28,8 +28,9 @@
 			}else {
 				$where = " and ra.hora> '".$semana_passada."' ";
 			}
-
 		}
+
+
 
 		if(isset($_REQUEST['empresa_id'])) {
 			$empresa_id = $_REQUEST['empresa_id'];
@@ -45,6 +46,8 @@
 						u.foto AS foto_usuario,
 						u.nome AS usuario,
 						e.nome AS empresa,
+						e.email as email_empresa,
+						e.telefone as telefone_empresa,
 						ra.liberacao,
 						DATE_FORMAT(ra.hora, '%d/%m/%y') AS data,
 						DATE_FORMAT(ra.hora, '%H:%i:%s') AS hora,
@@ -70,6 +73,8 @@
 				"foto_usuario" => $rs['foto_usuario'],
 				"usuario" => $rs['usuario'],
 				"empresa" => $rs['empresa'],
+				"email_empresa" => $rs['email_empresa'],
+				"telefone_empresa" => $rs['telefone_empresa'],
 				"liberacao" => $rs['liberacao'],
 				"data" => $rs['data'],
 				"hora" => $rs['hora'],

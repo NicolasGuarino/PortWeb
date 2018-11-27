@@ -83,16 +83,17 @@
 		// return $result;
 
 		//Tratando resultado de sucesso e falha do envio.
-		$result = explode(",", $result);	
-		if (strpos($result[1], 'success') !== false) {
-		    $result = substr($result[1],strrpos($result[1],":")+1, strlen($result[1])-strrpos($result[1],":")+1); 
-		    if($result > 0){
-		    	return 1;
-		    }else{
-		    	return 0;
-		    }
-		}else{
-			return 0;
-		}
+		// $result = explode(",", $result);
+
+		// if (strpos($result[1], 'success') !== false) {
+		//     $result = substr($result[1],strrpos($result[1],":")+1, strlen($result[1])-strrpos($result[1],":")+1); 
+		//     if($result > 0){
+		//     	return 1;
+		//     }else{
+		//     	return 0;
+		//     }
+		// }else{
+		// 	return 0;
+		// }
 	}
 	

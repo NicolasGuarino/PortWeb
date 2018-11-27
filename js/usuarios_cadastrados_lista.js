@@ -150,13 +150,15 @@ function criar_cardUsuario(caminho_img, nome, numDoc, cpf) {
 
 	if(tipo_usuario_id == 8) {
 		var botao_imprimir = $(document.createElement("a")).addClass("btn_imprimir");
-			botao_imprimir.text("Imprimir");
+			botao_imprimir.text("Informações");
 			botao_imprimir.attr("target", "_blank");
-			botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
+			// botao_imprimir.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
+			botao_imprimir.attr("href", "cadastro_usuario.php?cpf=" + cpf);
 	}
 
-	var botao_detalhe = $(document.createElement("a")).addClass("fa fa-info-circle btn_detalhes");
-		botao_detalhe.attr("href", "cadastro_usuario.php?cpf=" + cpf);
+	var botao_detalhe = $(document.createElement("a")).addClass("fa fa-print btn_detalhes");
+		// botao_detalhe.attr("href", "cadastro_usuario.php?cpf=" + cpf);
+		botao_detalhe.attr("href", "api/imagem_oculta_etiqueta/impressao.php?documento_id=" + numDoc);
 
 	card_usuario.append(img);
 	card_usuario.append(nome_usuario);
