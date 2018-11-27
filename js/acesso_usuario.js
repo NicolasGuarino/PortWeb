@@ -16,7 +16,8 @@ var app = new Vue({
 
 	methods: {
 		liberacaoClass: liberacao => {return (liberacao == 1)? "liberado" : "bloqueado"},
-		liberacaoStyle: liberacao => {return (liberacao == 1)? "linha_verde" : "linha_vermelha"}
+		liberacaoStyle: liberacao => {return (liberacao == 1)? "linha_verde" : "linha_vermelha"},
+		backgroundImageUrl: texto => {return 'url("' + texto + '")'}
 	}
 });
 
@@ -59,6 +60,9 @@ function listarAcesso(nome){
 			filtro: 	nome
 		};
 	}
+
+	// Mostrando o loader
+	$(".loader").fadeIn(250);
 
 	// Preenchendo a lista de registro de acesso
 	ajax = $.ajax({

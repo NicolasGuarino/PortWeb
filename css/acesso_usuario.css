@@ -1,6 +1,7 @@
 body { box-sizing:border-box;padding:0;margin:0; }
 
 #lista_usuarios {
+	width:996px;margin:0 auto;
 	overflow:hidden;
 	position:relative;
 }
@@ -42,12 +43,12 @@ body { box-sizing:border-box;padding:0;margin:0; }
 }
 
 #lista {
-	width:920px;height:auto;margin:0 auto;padding:20px 0;
+	width:auto;height:auto;margin:0 auto;padding:20px 0;
 	overflow:hidden;
 }
 
 .linha {
-	height:auto;width:100%;margin:5px 0;padding:30px 30px;
+	height:auto;width:920px;margin:5px 0;padding:20px 30px;
 	overflow:hidden;
 	background-color:#f0f0f0;
 	border:solid 1px #e0e0e0;
@@ -71,7 +72,6 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	width:700px;height:200px;margin:0;
 	float:left;
 	overflow:hidden;
-	/*background-color:#aaa;*/
 }
 
 .sub {

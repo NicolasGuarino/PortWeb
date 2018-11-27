@@ -10,4 +10,5 @@
 	?>
 		<a href="cadastro_documento.php" class="item_menu"> <i class="fa fa-file-text-o"></i> Cadastro de documento </a> 
 	<?php } ?>
+	<a href="acesso_usuario.php" class="item_menu"> <i class="fa fa-building-o"></i> Lista de acessos </a>
 </div>

@@ -87,7 +87,7 @@ header {
 }
 
 #opcoes {
-	width: auto;
+	width: 800px;
 	display: table;
 	margin: 50px auto 30px auto;
 }

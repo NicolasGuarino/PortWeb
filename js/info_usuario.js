@@ -49,6 +49,8 @@ $(function(){
 
 function carregar_info_usuario(cpf) {
 	$.getJSON("api/carregar_detalhes_usuario.php", {cpf:cpf}, function(retorno) {
+		console.log(retorno);
+
 		$("#form_user").fadeOut(20);
 		$("#perfil_usuario").fadeIn(700);
 		$(".container_tit").children(".texto").text("Detalhes usuário");
