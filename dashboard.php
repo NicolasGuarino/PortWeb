@@ -75,7 +75,7 @@
 				<?php } ?>
 
 				<div class="card_opcao" id="lista_acesso">
-					<div class="icone fa fa-building-o"></div>
+					<div class="icone fa fa-bars"></div>
 					<span class="tit_card">Lista de acessos</span>
 				</div>
 			</div>
