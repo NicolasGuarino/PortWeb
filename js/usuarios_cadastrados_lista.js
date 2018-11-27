@@ -148,7 +148,7 @@ function criar_cardUsuario(caminho_img, nome, numDoc, cpf) {
 	var num_documento = $(document.createElement("label")).addClass("num_documento"); 
 		num_documento.text(numDoc);
 
-	if(tipo_usuario_id == 8) {
+	if(tipo_usuario_id == 8 || tipo_usuario_id == 3) {
 		var botao_imprimir = $(document.createElement("a")).addClass("btn_imprimir");
 			botao_imprimir.text("Informações");
 			botao_imprimir.attr("target", "_blank");
