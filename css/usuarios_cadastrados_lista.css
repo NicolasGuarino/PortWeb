@@ -225,11 +225,7 @@ body { box-sizing:border-box;padding:0;margin:0; }
 }
 
 #add_user:after {
-<<<<<<< HEAD
-	content: "Â Adicionar usuÃ¡rio";
-=======
 	content: "Adicionar usuário";
->>>>>>> 41f50b4a0d958a29b3af5cb22f709c0208c51962
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight:bold;
 }
