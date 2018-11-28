@@ -30,8 +30,6 @@
 			}
 		}
 
-
-
 		if(isset($_REQUEST['empresa_id'])) {
 			$empresa_id = $_REQUEST['empresa_id'];
 			$where .= " and e.empresa_id = ". $empresa_id. " ";
@@ -51,6 +49,7 @@
 						ra.liberacao,
 						DATE_FORMAT(ra.hora, '%d/%m/%y') AS data,
 						DATE_FORMAT(ra.hora, '%H:%i:%s') AS hora,
+						DATE_FORMAT(ra.hora, '%H:%i - %d/%m') AS data_hora,
 						ra.tipo_acao,
 						ra.tipo_locomocao,
 						u.documento_id AS documento_pessoa,
@@ -60,7 +59,7 @@
 					left join rel_empresa_funcionario as ef on ef.usuario_id = u.usuario_id
 					left join empresa as e on e.empresa_id = ef.empresa_id
 					left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
-					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (1,4) ".$where."
+					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (1,3,4) ".$where."
 					group by ra.registro_acesso_id order by ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
 		$cont = 0;
 		$select = mysqli_query($conexao, $query);
@@ -77,6 +76,7 @@
 				"liberacao" => $rs['liberacao'],
 				"data" => $rs['data'],
 				"hora" => $rs['hora'],
+				"data_hora" => $rs['data_hora'],
 				"tipo_acao" => $rs['tipo_acao'],
 				"tipo_locomocao" => $rs['tipo_locomocao'],
 				"documento_pessoa" => $rs['documento_pessoa'],
