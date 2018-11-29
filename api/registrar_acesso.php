@@ -102,6 +102,7 @@
 				$sql_tipo_acao .= "inner join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
 				$sql_tipo_acao .= "where u.usuario_id = ".$array_dados_documento['usuario_id']." order by ru.registro_acesso_id desc limit 1;";
 				
+
 				$select_tipo_acao = mysqli_query($conexao, $sql_tipo_acao);
 				$rs = mysqli_fetch_array($select_tipo_acao);
 
@@ -109,9 +110,15 @@
 					
 				$veiculo_id = (eCarro($numero_etiqueta)) ? $array_dados_documento['veiculo_id'] : "null";
 
+				// Inserindo o ID da empresa de destino se o usuário for visitante
+				if($rs['tipo_usuario_id'] == 4 && isset($_GET['empresa_destino_id']))
+					$empresa_destino_id = $_GET['empresa_destino_id'];
+				else
+					$empresa_destino_id = 'null';
+
 				// INSERINDO REGISTRO DE ACESSO
-				$sql  = "insert into registro_acesso (veiculo_id, responsavel_id, tipo_acao, acionamento_id, tipo_locomocao, hora, liberacao, tipo_autenticacao) ";
-				$sql .= "values (".$veiculo_id.", ".$responsavel_id.", '".$tipo_acao."', 3, '".$tipo_locomocao."', '".$agora."', " . $liberado . ", ".$tipo_autenticacao.");";
+				$sql  = "insert into registro_acesso (veiculo_id, responsavel_id, tipo_acao, acionamento_id, tipo_locomocao, hora, liberacao, tipo_autenticacao, empresa_destino_id) ";
+				$sql .= "values (".$veiculo_id.", ".$responsavel_id.", '".$tipo_acao."', 3, '".$tipo_locomocao."', '".$agora."', " . $liberado . ", ".$tipo_autenticacao.", ". $empresa_destino_id .");";
 
 				mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 

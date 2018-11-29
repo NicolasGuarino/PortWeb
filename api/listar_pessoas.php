@@ -31,8 +31,9 @@
 		}
 
 		if(isset($_REQUEST['empresa_id'])) {
+
 			$empresa_id = $_REQUEST['empresa_id'];
-			$where .= " and e.empresa_id = ". $empresa_id. " ";
+			$where .= " and (e.empresa_id = ". $empresa_id . " or ra.empresa_destino_id = ". $empresa_id .") ";
 		}
 
 		$query = "select 
@@ -63,7 +64,7 @@
 					group by ra.registro_acesso_id order by ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
 		$cont = 0;
 		$select = mysqli_query($conexao, $query);
-			
+
 		while($rs = mysqli_fetch_array($select)){
 
 			$obj_retorno[$cont] = array(

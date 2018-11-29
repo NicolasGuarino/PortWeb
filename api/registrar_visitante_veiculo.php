@@ -43,8 +43,8 @@
         $documento_id = exec_query($conexao, $query_veicle)[0]['documento_id'];
     }
 
-    $query_visitante_empresa = "update usuario set empresa_destino_id = $empresa_destino_id where usuario_id = $usuario_id ;";
-    mysqli_query($conexao, $query_visitante_empresa);
+    // $query_visitante_empresa = "update usuario set empresa_destino_id = $empresa_destino_id where usuario_id = $usuario_id ;";
+    // mysqli_query($conexao, $query_visitante_empresa);
 
     
     $return = array(

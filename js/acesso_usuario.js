@@ -17,7 +17,8 @@ var app = new Vue({
 	methods: {
 		liberacaoClass: liberacao => {return (liberacao == 1)? "liberado" : "bloqueado"},
 		liberacaoStyle: liberacao => {return (liberacao == 1)? "linha_verde" : "linha_vermelha"},
-		backgroundImageUrl: texto => {return 'url("' + texto + '")'}
+		backgroundImageUrl: texto => {return 'url("' + texto + '")'},
+		obterDataHora: (data, hora) => {return moment("2018-11-27 12:30:15").format("DD/MM/YYYY hh:mm:ss")}
 	}
 });
 
