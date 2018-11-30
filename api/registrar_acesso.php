@@ -110,11 +110,19 @@
 					
 				$veiculo_id = (eCarro($numero_etiqueta)) ? $array_dados_documento['veiculo_id'] : "null";
 
+				// ID da empresa de destino
+				$empresa_destino_id = 'null';
+
 				// Inserindo o ID da empresa de destino se o usuário for visitante
-				if($rs['tipo_usuario_id'] == 4 && isset($_GET['empresa_destino_id']) && $_GET['empresa_destino_id'] != '0')
-					$empresa_destino_id = $_GET['empresa_destino_id'];
-				else
-					$empresa_destino_id = 'null';
+				if($rs['tipo_usuario_id'] == 4){
+
+					if($rs['tipo_acao'] == 'ENTRADA')
+						if(isset($_GET['empresa_destino_id']) && $_GET['empresa_destino_id'] != '0')
+							$empresa_destino_id = $_GET['empresa_destino_id'];
+
+					elseif($rs['tipo_acao'] == 'SAIDA')
+						$empresa_destino_id = $rs['empresa_destino_id'];
+				}
 
 				// INSERINDO REGISTRO DE ACESSO
 				$sql  = "insert into registro_acesso (veiculo_id, responsavel_id, tipo_acao, acionamento_id, tipo_locomocao, hora, liberacao, tipo_autenticacao, empresa_destino_id) ";
