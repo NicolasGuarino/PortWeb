@@ -113,15 +113,18 @@
 				// ID da empresa de destino
 				$empresa_destino_id = 'null';
 
+				// Ultima ação do usuário
+				$ultima_acao = $rs['tipo_acao'];
+
 				// Inserindo o ID da empresa de destino se o usuário for visitante
 				if($rs['tipo_usuario_id'] == 4){
 
-					if($rs['tipo_acao'] == 'ENTRADA')
-						if(isset($_GET['empresa_destino_id']) && $_GET['empresa_destino_id'] != '0')
+					if($tipo_acao == 'ENTRADA'){
+						
+						if($_GET['empresa_destino_id'] != '0')
 							$empresa_destino_id = $_GET['empresa_destino_id'];
 
-					elseif($rs['tipo_acao'] == 'SAIDA')
-						$empresa_destino_id = $rs['empresa_destino_id'];
+					}elseif($tipo_acao == 'SAIDA') $empresa_destino_id = $rs['empresa_destino_id'];
 				}
 
 				// INSERINDO REGISTRO DE ACESSO
