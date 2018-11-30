@@ -111,7 +111,7 @@
 				$veiculo_id = (eCarro($numero_etiqueta)) ? $array_dados_documento['veiculo_id'] : "null";
 
 				// Inserindo o ID da empresa de destino se o usuário for visitante
-				if($rs['tipo_usuario_id'] == 4 && isset($_GET['empresa_destino_id']))
+				if($rs['tipo_usuario_id'] == 4 && isset($_GET['empresa_destino_id']) && $_GET['empresa_destino_id'] != '0')
 					$empresa_destino_id = $_GET['empresa_destino_id'];
 				else
 					$empresa_destino_id = 'null';
