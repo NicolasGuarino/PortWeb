@@ -120,11 +120,14 @@
 				if($rs['tipo_usuario_id'] == 4){
 
 					if($tipo_acao == 'ENTRADA'){
-						
-						if($_GET['empresa_destino_id'] != '0')
-							$empresa_destino_id = $_GET['empresa_destino_id'];
 
-					}elseif($tipo_acao == 'SAIDA') $empresa_destino_id = $rs['empresa_destino_id'];
+						if($_GET['empresa_destino_id'] != '0'){
+							$empresa_destino_id = $_GET['empresa_destino_id'];
+						}
+
+					}else if($tipo_acao == 'SAIDA') {
+						$empresa_destino_id = $rs['empresa_destino_id'];
+					}
 				}
 
 				// INSERINDO REGISTRO DE ACESSO
