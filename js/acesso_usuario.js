@@ -15,10 +15,36 @@ var app = new Vue({
 	},
 
 	methods: {
-		liberacaoClass: liberacao => {return (liberacao == 1)? "liberado" : "bloqueado"},
-		liberacaoStyle: liberacao => {return (liberacao == 1)? "linha_verde" : "linha_vermelha"},
-		backgroundImageUrl: texto => {return 'url("' + texto + '")'},
-		obterDataHora: (data, hora) => {return moment("2018-11-27 12:30:15").format("DD/MM/YYYY hh:mm:ss")}
+
+		liberacaoClass: function(liberacao) {
+			return (liberacao == 1)? "liberado" : "bloqueado";
+		},
+
+		liberacaoStyle: function(liberacao) {
+			return (liberacao == 1)? "linha_verde" : "linha_vermelha";
+		},
+
+		backgroundImageUrl: function(texto) {
+			return 'url("' + texto + '")';
+		},
+
+		obterDataHora: function(data, hora) {
+			return moment("2018-11-27 12:30:15").format("DD/MM/YYYY hh:mm:ss");
+		},
+
+		expandirLinha: function(e){
+			var linha = $(e.currentTarget);
+			// var direita = linha.children(".direita");
+			// var esquerda = linha.children(".esquerda");
+
+			if(linha.hasClass("expandido")){
+				linha.removeClass("expandido");
+
+			}else {
+				$(".linha").removeClass("expandido");
+				linha.addClass("expandido");
+			}
+		}
 	}
 });
 
@@ -74,7 +100,7 @@ function listarAcesso(nome){
 	}).done(function(resultado){
 
 		// Preenchendo a lista de acessos
-		app.lista_acesso = $.parseJSON(resultado)
+		app.lista_acesso = $.parseJSON(resultado);
 
 		// Escondendo o loader
 		$(".loader").fadeOut(250);

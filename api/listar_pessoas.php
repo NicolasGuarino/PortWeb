@@ -38,6 +38,7 @@
 
 		$query = "select 
 						u.usuario_id,
+						tp.nome as tipo_usuario,
 						ra.registro_acesso_id,
 						v.foto AS foto_carro,
 						CONCAT(v.marca, ' ', v.modelo, ',', v.cor) AS carro,
@@ -57,8 +58,9 @@
 						u.usuario_id from registro_acesso as ra 
 					left join rel_registro_usuario as ru on(ru.registro_acesso_id=ra.registro_acesso_id)
 					left join usuario as u on(u.usuario_id=ru.usuario_id)
+					left join tipo_usuario as tp on (u.tipo_usuario_id = tp.tipo_usuario_id)
 					left join rel_empresa_funcionario as ef on ef.usuario_id = u.usuario_id
-					left join empresa as e on e.empresa_id = ef.empresa_id
+					left join empresa as e on (e.empresa_id = ef.empresa_id or e.empresa_id = ra.empresa_destino_id)
 					left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
 					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (1,3,4) ".$where."
 					group by ra.registro_acesso_id order by ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
@@ -71,6 +73,7 @@
 				"registro_acesso_id" => $rs['registro_acesso_id'],
 				"foto_usuario" => $rs['foto_usuario'],
 				"usuario" => $rs['usuario'],
+				"tipo_usuario" => $rs['tipo_usuario'],
 				"empresa" => $rs['empresa'],
 				"email_empresa" => $rs['email_empresa'],
 				"telefone_empresa" => $rs['telefone_empresa'],

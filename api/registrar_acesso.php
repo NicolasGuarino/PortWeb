@@ -96,11 +96,10 @@
 				$agora = $dtObj->format('Y-m-d H:i:s');
 				
 				// VERIFICANDO A ULTIMA AÇÃO DO USUARIO (SE FOI ENTRADA OU SAIDA)
-				$sql_tipo_acao  = "select * from usuario as u inner join rel_registro_usuario as ru on(ru.usuario_id=u.usuario_id) ";
-				$sql_tipo_acao .= "inner join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
+				$sql_tipo_acao  = "select * from usuario as u left join rel_registro_usuario as ru on(ru.usuario_id=u.usuario_id) ";
+				$sql_tipo_acao .= "left join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
 				$sql_tipo_acao .= "where u.usuario_id = ".$array_dados_documento['usuario_id']." order by ru.registro_acesso_id desc limit 1;";
 				
-
 				$select_tipo_acao = mysqli_query($conexao, $sql_tipo_acao);
 				$rs = mysqli_fetch_array($select_tipo_acao);
 
@@ -111,20 +110,17 @@
 				// ID da empresa de destino
 				$empresa_destino_id = 'null';
 
-				// Ultima ação do usuário
-				$ultima_acao = $rs['tipo_acao'];
-
 				// Inserindo o ID da empresa de destino se o usuário for visitante
 				if($rs['tipo_usuario_id'] == 4){
 
 					if($tipo_acao == 'ENTRADA'){
 
-						if($_GET['empresa_destino_id'] != '0'){
+						if($_GET['empresa_destino_id'] != 0){
 							$empresa_destino_id = $_GET['empresa_destino_id'];
 						}
 
 					}else if($tipo_acao == 'SAIDA') {
-						$empresa_destino_id = $rs['empresa_destino_id'];
+						$empresa_destino_id = ($rs['empresa_destino_id'] == '')? 'null' : $rs['empresa_destino_id'];
 					}
 				}
 
@@ -150,12 +146,18 @@
 				$sql  = "update rel_status_usuario set hora = '". $agora ."' where usuario_id = ". $rs['usuario_id'] ." and hora = '". $rs['ultima_atualizacao'] ."';";
 				mysqli_query($conexao, $sql);
 
-				
 				// COLETANDO DADOS DA EMPRESA
-				$sql  = "select e.empresa_id, e.nome from empresa as e ";
-				$sql .= "inner join rel_empresa_funcionario as reu on reu.empresa_id = e.empresa_id ";
-				$sql .= "inner join usuario as u on u.usuario_id = reu.usuario_id ";
-				$sql .= "where u.usuario_id = ".$array_dados_documento['usuario_id'].";";
+				if(isset($_GET['empresa_destino_id'])){
+
+					$sql  = "select e.empresa_id, e.nome from empresa as e ";
+					$sql .= "where e.empresa_id = ".$empresa_destino_id.";";
+
+				}else {
+					$sql  = "select e.empresa_id, e.nome from empresa as e ";
+					$sql .= "inner join rel_empresa_funcionario as reu on reu.empresa_id = e.empresa_id ";
+					$sql .= "inner join usuario as u on u.usuario_id = reu.usuario_id ";
+					$sql .= "where u.usuario_id = ".$array_dados_documento['usuario_id'].";";
+				}
 
 				$select = mysqli_query($conexao, $sql);
 				$array_dados_empresa = mysqli_fetch_array($select);
@@ -169,58 +171,55 @@
 				// Lista de token dos usuários responsáveis
 				$lista_token = [];
 
-				// Verificando se a empresa é a Primi
-				// if($array_dados_empresa['empresa_id'] == 1){
 
-					// Consultando o token dos usuários responsáveis da empresa
-					$query  = "select u.usuario_id, u.nome, u.token_firebase, tp.nome as 'tipo', e.empresa_id from usuario as u ";
-					$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id = u.usuario_id) ";
-					$query .= "inner join empresa as e on(e.empresa_id = ef.empresa_id) ";
-					$query .= "inner join tipo_usuario as tp on(tp.tipo_usuario_id = u.tipo_usuario_id) ";
-					$query .= "where tp.tipo_usuario_id = 3 and e.empresa_id = ". $array_dados_empresa['empresa_id'] .";";
+				// Consultando o token dos usuários responsáveis da empresa
+				$query  = "select u.usuario_id, u.nome, u.token_firebase, tp.nome as 'tipo', e.empresa_id from usuario as u ";
+				$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id = u.usuario_id) ";
+				$query .= "inner join empresa as e on(e.empresa_id = ef.empresa_id) ";
+				$query .= "inner join tipo_usuario as tp on(tp.tipo_usuario_id = u.tipo_usuario_id) ";
+				$query .= "where tp.tipo_usuario_id = 3 and e.empresa_id = ". $array_dados_empresa['empresa_id'] .";";
 
+				// Executando a query
+				$exec = mysqli_query($conexao, $query);
+				
+				// Preenchendo a lista de token
+				while($usuario_responsavel = mysqli_fetch_array($exec)) $lista_token[] = $usuario_responsavel['token_firebase'];
+
+				// Verificando se existe algum token
+				if(count($lista_token) > 0){
+
+
+					// Consultando o registro de acesso realizado
+					$query  = "select * from registro_acesso ";
+					$query .= "where registro_acesso_id = ". $registro_acesso_id .";";
+					
 					// Executando a query
-					$exec = mysqli_query($conexao, $query);
-					
-					// Preenchendo a lista de token
-					while($usuario_responsavel = mysqli_fetch_array($exec)) $lista_token[] = $usuario_responsavel['token_firebase'];
-					
-					// Verificando se existe algum token
-					if(count($lista_token) > 0){
+					$exec 	  		 = mysqli_query($conexao, $query);
+					$registro_acesso = mysqli_fetch_array($exec);
 
+					// Obtendo a data e hora
+					$hora = date_format(date_create($registro_acesso['hora']), "H:i");
+					$data = date_format(date_create($registro_acesso['hora']), "d/m/Y");
 
-						// Consultando o registro de acesso realizado
-						$query  = "select * from registro_acesso ";
-						$query .= "where registro_acesso_id = ". $registro_acesso_id .";";
-						
-						// Executando a query
-						$exec 	  		 = mysqli_query($conexao, $query);
-						$registro_acesso = mysqli_fetch_array($exec);
+					// ENVIO DE NOTIFICAÇÃO
+					$click_action = "INICIAR_PORTARIA";
 
-						// Obtendo a data e hora
-						$hora = date_format(date_create($registro_acesso['hora']), "H:i");
-						$data = date_format(date_create($registro_acesso['hora']), "d/m/Y");
+					// Dados da notificação
+					$object_in_array = [
+						"usuario" 		 => $array_dados_documento['nome'],
+						"foto_usuario" 	 => $array_dados_documento['foto'],
+						"empresa" 		 => $array_dados_empresa['nome'],
+						"tipo_locomocao" => $registro_acesso['tipo_locomocao'],
+						"tipo_acao" 	 => $registro_acesso['tipo_acao'],
+						"hora" 			 => $hora,
+						"data" 			 => $data,
+						"liberacao"		 => $liberado
+					];
 
-						// ENVIO DE NOTIFICAÇÃO
-						$click_action = "INICIAR_PORTARIA";
-
-						// Dados da notificação
-						$object_in_array = [
-							"usuario" 		 => $array_dados_documento['nome'],
-							"foto_usuario" 	 => $array_dados_documento['foto'],
-							"empresa" 		 => $array_dados_empresa['nome'],
-							"tipo_locomocao" => $registro_acesso['tipo_locomocao'],
-							"tipo_acao" 	 => $registro_acesso['tipo_acao'],
-							"hora" 			 => $hora,
-							"data" 			 => $data,
-							"liberacao"		 => $liberado
-						];
-
-						// Enviando notificação
-						$retorno = push_notification($title, $description, $click_action, $object_in_array, $lista_token);
-					}
+					// Enviando notificação
+					$retorno = push_notification($title, $description, $click_action, $object_in_array, $lista_token);
 				}
-			// }
+			}
 		}
 
 		$liberacao_acesso = array("liberacao_acesso" => $liberado, "registro_acesso_id" => $registro_acesso_id);
