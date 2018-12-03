@@ -47,7 +47,7 @@
 
 							<div class="sub">
 								<div class="item">usuário</div>
-								<div class="cont">{{acesso.usuario}}</div>
+								<div class="cont nome_usuario">{{acesso.usuario}}</div>
 
 								<div class="item">data</div>
 								<div class="cont">{{acesso.data_hora}}</div>
