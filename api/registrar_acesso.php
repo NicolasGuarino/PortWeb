@@ -102,7 +102,6 @@
 				$sql_tipo_acao .= "inner join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
 				$sql_tipo_acao .= "where u.usuario_id = ".$array_dados_documento['usuario_id']." order by ru.registro_acesso_id desc limit 1;";
 				
-
 				$select_tipo_acao = mysqli_query($conexao, $sql_tipo_acao);
 				$rs = mysqli_fetch_array($select_tipo_acao);
 
@@ -120,13 +119,10 @@
 				if($rs['tipo_usuario_id'] == 4){
 
 					if($tipo_acao == 'ENTRADA'){
-
-						if($_GET['empresa_destino_id'] != '0'){
-							$empresa_destino_id = $_GET['empresa_destino_id'];
-						}
+						$empresa_destino_id = $_GET['empresa_destino_id'];
 
 					}else if($tipo_acao == 'SAIDA') {
-						$empresa_destino_id = $rs['empresa_destino_id'];
+						$empresa_destino_id = ($rs['empresa_destino_id'] == '')? 'null' : $rs['empresa_destino_id'];
 					}
 				}
 

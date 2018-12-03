@@ -9,16 +9,16 @@
 	$rg				 = $_GET['rg'];
 	$placa			 = $_GET['placa'];
 	$tipo_usuario_id = 4;							// Usuário 'visitante'
-	$foto_usuario	 = "img/icone/person.png";		// Imagem padrão
+	$foto_usuario	 = "img/icones/person.png";		// Imagem padrão
 	$foto_veiculo	 = "img/icones/ic_carro.png";	// Imagem padrão
 
 	
 	$query = "select * from usuario where rg = '$rg';";
 	$exec = mysqli_query($con, $query);
 	$usuario_id = mysqli_fetch_array($exec)['usuario_id'];
+	
 	if($usuario_id == "" || $usuario_id == null){
 
-		
 		// Consultando o primeiro documento disponível para condômeno
 		$query  = "select documento_id from documento ";
 		$query .= "where disponibilidade = 1 and numero_etiqueta like 'C%'";
