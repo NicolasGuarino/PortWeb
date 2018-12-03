@@ -98,8 +98,8 @@
 				$agora = $dtObj->format('Y-m-d H:i:s');
 				
 				// VERIFICANDO A ULTIMA AÇÃO DO USUARIO (SE FOI ENTRADA OU SAIDA)
-				$sql_tipo_acao  = "select * from usuario as u inner join rel_registro_usuario as ru on(ru.usuario_id=u.usuario_id) ";
-				$sql_tipo_acao .= "inner join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
+				$sql_tipo_acao  = "select * from usuario as u left join rel_registro_usuario as ru on(ru.usuario_id=u.usuario_id) ";
+				$sql_tipo_acao .= "left join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
 				$sql_tipo_acao .= "where u.usuario_id = ".$array_dados_documento['usuario_id']." order by ru.registro_acesso_id desc limit 1;";
 				
 				$select_tipo_acao = mysqli_query($conexao, $sql_tipo_acao);
@@ -111,9 +111,6 @@
 
 				// ID da empresa de destino
 				$empresa_destino_id = 'null';
-
-				// Ultima ação do usuário
-				$ultima_acao = $rs['tipo_acao'];
 
 				// Inserindo o ID da empresa de destino se o usuário for visitante
 				if($rs['tipo_usuario_id'] == 4){
@@ -148,12 +145,18 @@
 				$sql  = "update rel_status_usuario set hora = '". $agora ."' where usuario_id = ". $rs['usuario_id'] ." and hora = '". $rs['ultima_atualizacao'] ."';";
 				mysqli_query($conexao, $sql);
 
-				
 				// COLETANDO DADOS DA EMPRESA
-				$sql  = "select e.empresa_id, e.nome from empresa as e ";
-				$sql .= "inner join rel_empresa_funcionario as reu on reu.empresa_id = e.empresa_id ";
-				$sql .= "inner join usuario as u on u.usuario_id = reu.usuario_id ";
-				$sql .= "where u.usuario_id = ".$array_dados_documento['usuario_id'].";";
+				if(isset($_GET['empresa_destino_id'])){
+
+					$sql  = "select e.empresa_id, e.nome from empresa as e ";
+					$sql .= "where e.empresa_id = ".$_GET['empresa_destino_id'].";";
+
+				}else {
+					$sql  = "select e.empresa_id, e.nome from empresa as e ";
+					$sql .= "inner join rel_empresa_funcionario as reu on reu.empresa_id = e.empresa_id ";
+					$sql .= "inner join usuario as u on u.usuario_id = reu.usuario_id ";
+					$sql .= "where u.usuario_id = ".$array_dados_documento['usuario_id'].";";
+				}
 
 				$select = mysqli_query($conexao, $sql);
 				$array_dados_empresa = mysqli_fetch_array($select);
