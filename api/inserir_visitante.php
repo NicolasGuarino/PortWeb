@@ -8,9 +8,9 @@
 	$nome			 = $_GET['nome'];
 	$rg				 = $_GET['rg'];
 	$placa			 = $_GET['placa'];
-	$tipo_usuario_id = 4;							// Usuário 'visitante'
-	$foto_usuario	 = "img/icones/person.png";		// Imagem padrão
-	$foto_veiculo	 = "img/icones/ic_carro.png";	// Imagem padrão
+	$tipo_usuario_id = 4;								// Usuário 'visitante'
+	$foto_usuario	 = "img/icones/icon_persona.png";	// Imagem padrão
+	$foto_veiculo	 = "img/icones/ic_carro.png";		// Imagem padrão
 
 	
 	$query = "select * from usuario where rg = '$rg';";
