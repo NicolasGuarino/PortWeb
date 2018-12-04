@@ -23,6 +23,10 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	text-transform:capitalize;text-align:center;font-size:28px;
 }
 
+.nome_usuario {
+	text-overflow:ellipsis;
+}
+
 #campo_pesquisa {
 	width:355px;
 	height:15px;

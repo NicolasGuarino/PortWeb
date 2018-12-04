@@ -11,10 +11,12 @@
 		$limite = (isset($_REQUEST['limite'])) ? $_REQUEST['limite'] : 10;
 		$pagina = (isset($_REQUEST['pagina'])) ? $_REQUEST['pagina'] : 1;
 		$where = "";
+		$order = "";
 
 		if(isset($_GET['filtro'])){
 			$filtro = strtolower($_GET['filtro']);
 			$where = " and (lower(u.nome) like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
+			$order = "position('". $filtro ."' IN u.nome) asc,";
 		}
 
 		if (isset($_GET['filtro_data'])) {
@@ -63,7 +65,7 @@
 					left join empresa as e on (e.empresa_id = ef.empresa_id or e.empresa_id = ra.empresa_destino_id)
 					left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
 					left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (1,3,4) ".$where."
-					group by ra.registro_acesso_id order by ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
+					group by ra.registro_acesso_id order by ". $order ." ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
 		$cont = 0;
 		$select = mysqli_query($conexao, $query);
 

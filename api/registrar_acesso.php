@@ -40,51 +40,75 @@
 		if(mysqli_num_rows($select) != 0) {
 			$array_dados_documento = mysqli_fetch_array($select);
 			
-			$query = "select * from escala where usuario_id = ".$array_dados_documento['usuario_id']." and weekday(now()) = dia_da_semana and now() between hora_entrada and hora_saida;";
-			$select = mysqli_query($conexao, $query);
-			$escala = mysqli_fetch_array($select);
+			// VERIFICANDO A ULTIMA AÇÃO DO USUARIO (ENTRADA OU SAIDA)
+			$query  = "select tipo_acao from usuario as u inner join rel_registro_usuario as ru on(ru.usuario_id=u.usuario_id) ";
+			$query .= "inner join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
+			$query .= "where u.usuario_id = ".$array_dados_documento['usuario_id']." order by ru.registro_acesso_id desc limit 1;";
+			
+			// Executando a query
+			$exec = mysqli_query($conexao, $query);
+			$ult_registro = mysqli_fetch_array($exec);
 
-			if(mysqli_num_rows($select) == 0) {
-				$query = "select * from excessao where usuario_id = ".$array_dados_documento['usuario_id']." and date_format(now(), '%Y-%m-%d') = data and now() between hora_entrada and hora_saida;";
-				$select = mysqli_query($conexao, $query);
-				
-				if(mysqli_num_rows($select) != 0) {
+			// CONSULTANDO A EXCESSÃO PARA HOJE
+			$query  = "select * from excessao ";
+			$query .= "where usuario_id = ". $array_dados_documento['usuario_id'] ." and data = date_format(now(), '%Y-%m-%d');";
 
+			// Executando a query
+			$exec = mysqli_query($conexao, $query);
+			$excessao = mysqli_fetch_array($exec);
+
+			// CONSULTANDO A ESCALA PARA HOJE
+			$query  = "select * from escala ";
+			$query .= "where usuario_id = ". $array_dados_documento['usuario_id'] ." and dia_da_semana = weekday(now());";
+
+			// Executando a query
+			$exec = mysqli_query($conexao, $query);
+			$escala = mysqli_fetch_array($exec);
+
+			// Hora de entrada e saída
+			$hora_entrada = null;
+			$hora_saida   = null;
+
+			// Definindo a hora de entrada e saída
+			if(count($excessao) > 0){
+				$hora_entrada = date_format(date_create($excessao['hora_entrada']), "H:i");
+				$hora_saida   = date_format(date_create($excessao['hora_saida']),   "H:i");
+
+			}else if(count($escala) > 0){
+				$hora_entrada = date_format(date_create($escala['hora_entrada']), "H:i");
+				$hora_saida   = date_format(date_create($escala['hora_saida']),   "H:i");
+			}
+
+			// Capturando a hora atual
+			$hora_agora = date('H:i');
+
+			// Verificando a entrada
+			if($ult_registro['tipo_acao'] == 'SAIDA'){
+
+				if($hora_agora == $hora_entrada){
 					$liberado = 1;
 					$title = "Acesso liberado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às ".date('H:i:s');
-
-				}else{
-					$liberado = 0;
-					$registro_acesso_id = 0;
-					$title = "Acesso negado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às ".date('H:i:s');
-				}
-
-			}else{
-
-				// VERIFICANDO A ULTIMA AÇÃO DO USUARIO (ENTRADA OU SAIDA)
-				$query  = "select tipo_acao from usuario as u inner join rel_registro_usuario as ru on(ru.usuario_id=u.usuario_id) ";
-				$query .= "inner join registro_acesso as ra on(ra.registro_acesso_id=ru.registro_acesso_id) ";
-				$query .= "where u.usuario_id = ".$array_dados_documento['usuario_id']." order by ru.registro_acesso_id desc limit 1;";
-				
-				// Executando a query
-				$exec = mysqli_query($conexao, $query);
-				$ult_registro = mysqli_fetch_array($exec);
-				
-				// Capturando a hora atual			
-				$hora_agora = date('H:i:s');
-
-				// Verificando se o registro está após o horário de entreda
-				if($ult_registro['tipo_acao'] == "SAIDA" && $hora_agora > $escala['hora_entrada']){
-					$liberado = 0;
-					$title = "Acesso negado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às ".date('H:i:s');
+					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às " . $hora_agora;
 
 				}else {
+					$liberado = 0;
+					$title = "Acesso negado";
+					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às " . $hora_agora;
+				}
+			}
+
+			// Verificando a saída
+			if($ult_registro['tipo_acao'] == 'ENTRADA'){
+
+				if($hora_agora == $hora_saida){
 					$liberado = 1;
 					$title = "Acesso liberado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às ".date('H:i:s');
+					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às " . $hora_agora;
+
+				}else {
+					$liberado = 0;
+					$title = "Acesso negado";
+					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às " . $hora_agora;
 				}
 			}
 

@@ -83,6 +83,8 @@ function listarAcesso(nome){
 
 	if(nome != null){
 		dados = {
+			limite: 50,
+			pagina: 1,
 			empresa_id: empresa_id,
 			filtro: 	nome
 		};
