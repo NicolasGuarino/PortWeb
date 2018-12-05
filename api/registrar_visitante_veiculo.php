@@ -15,6 +15,7 @@
             $query_document = "select * from documento where numero_etiqueta like 'A%' and disponibilidade = 1 order by documento_id asc  limit 1; ";
             $documento_id_novo = exec_query($conexao, $query_document)[0]['documento_id'];
             
+            echo $query_document;
 
             $query_insert = "INSERT INTO veiculo (documento_id, placa, foto, ativo) VALUES ('$documento_id_novo', '$placa', 'img/icones/ic_carro.png', '1');";
             
