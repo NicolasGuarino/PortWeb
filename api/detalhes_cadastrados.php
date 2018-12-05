@@ -95,7 +95,7 @@
 			"carro"  => utf8_encode($rs['carro']),
 			"placa" => utf8_encode($rs['placa']),
 			"foto_usuario" => utf8_encode($rs['foto_usuario']),
-			"nome" => $rs['nome'],
+			"nome" => utf8_encode($rs['nome']),
 			"usuario_id" => utf8_encode($rs['usuario_id']),
 			"rg" => utf8_encode($rs['rg']),
 			"email" => utf8_encode($rs['email'])
