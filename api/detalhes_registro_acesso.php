@@ -76,15 +76,17 @@
 		array_push($registro_acesso_obj, "excessao_obj"=> $array_excessao);
 		mysqli_close($conexao);*/
 
-		$query = "select v.foto as foto_carro, CONCAT(v.marca, ' ', v.modelo, ',', v.cor) as carro, v.placa, u.foto as foto_usuario, u.nome as usuario, e.nome as empresa, r.liberacao, r.hora ";
-		$query .= "from registro_acesso as r ";
-		$query .= "inner join rel_registro_usuario as ru on(ru.registro_acesso_id=r.registro_acesso_id) ";
-		$query .= "inner join usuario as u on(u.usuario_id=ru.usuario_id) ";
-		$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) ";
-		$query .= "inner join empresa as e on(e.empresa_id=ef.empresa_id) ";
-		$query .= "left join rel_usuario_veiculo as uv on(uv.usuario_id=ru.usuario_id) ";
-		$query .= "left join veiculo as v on(v.veiculo_id=r.veiculo_id) ";
-		$query .= "where r.registro_acesso_id = " . $registro_acesso_id . " limit 1; ";
+		$query = "select v.foto as foto_carro, CONCAT(v.marca, ' ', v.modelo, ',', v.cor) as carro, v.placa, 
+					u.foto as foto_usuario, u.nome as usuario, e.nome as empresa, r.liberacao, r.empresa_destino_id, r.tipo_acao,
+					date_format(r.hora, '%d/%m/%Y') as data, date_format(r.hora, '%H:%i:%s') as hora
+					from registro_acesso as r 
+					left join rel_registro_usuario as ru on(ru.registro_acesso_id=r.registro_acesso_id) 
+					left join usuario as u on(u.usuario_id=ru.usuario_id) 
+					left join rel_empresa_funcionario as ef on(ef.usuario_id=u.usuario_id) 
+					left join empresa as e on(e.empresa_id=ef.empresa_id or e.empresa_id = r.empresa_destino_id) 
+					left join rel_usuario_veiculo as uv on(uv.usuario_id=ru.usuario_id) 
+					left join veiculo as v on(v.veiculo_id=r.veiculo_id) 
+					where r.registro_acesso_id = $registro_acesso_id limit 1;  ";
 
 		$select = mysqli_query($conexao, $query);
 		$rs = mysqli_fetch_array($select);
@@ -100,7 +102,9 @@
 			"usuario" => $rs['usuario'],
 			"empresa" => utf8_encode($rs['empresa']),
 			"liberacao" => utf8_encode($liberacao),
+			"data" => utf8_encode($rs['data']),
 			"hora" => utf8_encode($rs['hora']),
+			"tipo_acao" => utf8_encode($rs['tipo_acao'])
 		);
 
 		echo json_encode($obj_retorno, JSON_UNESCAPED_UNICODE);
