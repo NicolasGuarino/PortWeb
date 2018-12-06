@@ -2,9 +2,8 @@
 	
 	include 'conexao.php';
 	include 'push_notification.php';
+	include 'enviar_push_web.php';
 
-	date_default_timezone_set('America/Sao_Paulo');
-	
 	if(isset($_GET['numero_etiqueta']) || isset($_REQUEST['documento_id'])){
 		$conexao = conectar();
 		$numero_etiqueta = $_GET['numero_etiqueta']; // NUMERO DO DOCUMENTO LIDA
@@ -199,7 +198,7 @@
 
 
 				// Consultando o token dos usuários responsáveis da empresa
-				$query  = "select u.usuario_id, u.nome, u.token_firebase, tp.nome as 'tipo', e.empresa_id from usuario as u ";
+				$query  = "select u.usuario_id, u.nome, u.token_firebase, u.token_web, tp.nome as 'tipo', e.empresa_id from usuario as u ";
 				$query .= "inner join rel_empresa_funcionario as ef on(ef.usuario_id = u.usuario_id) ";
 				$query .= "inner join empresa as e on(e.empresa_id = ef.empresa_id) ";
 				$query .= "inner join tipo_usuario as tp on(tp.tipo_usuario_id = u.tipo_usuario_id) ";
@@ -209,7 +208,10 @@
 				$exec = mysqli_query($conexao, $query);
 				
 				// Preenchendo a lista de token
-				while($usuario_responsavel = mysqli_fetch_array($exec)) $lista_token[] = $usuario_responsavel['token_firebase'];
+				while($usuario_responsavel = mysqli_fetch_array($exec)) {
+					$lista_token[] = $usuario_responsavel['token_firebase'];
+					$lista_token_web[] = $usuario_responsavel['token_web'];
+				}
 
 				// Verificando se existe algum token
 				if(count($lista_token) > 0){
@@ -242,8 +244,16 @@
 						"liberacao"		 => $liberado
 					];
 
+					$notification = array(
+						'title' => $title,
+						'body' => $description,
+						'icon' => 'img/logos/empresarial_logo.png',
+						'click_action' => 'http://www.nuflame.com.br/portaria/lista_acesso.php'
+					);
+
 					// Enviando notificação
 					$retorno = push_notification($title, $description, $click_action, $object_in_array, $lista_token);
+					$retorno = enviar_push_web($notification, $lista_token_web);
 				}
 			}
 		}
