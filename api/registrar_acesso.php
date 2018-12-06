@@ -3,8 +3,6 @@
 	include 'conexao.php';
 	include 'push_notification.php';
 
-	date_default_timezone_set('America/Sao_Paulo');
-	
 	if(isset($_GET['numero_etiqueta']) || isset($_REQUEST['documento_id'])){
 		$conexao = conectar();
 		$numero_etiqueta = $_GET['numero_etiqueta']; // NUMERO DO DOCUMENTO LIDA
