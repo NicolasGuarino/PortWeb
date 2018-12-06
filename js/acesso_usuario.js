@@ -129,6 +129,10 @@ $("#campo_pesquisa").keyup(function(){
 	}, 500);
 });
 
+$("#lista_tipo_usuario").change(function(){
+	listarAcesso(null, "tipo_usuario");
+});
+
 // Preenche a lista de acessos
 function listarAcesso(valor, modo){
 
@@ -137,9 +141,12 @@ function listarAcesso(valor, modo){
 		pagina: 	null,
 		filtro: 	null,
 		limite: 	app.limite,
-		empresa_id: empresa_idl
-		tipo_usuario: ""
+		empresa_id: empresa_id
 	};
+
+	if($("#lista_tipo_usuario").val() != ""){
+		dados.tipo_usuario = $("#lista_tipo_usuario").val();
+	}
 
 	// Valor do campo de pesquisa
 	var valor_pesquisa = $("#campo_pesquisa").val();
@@ -147,38 +154,28 @@ function listarAcesso(valor, modo){
 	app.ult_data 			 =  null;
 	app.ult_data_linha_tempo =  null;
 
+	if(modo == "tipo_usuario"){
+		dados.pagina = 1;
+		dados.filtro = "";
+	}
+
 	if(modo == "todos"){
-
-		// Atualizando a página atual
-		app.pagina_atual = 1;
-
-		dados = {
-			pagina: app.pagina_atual,
-			filtro: ""
-		}
+		dados.pagina = 1;
+		dados.filtro = "";
 	}
 
 	if(modo == "pesquisa"){
-
-		// Atualizando a página atual
-		app.pagina_atual = 1;
-
-		dados = {
-			pagina: app.pagina_atual,
-			filtro: valor
-		}
-
+		dados.pagina = 1;
+		dados.filtro = valor;
 	}
 
 	if(modo == "continuar"){
 
 		// Atualizando a página atual
-		app.pagina_atual ++;
+		app.controle.pagina_atual ++;
 
-		dados = {
-			pagina: app.pagina_atual,
-			filtro: valor_pesquisa
-		}
+		dados.pagina = app.controle.pagina_atual;
+		dados.filtro = valor_pesquisa;
 
 		$(".load_lista").fadeIn(200);
 	}

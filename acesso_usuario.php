@@ -34,11 +34,12 @@
 						<input type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Pesquise pelo nome ou data de registro"/>
 						<i class="fa fa-search" id="botao_pesquisa"></i>
 
-						<!-- <select>
-							<option>todos</option>
-							<option>visitantes</option>
-							<option>funcionários</option>
-						</select> -->
+						<!-- <div id="lbl_tipo_usuario">Tipo de usuário</div> -->
+						<select id="lista_tipo_usuario">
+							<option value="">todos</option>
+							<option value="4">visitantes</option>
+							<option value="1">funcionários</option>
+						</select>
 					</div>
 
 					<!-- Mensagem de pesquisa sem resultado -->

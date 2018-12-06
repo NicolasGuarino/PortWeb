@@ -212,3 +212,14 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	position:fixed;top:0;left:1010px;
 	outline:solid 1px #000;
 }
+
+#lista_tipo_usuario {
+	width:200px;height:30px;margin:10px 0 0 0;padding:0 0 0 10px;
+	text-transform:capitalize;font-size:17px;
+}
+
+#lbl_tipo_usuario {
+	width:200px;height:30px;
+	line-height:30px;font-size:17px;
+	outline:none;
+}
