@@ -247,7 +247,7 @@
 					$notification = array(
 						'title' => $title,
 						'body' => $description,
-						'icon' => 'img/logos/empresarial_logo.png',
+						'icon' => 'empresarial_logo.png',
 						'click_action' => 'http://www.nuflame.com.br/portaria/lista_acesso.php'
 					);
 
