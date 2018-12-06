@@ -5,8 +5,8 @@
 		<meta charset="utf-8">
 		<title> Usuários cadastrados </title>
 
-		<link rel="stylesheet" type="text/css" href="css/style.css?04">
-		<link rel="stylesheet" type="text/css" href="css/acesso_usuario.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/acesso_usuario.css?0">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"></script>
 		<script type="text/javascript" src="assets/js/vue.js"></script>
@@ -23,60 +23,77 @@
 			</header>
 
 			<div id="lista_usuarios">
-				<div class="loader">
-					carregando ...
-					<!-- <div class="circulo"></div> -->
-				</div>
 
-				<div id="pesquisa">
-					<input type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Pesquise pelo nome ou data de registro"/>
-					<i class="fa fa-search" id="botao_pesquisa"></i>
-					
+				<div class="loader" v-on:click="atualizarLista()">
+					<div class="loader_circulo"></div>
+					<span>carregando</span>
 				</div>
 
 				<div id="lista">
+					<div id="pesquisa">
+						<input type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Pesquise pelo nome ou data de registro"/>
+						<i class="fa fa-search" id="botao_pesquisa"></i>
 
-					<div class="linha" v-on:click="expandirLinha($event)" v-for="acesso of lista_acesso" v-bind:class="liberacaoStyle(acesso.liberacao)">
-						<div class="esquerda">
-							<div class="img_usuario" v-bind:style="{backgroundImage: backgroundImageUrl(acesso.foto_usuario)}"></div>
-							<div class="traco"></div>
-							<div class="tipo_usuario">{{acesso.tipo_usuario}}</div>
-						</div>
+						<!-- <select>
+							<option>todos</option>
+							<option>visitantes</option>
+							<option>funcionários</option>
+						</select> -->
+					</div>
 
-						<div class="direita">
+					<!-- Mensagem de pesquisa sem resultado -->
+					<div class="nada_encontrado">Nada encontrado</div>
 
-							<div class="sub">
-								<div class="item">usuário</div>
-								<div class="cont nome_usuario">{{acesso.usuario}}</div>
+					<div v-for="(acesso, i) of lista_acesso" class="linha_principal">
 
-								<div class="item">data</div>
-								<div class="cont">{{acesso.data_hora}}</div>
+						<!-- Data -->
+						<div v-if="mostrarData(acesso.data) || i == 0" v-bind:id="i + '_data'" class="data">{{acesso.data}}</div>
 
-								<div class="item" v-if="acesso.empresa != null">empresa</div>
-								<div class="cont">{{acesso.empresa}}</div>
+						<!-- Item da lista -->
+						<div class="linha" v-on:click="expandirLinha($event)" v-bind:class="liberacaoStyle(acesso.liberacao)">
 
-								<div class="item" v-if="acesso.email_empresa != null">email (empresa)</div>
-								<div class="cont">{{acesso.email_empresa}}</div>
+							<div class="esquerda">
+								<div class="img_usuario" v-bind:style="{backgroundImage: backgroundImageUrl(acesso.foto_usuario)}"></div>
+								<div class="traco"></div>
+								<div class="tipo_usuario">{{acesso.tipo_usuario}}</div>
 							</div>
 
-							<div class="sub">
-								<div class="item">ação</div>
-								<div class="cont">{{acesso.tipo_acao}}</div>
+							<div class="direita">
 
-								<div class="item">tipo de locomoção</div>
-								<div class="cont">{{acesso.tipo_locomocao}}</div>
+								<div class="sub">
+									<div class="item">usuário</div>
+									<div class="cont nome_usuario">{{acesso.usuario}}</div>
 
-								<div class="item" v-if="acesso.telefone_empresa != null">telefone (empresa)</div>
-								<div class="cont">{{acesso.telefone_empresa}}</div>
-							</div>
+									<div class="item">hora</div>
+									<div class="cont">{{acesso.hora}}</div>
 
-							<div class="sub">
-								<div class="img_liberacao" v-bind:class="liberacaoClass(acesso.liberacao)"></div>
-								<!-- <div v-if="acesso.liberacao" class="cont">liberado</div>
-								<div v-else="acesso.liberacao" class="cont">bloqueado</div> -->
+									<div class="item">empresa</div>
+									<div class="cont">{{acesso.empresa}}</div>
+
+									<div class="item">email (empresa)</div>
+									<div class="cont">{{acesso.email_empresa}}</div>
+								</div>
+
+								<div class="sub">
+									<div class="item">ação</div>
+									<div class="cont">{{acesso.tipo_acao}}</div>
+
+									<div class="item">tipo de locomoção</div>
+									<div class="cont">{{acesso.tipo_locomocao}}</div>
+
+									<div class="item" v-if="acesso.telefone_empresa != null">telefone (empresa)</div>
+									<div class="cont">{{acesso.telefone_empresa}}</div>
+								</div>
 							</div>
 						</div>
 					</div>
+
+					<div class="load_lista">Carregando ...</div>
+				</div>
+
+				<div id="linha_tempo">
+					<div class="linha_titulo">Ir Para</div>
+					<div v-for="(acesso, i) of lista_acesso" v-if="mostrarDataLinha(acesso.data)" v-bind:id="i" v-on:click="scrollData($event)" class="linha_data">{{acesso.data}}</div>
 				</div>
 			</div>
 
