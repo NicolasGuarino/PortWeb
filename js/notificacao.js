@@ -22,7 +22,7 @@
 	})
 	.then(function(token) {
 		// Coletando token
-		$.getJSON("json/inserir_token_web.php", {token:token}, function(retorno) {
+		$.getJSON("api/inserir_token_web.php", {token:token}, function(retorno) {
 			console.log('Token inserido', token);
 		})
 	})
