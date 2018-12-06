@@ -1,6 +1,7 @@
 <?php
-    // enviar_push();
     function enviar_push_web($notification, $lista_token) {
+        $lista_token = array_diff($lista_token, ['']);
+        
         $json_data = array(
             'notification' => $notification,
             'registration_ids' => $lista_token
