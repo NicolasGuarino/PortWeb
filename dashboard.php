@@ -25,6 +25,8 @@
 		<script type="text/javascript" src="js/jquery-2.2.2.js"></script>
 		<script type="text/javascript" src="js/dashboard.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+		<script type="text/javascript" src="js/notificacao.js"></script>
 	</head>
 
 	<body>
