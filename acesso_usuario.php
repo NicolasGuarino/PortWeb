@@ -49,8 +49,7 @@
 						<div class="indice" v-for="i in qtd_pagina">{{i}}</div>
 					</div> -->
 
-					<button class="btn_pagina" id="anterior" v-if="busca.pagina > 1" v-on:click="paginaAnterior()">anterior</button>
-					<button class="btn_pagina" id="proximo" v-if="busca.pagina < qtd_pagina" v-on:click="proximaPagina()">próximo</button>
+					
 
 					<div>Página {{busca.pagina}}</div>
 
@@ -104,7 +103,11 @@
 								</div>
 							</div>
 						</div>
+
 					</div>
+					
+					<button class="btn_pagina" id="anterior" v-if="busca.pagina > 1" v-on:click="paginaAnterior()">anterior</button>
+					<button class="btn_pagina" id="proximo" v-if="busca.pagina < qtd_pagina" v-on:click="proximaPagina()">próximo</button>
 				</div>
 
 				<!-- <div id="linha_tempo">

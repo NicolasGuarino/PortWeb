@@ -4,7 +4,7 @@
         
         $json_data = array(
             'notification' => $notification,
-            'registration_ids' => $lista_token
+            'registration_ids' => json_encode($lista_token)
         );
         
         $data = json_encode($json_data);
