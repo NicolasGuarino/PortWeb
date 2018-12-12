@@ -31,16 +31,28 @@
 
 				<div id="lista">
 					<div id="pesquisa">
-						<input type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Pesquise pelo nome ou data de registro"/>
-						<i class="fa fa-search" id="botao_pesquisa"></i>
-
-						<!-- <div id="lbl_tipo_usuario">Tipo de usuário</div> -->
-						<select id="lista_tipo_usuario">
-							<option value="">todos</option>
-							<option value="4">visitantes</option>
-							<option value="1">funcionários</option>
-						</select>
+						<div>
+							<input v-model="busca.filtro" type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Pesquise pelo nome ou data de registro"/>
+							<i class="fa fa-search" id="botao_pesquisa"></i>
+						</div>
 					</div>
+
+					<select class="lista" id="lista_tipo_usuario" v-model="busca.tipo_usuario">
+						<option value="1,3,4">todos</option>
+						<option value="4">visitantes</option>
+						<option value="1,3">funcionários</option>
+					</select>
+
+					<input type="date" id="data" />
+
+					<!-- <div class="indice_pagina">
+						<div class="indice" v-for="i in qtd_pagina">{{i}}</div>
+					</div> -->
+
+					<button class="btn_pagina" id="anterior" v-if="busca.pagina > 1" v-on:click="paginaAnterior()">anterior</button>
+					<button class="btn_pagina" id="proximo" v-if="busca.pagina < qtd_pagina" v-on:click="proximaPagina()">próximo</button>
+
+					<div>Página {{busca.pagina}}</div>
 
 					<!-- Mensagem de pesquisa sem resultado -->
 					<div class="nada_encontrado">Nada encontrado</div>
@@ -65,8 +77,8 @@
 									<div class="item">usuário</div>
 									<div class="cont nome_usuario">{{acesso.usuario}}</div>
 
-									<div class="item">hora</div>
-									<div class="cont">{{acesso.hora}}</div>
+									<div class="item">tipo de locomoção</div>
+									<div class="cont">{{acesso.tipo_locomocao}}</div>
 
 									<div class="item">empresa</div>
 									<div class="cont">{{acesso.empresa}}</div>
@@ -76,26 +88,29 @@
 								</div>
 
 								<div class="sub">
-									<div class="item">ação</div>
-									<div class="cont">{{acesso.tipo_acao}}</div>
+									<div class="item">data</div>
+									<div class="cont">{{acesso.data}}</div>
 
-									<div class="item">tipo de locomoção</div>
-									<div class="cont">{{acesso.tipo_locomocao}}</div>
+									<div class="item">hora</div>
+									<div class="cont">{{acesso.hora}}</div>
 
 									<div class="item" v-if="acesso.telefone_empresa != null">telefone (empresa)</div>
 									<div class="cont">{{acesso.telefone_empresa}}</div>
 								</div>
+
+								<div class="sub">
+									<div class="img_seta" v-bind:class="acaoClass(acesso.tipo_acao)"></div>
+									<div class="texto_acao">{{acesso.tipo_acao}}</div>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<div class="load_lista">Carregando ...</div>
 				</div>
 
-				<div id="linha_tempo">
-					<div class="linha_titulo">Ir Para</div>
+				<!-- <div id="linha_tempo">
+					<div class="linha_titulo">Data</div>
 					<div v-for="(acesso, i) of lista_acesso" v-if="mostrarDataLinha(acesso.data)" v-bind:id="i" v-on:click="scrollData($event)" class="linha_data">{{acesso.data}}</div>
-				</div>
+				</div> -->
 			</div>
 
 			<div id="logoSextou"></div>

@@ -13,7 +13,8 @@
         $url = 'https://fcm.googleapis.com/fcm/send';
         
         // Chave do server
-        $server_key = 'AAAACupSSgA:APA91bG89KQ8U_8z4GmxfnVpEIhEBA9hdbKHBKsyFtvmufPQIBnTSAmTQoMarIUP7h0jT0Yb5Qm_eok6B6JggCcEt6okoUInbCJLMavq-80mTI64jd9e9VFOlClS_mnLwQCIox_DOl9t';
+        // $server_key = 'AAAACupSSgA:APA91bG89KQ8U_8z4GmxfnVpEIhEBA9hdbKHBKsyFtvmufPQIBnTSAmTQoMarIUP7h0jT0Yb5Qm_eok6B6JggCcEt6okoUInbCJLMavq-80mTI64jd9e9VFOlClS_mnLwQCIox_DOl9t'; // CHAVE DO PORTARIA
+        $server_key = 'AAAAcgAcsFU:APA91bFz0iRWEPfN3kax56X5uK0cn8dcKdSmSWXXozG4-L69RL1_byzpfda0FmYVtTfwyQh09pv2HDCUjnEkoBC10C0qEyA_ZG-IWZ6dwd2GTVjFy8PnrXZuCHbCAtbDEHg3LQElo4jF'; // CHAVE DO AUDITORIA
         
         $headers = array(
             'Content-Type:application/json',

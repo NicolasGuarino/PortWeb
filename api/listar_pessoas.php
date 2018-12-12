@@ -64,15 +64,26 @@
 				left join rel_empresa_funcionario as ef on ef.usuario_id = u.usuario_id
 				left join empresa as e on (e.empresa_id = ef.empresa_id or e.empresa_id = ra.empresa_destino_id)
 				left join rel_usuario_veiculo as uv on(uv.usuario_id=u.usuario_id)
-				left join veiculo as v on(v.veiculo_id=uv.veiculo_id) where u.tipo_usuario_id in (".$tipo_usuario.") ".$where."
-				group by ra.registro_acesso_id order by ". $order ." ra.hora desc limit ".$limite." offset ".($pagina * $limite - $limite).";";
+				left join veiculo as v on(v.veiculo_id=uv.veiculo_id)
+				where u.tipo_usuario_id in (".$tipo_usuario.") ".$where." group by ra.registro_acesso_id order by ". $order ." ra.hora desc ";
 
-		$select = mysqli_query($conexao, $query);
-		
+		// Complemento da query
+		$query_comp = "limit ".$limite." offset ".($pagina * $limite - $limite).";";
+
+		// Trazendo a quantidade de registros sem a condição
+		$exec = mysqli_query($conexao, $query);
+		$qtd_registros = mysqli_num_rows($exec);
+		$qtd_pagina = ceil($qtd_registros / $limite);
+
+		$select = mysqli_query($conexao, $query . $query_comp);
+
 		$obj_retorno = [];
 		while($rs = mysqli_fetch_array($select)){
 			$obj_retorno[] = $rs;
 		}
 
-		echo json_encode($obj_retorno, JSON_UNESCAPED_UNICODE);
+		if(isset($_GET['qtd_pagina']))
+			echo json_encode(["qtd_pagina" => $qtd_pagina, "lista" => $obj_retorno], JSON_UNESCAPED_UNICODE);
+		else
+			echo json_encode($obj_retorno, JSON_UNESCAPED_UNICODE);
 ?>

@@ -3,24 +3,36 @@
 var ajax = null;
 var timer = null;
 
+// Obtendo o ID da empresa do usuário
+var empresa_id = $("#principal").attr("name");
+
 // VueJs
 var app = new Vue({
 	el: '#principal',
 	data: {
 		lista_acesso: [],
+		lista_data: [],
 		loader: false,
 
 		controle: {
-			ult_data: null,
-			ult_data_linha_tempo: null,
-			pagina_atual: 1,
-			limite: 50
-		}
+			ult_data: null
+		},
+
+		busca: {
+			pagina: 		1,
+			limite: 		50,
+			filtro: 		null,
+			tipo_usuario: 	"1,3,4",
+			empresa_id: 	empresa_id,
+			qtd_pagina: 	null
+		},
+
+		qtd_pagina: null
 	},
 
 	methods: {
-		liberacaoClass: function(liberacao) {
-			return (liberacao == 1)? "liberado" : "bloqueado";
+		acaoClass: function(acao) {
+			return (acao == "ENTRADA")? "seta_esquerda" : "seta_direita";
 		},
 
 		liberacaoStyle: function(liberacao) {
@@ -72,21 +84,43 @@ var app = new Vue({
 			$("html").animate({scrollTop: el_origem_top}, 200);
 		},
 
+		limparFiltro: function(){
+			this.busca.pagina 		= 1,
+			this.busca.limite 		= 50,
+			this.busca.filtro 		= null,
+			this.tipo_usuario 		= "1,3,4",
+			this.busca.empresa_id 	= empresa_id,
+			this.busca.qtd_pagina 	= null
+		},
+
 		atualizarLista: function(e){
 			$("#campo_pesquisa").val("");
 			$("#campo_pesquisa").focus();
 
+			this.limparFiltro();
 			btnAtualizar();
-			listarAcesso(null, "todos");
+			atualizarListaAcesso();
+		},
+
+		proximaPagina: function(){
+
+			if(this.busca.pagina <= this.qtd_pagina){
+				this.busca.pagina ++;
+				atualizarListaAcesso();
+			}
+		},
+
+		paginaAnterior: function(){
+			if(this.busca.pagina > 0){
+				this.busca.pagina --;
+				atualizarListaAcesso();
+			}
 		}
 	}
 });
 
-// Obtendo o ID da empresa do usuário
-var empresa_id = $("#principal").attr("name");
-
 // Listando os acessos
-listarAcesso(null, "todos");
+atualizarListaAcesso();
 
 // Deixando a linha do tempo fixa ao rolar a página
 $(window).scroll(function(){
@@ -106,11 +140,6 @@ $(window).scroll(function(){
 		$("#linha_tempo").css("top", "");
 		$("#linha_tempo").css("left", "");
 	}
-
-	// Verificando se o scroll está no fim
-	if($(this).scrollTop() + $(this).height() == $(document).height()){
-		listarAcesso(null, "continuar");
-	}
 });
 
 // Realizando a pesquisa quando digitado
@@ -123,62 +152,29 @@ $("#campo_pesquisa").keyup(function(){
 	// Tempo de espera antes de realizar a pesquisa
 	timer = setTimeout(function(){
 
-		if(valor != "") listarAcesso(valor, "pesquisa");
-		else listarAcesso(null, "todos");
+		if(valor != "") atualizarListaAcesso();
+		else atualizarListaAcesso();
 
 	}, 500);
 });
 
 $("#lista_tipo_usuario").change(function(){
-	listarAcesso(null, "tipo_usuario");
+	atualizarListaAcesso();
+});
+
+$("#data").change(function(){
+	var data = $(this).val();
+	var dataSeparada = data.split("-");
+
+	app.busca.filtro = dataSeparada[2] + "/" + dataSeparada[1] + "/" + dataSeparada[0][2] + dataSeparada[0][3];
+	atualizarListaAcesso();
 });
 
 // Preenche a lista de acessos
-function listarAcesso(valor, modo){
+function atualizarListaAcesso(){
 
-	// Parâmetros para a API
-	var dados = {
-		pagina: 	null,
-		filtro: 	null,
-		limite: 	app.limite,
-		empresa_id: empresa_id
-	};
-
-	if($("#lista_tipo_usuario").val() != ""){
-		dados.tipo_usuario = $("#lista_tipo_usuario").val();
-	}
-
-	// Valor do campo de pesquisa
-	var valor_pesquisa = $("#campo_pesquisa").val();
-
-	app.ult_data 			 =  null;
-	app.ult_data_linha_tempo =  null;
-
-	if(modo == "tipo_usuario"){
-		dados.pagina = 1;
-		dados.filtro = "";
-	}
-
-	if(modo == "todos"){
-		dados.pagina = 1;
-		dados.filtro = "";
-	}
-
-	if(modo == "pesquisa"){
-		dados.pagina = 1;
-		dados.filtro = valor;
-	}
-
-	if(modo == "continuar"){
-
-		// Atualizando a página atual
-		app.controle.pagina_atual ++;
-
-		dados.pagina = app.controle.pagina_atual;
-		dados.filtro = valor_pesquisa;
-
-		$(".load_lista").fadeIn(200);
-	}
+	// 'Zerando' a ultima data
+	app.controle.ult_data = null;
 
 	// Mostrando o loader
 	btnCarregando();
@@ -187,30 +183,23 @@ function listarAcesso(valor, modo){
 	ajax = $.ajax({
 
 		url:  "api/listar_pessoas.php",
-		data: dados
+		data: app.busca
 
-	}).done(function(resultado){
+	}).done(function(r){
+
+		var res = $.parseJSON(r);
 
 		// Convertendo para JSON a lista de pessoas
-		var lista_acesso = $.parseJSON(resultado);
+		var lista_acesso = res.lista;
+
+		app.qtd_pagina = res.qtd_pagina;
 
 		// Preenchendo a lista de acesso
-		if(modo == "continuar"){
-
-			if(lista_acesso != 0)
-				app.lista_acesso = app.lista_acesso.concat(lista_acesso);
-
-		} else app.lista_acesso = lista_acesso;
+		app.lista_acesso = lista_acesso;
 
 		// Mostrando aviso de nada encontrado
-		if(app.lista_acesso.length == 0){
-			$(".nada_encontrado").fadeIn(0);
-			$("#linha_tempo").fadeOut(0);
-			
-		}else {
-			$(".nada_encontrado").fadeOut(0);
-			$("#linha_tempo").fadeIn(0);
-		}
+		if(app.lista_acesso.length == 0) $(".nada_encontrado").fadeIn(0);
+		else $(".nada_encontrado").fadeOut(0);
 
 		// Escondendo o loader
 		btnAtualizar();
