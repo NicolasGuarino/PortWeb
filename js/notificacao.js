@@ -31,11 +31,9 @@
 	});
 
 	// Tratando mensagem recebida
-	// messaging.onMessage(function(payload) {
-	// 	console.log('OnMessagem', payload);
+	messaging.onMessage(function(payload) {
+		console.log('OnMessagem', payload);
 
-	// 	var reload_button = "<br/> <a href='consultas.php' class='fa fa-sync reload'> Atualizar </a> ";
-
-	// 	toastr.options = {positionClass:'toast-bottom-right', escapeHTML:true}
-	// 	toastr.info(payload.notification.body + reload_button, payload.notification.title);
-	// });
+		toastr.options = {positionClass:'toast-bottom-right', escapeHTML:true}
+		toastr.info(payload.notification.body, payload.notification.title);
+	});
