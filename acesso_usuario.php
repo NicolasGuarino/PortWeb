@@ -24,10 +24,7 @@
 
 			<div id="lista_usuarios">
 
-				<div class="loader" v-on:click="atualizarLista()">
-					<div class="loader_circulo"></div>
-					<span>carregando</span>
-				</div>
+				
 
 				<div id="lista">
 					<div id="pesquisa">
@@ -35,6 +32,11 @@
 							<input v-model="busca.filtro" type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Pesquise pelo nome ou data de registro"/>
 							<i class="fa fa-search" id="botao_pesquisa"></i>
 						</div>
+					</div>
+
+					<div class="loader" v-on:click="atualizarLista()">
+						<div class="loader_circulo"></div>
+						<span>carregando</span>
 					</div>
 
 					<select class="lista" id="lista_tipo_usuario" v-model="busca.tipo_usuario">
@@ -48,7 +50,6 @@
 					<!-- <div class="indice_pagina">
 						<div class="indice" v-for="i in qtd_pagina">{{i}}</div>
 					</div> -->
-
 					
 
 					<div>Página {{busca.pagina}}</div>
@@ -105,7 +106,7 @@
 						</div>
 
 					</div>
-					
+
 					<button class="btn_pagina" id="anterior" v-if="busca.pagina > 1" v-on:click="paginaAnterior()">anterior</button>
 					<button class="btn_pagina" id="proximo" v-if="busca.pagina < qtd_pagina" v-on:click="proximaPagina()">próximo</button>
 				</div>
