@@ -20,7 +20,7 @@ var app = new Vue({
 
 		busca: {
 			pagina: 		1,
-			limite: 		50,
+			limite: 		10,
 			filtro: 		null,
 			tipo_usuario: 	"1,3,4",
 			empresa_id: 	empresa_id,
@@ -86,7 +86,7 @@ var app = new Vue({
 
 		limparFiltro: function(){
 			this.busca.pagina 		= 1,
-			this.busca.limite 		= 50,
+			this.busca.limite 		= 10,
 			this.busca.filtro 		= null,
 			this.tipo_usuario 		= "1,3,4",
 			this.busca.empresa_id 	= empresa_id,
