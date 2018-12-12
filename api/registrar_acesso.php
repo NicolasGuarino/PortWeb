@@ -254,7 +254,7 @@
 						'title' => $title,
 						'body' => $description,
 						'icon' => 'empresarial_logo.png',
-						'click_action' => 'http://www.nuflame.com.br/portaria/lista_acesso.php'
+						'click_action' => 'https://nuflame1.websiteseguro.com/portaria/acesso_usuario.php'
 					);
 
 					// Enviando notificação

@@ -21,11 +21,13 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/dashboard.css">
 		<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/toastr.css">
 
 		<script type="text/javascript" src="js/jquery-2.2.2.js"></script>
 		<script type="text/javascript" src="js/dashboard.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+		<script type="text/javascript" src="assets/js/toastr.js"></script>
 		<script type="text/javascript" src="js/notificacao.js"></script>
 	</head>
 
