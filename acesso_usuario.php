@@ -27,32 +27,42 @@
 				
 
 				<div id="lista">
-					<div id="pesquisa">
-						<div>
-							<input v-model="busca.filtro" type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Pesquise pelo nome ou data de registro"/>
-							<i class="fa fa-search" id="botao_pesquisa"></i>
+					<div id="caixa_pesquisa">
+						<div id="pesquisa">
+							<div>
+								<input v-model="busca.filtro" type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Nome do usuário ou data de registro"/>
+								<i class="fa fa-search" id="botao_pesquisa"></i>
+							</div>
+						</div>
+
+						<div class="campo">
+							<div class="campo_nome">Tipo</div>
+
+							<select class="lista" id="lista_tipo_usuario" v-model="busca.tipo_usuario">
+								<option value="1,3,4">todos</option>
+								<option value="4">visitantes</option>
+								<option value="1,3">funcionários</option>
+							</select>
+						</div>
+
+						<div class="campo">
+							<div class="campo_nome">Inicio</div>
+							<input type="date" class="data_campo" />
+						</div>
+
+						<div class="campo">
+							<div class="campo_nome">Final</div>
+							<input type="date" class="data_campo" />
+						</div>
+						
+						<div class="loader" v-on:click="atualizarLista()">
+							<div class="loader_circulo"></div>
 						</div>
 					</div>
 
-					<div class="loader" v-on:click="atualizarLista()">
-						<div class="loader_circulo"></div>
-						<span>carregando</span>
-					</div>
-
-					<select class="lista" id="lista_tipo_usuario" v-model="busca.tipo_usuario">
-						<option value="1,3,4">todos</option>
-						<option value="4">visitantes</option>
-						<option value="1,3">funcionários</option>
-					</select>
-
-					<input type="date" id="data" />
-
-					<!-- <div class="indice_pagina">
-						<div class="indice" v-for="i in qtd_pagina">{{i}}</div>
+					<!-- <div id="caixa_filtro">
 					</div> -->
-					
 
-					<div>Página {{busca.pagina}}</div>
 
 					<!-- Mensagem de pesquisa sem resultado -->
 					<div class="nada_encontrado">Nada encontrado</div>
@@ -109,6 +119,7 @@
 
 					<button class="btn_pagina" id="anterior" v-if="busca.pagina > 1" v-on:click="paginaAnterior()">anterior</button>
 					<button class="btn_pagina" id="proximo" v-if="busca.pagina < qtd_pagina" v-on:click="proximaPagina()">próximo</button>
+					<div>Página {{busca.pagina}} / {{qtd_pagina}}</div>
 				</div>
 
 				<!-- <div id="linha_tempo">

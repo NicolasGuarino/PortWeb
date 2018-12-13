@@ -192,6 +192,7 @@ function atualizarListaAcesso(){
 		// Convertendo para JSON a lista de pessoas
 		var lista_acesso = res.lista;
 
+		// Preenchendo a quantidade de páginas
 		app.qtd_pagina = res.qtd_pagina;
 
 		// Preenchendo a lista de acesso
@@ -210,14 +211,10 @@ function atualizarListaAcesso(){
 
 // Mostra o botão de carregando
 function btnCarregando(){
-	$(".loader").css("width", "280px");
-	$(".loader").children("span").text("carregando");
 	$(".loader").children(".loader_circulo").addClass("loader_circulo_animacao");
 }
 
 // Mostra o botão de atualizar
 function btnAtualizar(){
-	$(".loader").css("width", "");
-	$(".loader").children("span").text("atualizar");
 	$(".loader").children(".loader_circulo").removeClass("loader_circulo_animacao");
 }
