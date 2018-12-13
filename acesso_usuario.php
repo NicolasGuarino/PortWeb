@@ -15,6 +15,10 @@
 	</head>
 
 	<body>
+		<div id="voltar_topo">
+			topo
+		</div>
+
 		<div id="principal" name="<?php echo($_SESSION['usuario']['empresa_id']); ?>">
 			<header>
 				<div id="logo"></div>
@@ -24,45 +28,42 @@
 
 			<div id="lista_usuarios">
 
-				
-
 				<div id="lista">
 					<div id="caixa_pesquisa">
-						<div id="pesquisa">
-							<div>
-								<input v-model="busca.filtro" type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Nome do usuário ou data de registro"/>
-								<i class="fa fa-search" id="botao_pesquisa"></i>
+						<div id="caixa_pesquisa_centro">
+							<div class="loader" v-on:click="atualizarLista()">
+								<div class="loader_circulo"></div>
+								<span>Carregando</span>
+							</div>
+
+							<div id="pesquisa">
+								<div>
+									<input v-model="busca.filtro" type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Nome do usuário"/>
+									<i class="fa fa-search" id="botao_pesquisa"></i>
+								</div>
+							</div>
+
+							<div class="campo">
+								<div class="campo_nome">Tipo</div>
+
+								<select class="lista" id="lista_tipo_usuario" v-model="busca.tipo_usuario">
+									<option value="1,3,4">todos</option>
+									<option value="4">visitantes</option>
+									<option value="1,3">funcionários</option>
+								</select>
+							</div>
+
+							<div class="campo">
+								<div class="campo_nome">De</div>
+								<input v-model="busca.data_inicio" type="date" id="data_inicio" class="data_campo" />
+							</div>
+
+							<div class="campo">
+								<div class="campo_nome">Até</div>
+								<input v-model="busca.data_termino" type="date" id="data_termino" class="data_campo" />
 							</div>
 						</div>
-
-						<div class="campo">
-							<div class="campo_nome">Tipo</div>
-
-							<select class="lista" id="lista_tipo_usuario" v-model="busca.tipo_usuario">
-								<option value="1,3,4">todos</option>
-								<option value="4">visitantes</option>
-								<option value="1,3">funcionários</option>
-							</select>
-						</div>
-
-						<div class="campo">
-							<div class="campo_nome">Inicio</div>
-							<input type="date" class="data_campo" />
-						</div>
-
-						<div class="campo">
-							<div class="campo_nome">Final</div>
-							<input type="date" class="data_campo" />
-						</div>
-						
-						<div class="loader" v-on:click="atualizarLista()">
-							<div class="loader_circulo"></div>
-						</div>
 					</div>
-
-					<!-- <div id="caixa_filtro">
-					</div> -->
-
 
 					<!-- Mensagem de pesquisa sem resultado -->
 					<div class="nada_encontrado">Nada encontrado</div>
@@ -114,18 +115,10 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 
-					<button class="btn_pagina" id="anterior" v-if="busca.pagina > 1" v-on:click="paginaAnterior()">anterior</button>
-					<button class="btn_pagina" id="proximo" v-if="busca.pagina < qtd_pagina" v-on:click="proximaPagina()">próximo</button>
-					<div>Página {{busca.pagina}} / {{qtd_pagina}}</div>
+					<button id="btn_ver_mais" v-if="busca.pagina < qtd_pagina" v-on:click="carregarMais()">ver mais <span>{{busca.pagina}}/{{qtd_pagina}}</span></button>
 				</div>
-
-				<!-- <div id="linha_tempo">
-					<div class="linha_titulo">Data</div>
-					<div v-for="(acesso, i) of lista_acesso" v-if="mostrarDataLinha(acesso.data)" v-bind:id="i" v-on:click="scrollData($event)" class="linha_data">{{acesso.data}}</div>
-				</div> -->
 			</div>
 
 			<div id="logoSextou"></div>
