@@ -24,7 +24,7 @@
 				$data_inicio  = $_GET['data_inicio'];
 				$data_termino = $_GET['data_termino'];
 
-				$where .= " and ra.hora between '" . $data_inicio . "' and '" . $data_termino . "' ";
+				$where .= " and date_format(ra.hora, '%y-%m-%d') between date_format('" . $data_inicio . "', '%y-%m-%d') and date_format('" . $data_termino . "', '%y-%m-%d') ";
 			}
 		}
 

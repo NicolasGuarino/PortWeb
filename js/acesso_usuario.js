@@ -196,6 +196,9 @@ function atualizarListaAcesso(){
 	// Mostrando o loader
 	btnCarregando();
 
+	// Zerando a página
+	if(!app.add_lista_acesso) app.busca.pagina = 1;
+
 	// Preenchendo a lista de registro de acesso
 	ajax = $.ajax({
 
@@ -218,7 +221,6 @@ function atualizarListaAcesso(){
 			app.add_lista_acesso = false;
 
 		}else {
-			app.busca.pagina = 1;
 			app.lista_acesso = lista_acesso;
 		}
 
