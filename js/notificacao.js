@@ -8,11 +8,11 @@
         projectId: "portaria-49674",
         storageBucket: "portaria-49674.appspot.com",
         messagingSenderId: "46880934400"
-    };
+	};
 
-	firebase.initializeApp(config); // Inicalizando o app firebase
-
-	var messaging = firebase.messaging();
+	var app = firebase.initializeApp(config); // Inicalizando o app firebase
+	
+	var messaging = firebase.messaging(app);
 
 	// Pedindo permissão de notificação
 	messaging.requestPermission()
@@ -26,8 +26,8 @@
 			console.log('Token inserido', token);
 		})
 	})
-	.catch(function() {
-		console.log('Error ocurred');
+	.catch(function(error) {
+		console.log('Error ocurred: ', error);
 	});
 
 	// Tratando mensagem recebida
