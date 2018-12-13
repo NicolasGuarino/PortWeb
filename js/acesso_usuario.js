@@ -11,17 +11,20 @@ var app = new Vue({
 	el: '#principal',
 	data: {
 		lista_acesso: [],
+		add_lista_acesso: false,
 		lista_data: [],
 		loader: false,
 
 		controle: {
-			ult_data: null
+			ult_data: null,
 		},
 
 		busca: {
 			pagina: 		1,
 			limite: 		10,
 			filtro: 		null,
+			data_inicio: 	null,
+			data_termino: 	null,
 			tipo_usuario: 	"1,3,4",
 			empresa_id: 	empresa_id,
 			qtd_pagina: 	null
@@ -88,6 +91,8 @@ var app = new Vue({
 			this.busca.pagina 		= 1,
 			this.busca.limite 		= 10,
 			this.busca.filtro 		= null,
+			this.busca.data_inicio 	= null,
+			this.busca.data_termino	= null,
 			this.tipo_usuario 		= "1,3,4",
 			this.busca.empresa_id 	= empresa_id,
 			this.busca.qtd_pagina 	= null
@@ -102,17 +107,11 @@ var app = new Vue({
 			atualizarListaAcesso();
 		},
 
-		proximaPagina: function(){
+		carregarMais: function(){
 
 			if(this.busca.pagina <= this.qtd_pagina){
 				this.busca.pagina ++;
-				atualizarListaAcesso();
-			}
-		},
-
-		paginaAnterior: function(){
-			if(this.busca.pagina > 0){
-				this.busca.pagina --;
+				this.add_lista_acesso = true;
 				atualizarListaAcesso();
 			}
 		}
@@ -122,27 +121,7 @@ var app = new Vue({
 // Listando os acessos
 atualizarListaAcesso();
 
-// Deixando a linha do tempo fixa ao rolar a página
-$(window).scroll(function(){
-	var left = $("#linha_tempo").offset().left;
-	var scroll_top = $(this).scrollTop();
-
-	// Configurando a posição da linha do tempo
-	if(scroll_top >= 402){
-		$("#linha_tempo").css("margin", "0");
-		$("#linha_tempo").css("position", "fixed");
-		$("#linha_tempo").css("top", "0px");
-		$("#linha_tempo").css("left", left + "px");
-
-	}else {
-		$("#linha_tempo").css("margin", "");
-		$("#linha_tempo").css("position", "");
-		$("#linha_tempo").css("top", "");
-		$("#linha_tempo").css("left", "");
-	}
-});
-
-// Realizando a pesquisa quando digitado
+// Pesquisa de texto
 $("#campo_pesquisa").keyup(function(){
 	var valor = $(this).val();
 
@@ -158,16 +137,54 @@ $("#campo_pesquisa").keyup(function(){
 	}, 500);
 });
 
+// Filtro de tipo de usuário
 $("#lista_tipo_usuario").change(function(){
 	atualizarListaAcesso();
 });
 
-$("#data").change(function(){
-	var data = $(this).val();
-	var dataSeparada = data.split("-");
+// Filtro de período de data
+$("#data_inicio").change(function(){
 
-	app.busca.filtro = dataSeparada[2] + "/" + dataSeparada[1] + "/" + dataSeparada[0][2] + dataSeparada[0][3];
-	atualizarListaAcesso();
+	if(app.busca.data_termino == null){
+		app.busca.data_termino = app.busca.data_inicio;
+		atualizarListaAcesso();
+
+	}else if(app.busca.data_inicio > app.busca.data_termino)
+		app.busca.data_inicio = app.busca.data_termino;
+	else 
+		atualizarListaAcesso();
+});
+
+$("#data_termino").change(function(){
+
+	if(app.busca.data_termino < app.busca.data_inicio)
+		app.busca.data_termino = app.busca.data_inicio;
+	else
+		atualizarListaAcesso();
+});
+
+// Fixando a caixa de filtro ao rolar a página
+$(window).scroll(function(){
+	var scroll_top = $(window).scrollTop();
+
+	if(scroll_top >= 255){
+		$("#caixa_pesquisa").addClass("caixa_pesquisa_fixa");
+		$("#lista").css("marginTop", "79px");
+
+	}else {
+		$("#caixa_pesquisa").removeClass("caixa_pesquisa_fixa");
+		$("#lista").css("marginTop", "");
+	} 
+});
+
+// Botão de ver mais
+$("#btn_ver_mais").click(function(){ console.log("Hello"); });
+
+// Botão de voltar ao topo da página
+$("#voltar_topo").click(function(){
+	$("html, body").animate({
+		scrollTop: 0
+	}, 100);
 });
 
 // Preenche a lista de acessos
@@ -192,10 +209,18 @@ function atualizarListaAcesso(){
 		// Convertendo para JSON a lista de pessoas
 		var lista_acesso = res.lista;
 
+		// Preenchendo a quantidade de páginas
 		app.qtd_pagina = res.qtd_pagina;
 
 		// Preenchendo a lista de acesso
-		app.lista_acesso = lista_acesso;
+		if(app.add_lista_acesso){
+			app.lista_acesso = app.lista_acesso.concat(lista_acesso);
+			app.add_lista_acesso = false;
+
+		}else {
+			app.busca.pagina = 1;
+			app.lista_acesso = lista_acesso;
+		}
 
 		// Mostrando aviso de nada encontrado
 		if(app.lista_acesso.length == 0) $(".nada_encontrado").fadeIn(0);
@@ -210,14 +235,16 @@ function atualizarListaAcesso(){
 
 // Mostra o botão de carregando
 function btnCarregando(){
-	$(".loader").css("width", "280px");
-	$(".loader").children("span").text("carregando");
+	$(".loader").css("width", "250px").css("borderRadius", "30px");
+	$(".loader").children("span").text("Carregando");
 	$(".loader").children(".loader_circulo").addClass("loader_circulo_animacao");
+	$(".loader").children(".loader_circulo").css("margin", "0");
 }
 
 // Mostra o botão de atualizar
 function btnAtualizar(){
-	$(".loader").css("width", "");
-	$(".loader").children("span").text("atualizar");
+	$(".loader").css("width", "").css("borderRadius", "");
+	$(".loader").children("span").text("");
 	$(".loader").children(".loader_circulo").removeClass("loader_circulo_animacao");
+	$(".loader").children(".loader_circulo").css("margin", "");
 }

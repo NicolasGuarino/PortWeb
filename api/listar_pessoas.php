@@ -16,8 +16,16 @@
 		// FILTROS
 		if(isset($_GET['filtro'])){
 			$filtro = strtolower($_GET['filtro']);
-			$where = " and (lower(u.nome) like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
 			$order = "position('". $filtro ."' IN u.nome) asc,";
+
+			$where = " and (lower(u.nome) like '%".$filtro."%' or date_format(ra.hora, '%d/%m/%y') like '%".$filtro."%') ";
+
+			if(isset($_GET['data_inicio']) && isset($_GET['data_termino']) && $_GET['data_termino'] != null && $_GET['data_inicio'] != null){
+				$data_inicio  = $_GET['data_inicio'];
+				$data_termino = $_GET['data_termino'];
+
+				$where .= " and ra.hora between '" . $data_inicio . "' and '" . $data_termino . "' ";
+			}
 		}
 
 		if (isset($_GET['filtro_data'])) {
