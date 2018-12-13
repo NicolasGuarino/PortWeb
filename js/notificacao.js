@@ -10,9 +10,9 @@
         messagingSenderId: "46880934400"
 	};
 
-	firebase.initializeApp(config); // Inicalizando o app firebase
-
-	var messaging = firebase.messaging();
+	var app = firebase.initializeApp(config); // Inicalizando o app firebase
+	
+	var messaging = firebase.messaging(app);
 
 	// Pedindo permissão de notificação
 	messaging.requestPermission()
@@ -21,9 +21,6 @@
 		return messaging.getToken();
 	})
 	.then(function(token) {
-		messaging.deleteToken(token);
-		return messaging.getToken();
-	}).then(function(token ) {
 		// Coletando token
 		$.getJSON("api/inserir_token_web.php", {token:token}, function(retorno) {
 			console.log('Token inserido', token);
