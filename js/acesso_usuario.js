@@ -9,28 +9,35 @@ var empresa_id = $("#principal").attr("name");
 // VueJs
 var app = new Vue({
 	el: '#principal',
-	data: {
-		lista_acesso: [],
-		add_lista_acesso: false,
-		lista_data: [],
-		loader: false,
 
+	data: {
+
+		// Lista de acesso
+		lista_acesso: [],
+
+		add_lista_acesso: false,
+		lista_data: 	  [],
+		loader: 		  false,
+		qtd_pagina: 	  null,
+
+		// Variáveis de controle
 		controle: {
-			ult_data: null,
+			ult_data: 	null,
+			btn_filtro: true
 		},
 
+		// Parâmetros da busca dos registros
 		busca: {
 			pagina: 		1,
 			limite: 		10,
 			filtro: 		null,
 			data_inicio: 	null,
 			data_termino: 	null,
+			ordem: 			null,
 			tipo_usuario: 	"1,3,4",
 			empresa_id: 	empresa_id,
 			qtd_pagina: 	null
-		},
-
-		qtd_pagina: null
+		}
 	},
 
 	methods: {
@@ -93,6 +100,7 @@ var app = new Vue({
 			this.busca.filtro 		= null,
 			this.busca.data_inicio 	= null,
 			this.busca.data_termino	= null,
+			this.busca.ordem 		= null,
 			this.tipo_usuario 		= "1,3,4",
 			this.busca.empresa_id 	= empresa_id,
 			this.busca.qtd_pagina 	= null
@@ -102,7 +110,6 @@ var app = new Vue({
 			$("#campo_pesquisa").val("");
 			$("#campo_pesquisa").focus();
 
-			this.limparFiltro();
 			btnAtualizar();
 			atualizarListaAcesso();
 		},
@@ -114,6 +121,29 @@ var app = new Vue({
 				this.add_lista_acesso = true;
 				atualizarListaAcesso();
 			}
+		},
+
+		adicionarRemoverFiltro: function(){
+
+			if(this.controle.btn_filtro){
+
+				// Mostrando os filtros
+				this.controle.btn_filtro = false;
+				$("#btn_filtro").text("remover filtro");
+				$("#caixa_filtro").css("height", "57px");
+				$("#caixa_filtro").css("margin", "20px auto 0 auto");
+
+			}else {
+				
+				// Escondendo os filtros
+				this.controle.btn_filtro = true;
+				$("#btn_filtro").text("adicionar filtro");
+				$("#caixa_filtro").css("height", "0");
+				$("#caixa_filtro").css("margin", "");
+
+				// Limpando os filtros
+				this.limparFiltro();
+			}
 		}
 	}
 });
@@ -121,25 +151,12 @@ var app = new Vue({
 // Listando os acessos
 atualizarListaAcesso();
 
+// Botão de 'ok'
+$("#btn_ok").click(atualizarListaAcesso);
+
 // Pesquisa de texto
-$("#campo_pesquisa").keyup(function(){
-	var valor = $(this).val();
-
-	// Cancelando timer anterior (se houver)
-	clearInterval(timer);
-
-	// Tempo de espera antes de realizar a pesquisa
-	timer = setTimeout(function(){
-
-		if(valor != "") atualizarListaAcesso();
-		else atualizarListaAcesso();
-
-	}, 500);
-});
-
-// Filtro de tipo de usuário
-$("#lista_tipo_usuario").change(function(){
-	atualizarListaAcesso();
+$("#campo_pesquisa").keyup(function(e){
+	if(e.keyCode == 13) atualizarListaAcesso();
 });
 
 // Filtro de período de data
@@ -147,20 +164,15 @@ $("#data_inicio").change(function(){
 
 	if(app.busca.data_termino == null){
 		app.busca.data_termino = app.busca.data_inicio;
-		atualizarListaAcesso();
 
 	}else if(app.busca.data_inicio > app.busca.data_termino)
 		app.busca.data_inicio = app.busca.data_termino;
-	else 
-		atualizarListaAcesso();
 });
 
 $("#data_termino").change(function(){
 
 	if(app.busca.data_termino < app.busca.data_inicio)
 		app.busca.data_termino = app.busca.data_inicio;
-	else
-		atualizarListaAcesso();
 });
 
 // Fixando a caixa de filtro ao rolar a página
@@ -169,16 +181,13 @@ $(window).scroll(function(){
 
 	if(scroll_top >= 255){
 		$("#caixa_pesquisa").addClass("caixa_pesquisa_fixa");
-		$("#lista").css("marginTop", "79px");
+		$("#lista").css("marginTop", "163px");
 
 	}else {
 		$("#caixa_pesquisa").removeClass("caixa_pesquisa_fixa");
 		$("#lista").css("marginTop", "");
 	} 
 });
-
-// Botão de ver mais
-$("#btn_ver_mais").click(function(){ console.log("Hello"); });
 
 // Botão de voltar ao topo da página
 $("#voltar_topo").click(function(){
@@ -220,9 +229,7 @@ function atualizarListaAcesso(){
 			app.lista_acesso = app.lista_acesso.concat(lista_acesso);
 			app.add_lista_acesso = false;
 
-		}else {
-			app.lista_acesso = lista_acesso;
-		}
+		}else app.lista_acesso = lista_acesso;
 
 		// Mostrando aviso de nada encontrado
 		if(app.lista_acesso.length == 0) $(".nada_encontrado").fadeIn(0);
@@ -230,8 +237,6 @@ function atualizarListaAcesso(){
 
 		// Escondendo o loader
 		btnAtualizar();
-
-		$(".load_lista").fadeOut(100);
 	});
 }
 

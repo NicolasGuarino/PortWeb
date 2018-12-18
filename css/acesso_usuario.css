@@ -28,6 +28,16 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	overflow:hidden;
 }
 
+#caixa_filtro {
+	width:996px;height:0;margin:0 auto 0 auto;
+	overflow:hidden;
+	transition:all 250ms;
+}
+
+/*.caixa_filtro_ativa {
+	height:57px;margin:20px auto 0 auto;
+}*/
+
 .caixa_pesquisa_fixa {
 	position:fixed;left:0;top:0;
 	background-color:#fff;
@@ -44,6 +54,37 @@ body { box-sizing:border-box;padding:0;margin:0; }
 	box-shadow:0 0 2px #000000;
 	float:left;
 	line-height:40px;
+}
+
+.btn_filtro {
+	width:110px;height:40px;margin:17px 5px 0 0;
+	cursor:pointer;
+	user-select:none;
+	background:#eee;
+	color:#000;text-align:center;font-size:17px;line-height:40px;text-transform:uppercase;font-weight:bold;
+	border-radius:5px;
+}
+
+#btn_ok {
+	width:80px;
+	float:right;
+	background-color:#4b9e61;
+	color:#fff;
+}
+
+#btn_filtro {
+	width:200px;
+	float:right;
+	background-color:transparent;
+	color:#4b9e61;
+	border:solid 1px #4b9e61;
+}
+
+#btn_limpar {
+	/*width:200px;*/
+	float:left;
+	background-color:#555;
+	color:#fff;
 }
 
 #campo_pesquisa {
@@ -90,12 +131,6 @@ body { box-sizing:border-box;padding:0;margin:0; }
 @keyframes loader_ani {
 	0% {transform:rotateZ(0deg); }
 	100% {transform:rotateZ(360deg);}
-}
-
-#caixa_filtro {
-	padding:15px 0 15px 0;
-	overflow:hidden;
-	/*outline:solid 1px #000;*/
 }
 
 .campo {
@@ -159,16 +194,17 @@ body { box-sizing:border-box;padding:0;margin:0; }
 }
 
 .linha {
-	height:108px;width:920px;margin:5px 0;padding:20px 30px;
+	height:108px;width:920px;margin:5px 0;padding:18px 30px;
 	overflow:hidden;
 	cursor:pointer;
 	border:solid 1px #e0e0e0;
+	background-color:#fff;
 	user-select:none;
 	transition:all 250ms;
 }
 
 .expandido {
-	height:216px;
+	height:286px;
 }
 
 .linha_verde {
@@ -197,7 +233,7 @@ body { box-sizing:border-box;padding:0;margin:0; }
 
 
 .tipo_usuario {
-	margin:15px 0 0 0;
+	margin:15px 0;
 	text-align:center;font-size:21px;
 }
 
@@ -220,6 +256,11 @@ body { box-sizing:border-box;padding:0;margin:0; }
 .item {
 	margin:0 0 2px 0;
 	text-align:left;text-transform:uppercase;font-size:14px;
+}
+
+.item_tit {
+	margin:0 0 5px 0;padding:2px 0 0 0;
+	font-weight:bold;
 }
 
 .cont {
@@ -329,4 +370,13 @@ body { box-sizing:border-box;padding:0;margin:0; }
 .pg {
 	padding:10px 0;
 	font-size:17px;
+}
+
+#lista_tipo_usuario {
+	
+}
+
+.sem_veiculo {
+	width:200px;height:150px;
+	color:#888;text-align:center;line-height:150px;font-size:22px;
 }
