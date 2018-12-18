@@ -32,11 +32,6 @@
 					<div id="caixa_pesquisa">
 						<div id="caixa_pesquisa_centro">
 
-							<!-- <div class="loader" v-on:click="atualizarLista()">
-								<div class="loader_circulo"></div>
-								<span>Carregando</span>
-							</div> -->
-
 							<div id="pesquisa">
 								<div>
 									<input v-model="busca.filtro" type="text" name="txt_pesquisa" id="campo_pesquisa" autofocus placeholder="Nome do usuário"/>
@@ -82,6 +77,11 @@
 							</div>
 
 							<!-- <div v-on:click="limparFiltro()" class="btn_filtro" id="btn_limpar">limpar</div> -->
+						</div>
+
+						<div class="loader" v-on:click="atualizarLista()">
+							<div class="loader_circulo"></div>
+							<span>Carregando</span>
 						</div>
 					</div>
 
