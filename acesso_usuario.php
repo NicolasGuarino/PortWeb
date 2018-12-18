@@ -79,6 +79,7 @@
 							<!-- <div v-on:click="limparFiltro()" class="btn_filtro" id="btn_limpar">limpar</div> -->
 						</div>
 
+						
 						<div class="loader" v-on:click="atualizarLista()">
 							<div class="loader_circulo"></div>
 							<span>Carregando</span>

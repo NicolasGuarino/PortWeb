@@ -242,7 +242,8 @@ function atualizarListaAcesso(){
 
 // Mostra o botão de carregando
 function btnCarregando(){
-	$(".loader").css("width", "250px").css("borderRadius", "30px");
+	// $(".loader").css("width", "300px");
+	$(".loader").css("height", "45px");
 	$(".loader").children("span").text("Carregando");
 	$(".loader").children(".loader_circulo").addClass("loader_circulo_animacao");
 	$(".loader").children(".loader_circulo").css("margin", "0");
@@ -250,7 +251,8 @@ function btnCarregando(){
 
 // Mostra o botão de atualizar
 function btnAtualizar(){
-	$(".loader").css("width", "").css("borderRadius", "");
+	// $(".loader").css("width", "");
+	$(".loader").css("height", "");
 	$(".loader").children("span").text("");
 	$(".loader").children(".loader_circulo").removeClass("loader_circulo_animacao");
 	$(".loader").children(".loader_circulo").css("margin", "");
