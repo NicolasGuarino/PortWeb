@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title> Usuários cadastrados </title>
+		<title>Lista de acesso</title>
 
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/acesso_usuario.css?0">
@@ -31,10 +31,6 @@
 				<div id="lista">
 					<div id="caixa_pesquisa">
 						<div id="caixa_pesquisa_centro">
-							<div class="loader" v-on:click="atualizarLista()">
-								<div class="loader_circulo"></div>
-								<span>Carregando</span>
-							</div>
 
 							<div id="pesquisa">
 								<div>
@@ -43,6 +39,11 @@
 								</div>
 							</div>
 
+							<div class="btn_filtro" id="btn_ok">ok</div>
+							<div v-on:click="adicionarRemoverFiltro()" class="btn_filtro" id="btn_filtro">adicionar filtro</div>
+						</div>
+
+						<div id="caixa_filtro">
 							<div class="campo">
 								<div class="campo_nome">Tipo</div>
 
@@ -62,6 +63,26 @@
 								<div class="campo_nome">Até</div>
 								<input v-model="busca.data_termino" type="date" id="data_termino" class="data_campo" />
 							</div>
+
+							<div class="campo">
+								<div class="campo_nome">Ordenar por</div>
+
+								<select class="lista" id="lista_tipo_usuario" v-model="busca.ordem">
+									<option value="null">Nenhuma</option>
+									<option value="90">data decrescente</option>
+									<option value="09">data crescente</option>
+									<option value="az">nome crescente</option>
+									<option value="za">nome decrescente</option>
+								</select>
+							</div>
+
+							<!-- <div v-on:click="limparFiltro()" class="btn_filtro" id="btn_limpar">limpar</div> -->
+						</div>
+
+						
+						<div class="loader" v-on:click="atualizarLista()">
+							<div class="loader_circulo"></div>
+							<span>Carregando</span>
 						</div>
 					</div>
 
@@ -78,24 +99,34 @@
 
 							<div class="esquerda">
 								<div class="img_usuario" v-bind:style="{backgroundImage: backgroundImageUrl(acesso.foto_usuario)}"></div>
-								<div class="traco"></div>
 								<div class="tipo_usuario">{{acesso.tipo_usuario}}</div>
+
+								<div class="img_usuario" v-if="acesso.placa != null" v-bind:style="{backgroundImage: backgroundImageUrl(acesso.foto_carro)}"></div>
 							</div>
 
 							<div class="direita">
 
 								<div class="sub">
-									<div class="item">usuário</div>
+									<div class="item">nome</div>
 									<div class="cont nome_usuario">{{acesso.usuario}}</div>
 
 									<div class="item">tipo de locomoção</div>
 									<div class="cont">{{acesso.tipo_locomocao}}</div>
 
-									<div class="item">empresa</div>
-									<div class="cont">{{acesso.empresa}}</div>
+									<div v-if="acesso.placa != null"> <!-- Informações do veículo -->
+										<div class="item item_tit">veículo</div>
+										<div class="item">placa</div>
+										<div class="cont">{{acesso.placa}}</div>
 
-									<div class="item">email (empresa)</div>
-									<div class="cont">{{acesso.email_empresa}}</div>
+										<div class="item">marca</div>
+										<div class="cont">{{acesso.marca}}</div>
+
+										<div class="item">modelo</div>
+										<div class="cont">{{acesso.modelo}}</div>
+									</div>
+
+									<!-- Aviso quando não houver veículo -->
+									<div v-if="acesso.placa == null" class="sem_veiculo">Sem veículo</div>
 								</div>
 
 								<div class="sub">
@@ -105,8 +136,15 @@
 									<div class="item">hora</div>
 									<div class="cont">{{acesso.hora}}</div>
 
-									<div class="item" v-if="acesso.telefone_empresa != null">telefone (empresa)</div>
+									<div class="item item_tit">empresa</div>
+									<div class="item">nome</div>
+									<div class="cont">{{acesso.empresa}}</div>
+
+									<div class="item" v-if="acesso.telefone_empresa != null">telefone</div>
 									<div class="cont">{{acesso.telefone_empresa}}</div>
+
+									<div class="item">email</div>
+									<div class="cont">{{acesso.email_empresa}}</div>
 								</div>
 
 								<div class="sub">
