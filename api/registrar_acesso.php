@@ -3,6 +3,7 @@
 	include 'conexao.php';
 	include 'push_notification.php';
 	include 'enviar_push_web.php';
+	
 
 	if(isset($_GET['numero_etiqueta']) || isset($_REQUEST['documento_id'])){
 		$conexao = conectar();
@@ -55,27 +56,27 @@
 			$query .= "where usuario_id = ". $array_dados_documento['usuario_id'] ." and data = date_format(now(), '%Y-%m-%d');";
 
 			// Executando a query
-			$exec = mysqli_query($conexao, $query);
-			$excessao = mysqli_fetch_array($exec);
+			$excessao = mysqli_query($conexao, $query);
 
 			// CONSULTANDO A ESCALA PARA HOJE
 			$query  = "select * from escala ";
 			$query .= "where usuario_id = ". $array_dados_documento['usuario_id'] ." and dia_da_semana = weekday(now());";
 
 			// Executando a query
-			$exec = mysqli_query($conexao, $query);
-			$escala = mysqli_fetch_array($exec);
-
+			$escala = mysqli_query($conexao, $query);
+			
 			// Hora de entrada e saída
 			$hora_entrada = null;
 			$hora_saida   = null;
 
 			// Definindo a hora de entrada e saída
-			if(count($excessao) > 0){
+			if(mysqli_num_rows($excessao) > 0){
+				$excessao = mysqli_fetch_array($excessao);
 				$hora_entrada = date_format(date_create($excessao['hora_entrada']), "H:i");
 				$hora_saida   = date_format(date_create($excessao['hora_saida']),   "H:i");
 
-			}else if(count($escala) > 0){
+			}else if(mysqli_num_rows($escala) > 0){
+				$escala = mysqli_fetch_array($escala);
 				$hora_entrada = date_format(date_create($escala['hora_entrada']), "H:i");
 				$hora_saida   = date_format(date_create($escala['hora_saida']),   "H:i");
 			}
