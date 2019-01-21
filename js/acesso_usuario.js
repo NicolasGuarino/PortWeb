@@ -101,7 +101,7 @@ var app = new Vue({
 			this.busca.data_inicio 	= null,
 			this.busca.data_termino	= null,
 			this.busca.ordem 		= null,
-			this.tipo_usuario 		= "1,3,4",
+			this.busca.tipo_usuario	= "1,3,4",
 			this.busca.empresa_id 	= empresa_id,
 			this.busca.qtd_pagina 	= null
 		},
