@@ -19,7 +19,7 @@
     $obj_final = [];
     $usuario = [];
     $veiculo = [];
-	// echo $query."<br/>";
+
     while($rs = mysqli_fetch_array($select)) {
         $usuario = array("lbl_principal" => $rs['nome'], "lbl_secundaria" => $rs['email'], "caminho_img" => $rs['foto_usuario']);
         $veiculo = array("lbl_principal" => $rs['carro'], "lbl_secundaria" => $rs['placa'], "caminho_img" => $rs['foto_veiculo']);

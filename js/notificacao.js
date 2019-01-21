@@ -8,11 +8,11 @@
         projectId: "portaria-49674",
         storageBucket: "portaria-49674.appspot.com",
         messagingSenderId: "46880934400"
-    };
+	};
 
-	firebase.initializeApp(config); // Inicalizando o app firebase
-
-	var messaging = firebase.messaging();
+	var app = firebase.initializeApp(config); // Inicalizando o app firebase
+	
+	var messaging = firebase.messaging(app);
 
 	// Pedindo permissão de notificação
 	messaging.requestPermission()
@@ -26,16 +26,14 @@
 			console.log('Token inserido', token);
 		})
 	})
-	.catch(function() {
-		console.log('Error ocurred');
+	.catch(function(error) {
+		console.log('Error ocurred: ', error);
 	});
 
 	// Tratando mensagem recebida
-	// messaging.onMessage(function(payload) {
-	// 	console.log('OnMessagem', payload);
+	messaging.onMessage(function(payload) {
+		console.log('OnMessagem', payload);
 
-	// 	var reload_button = "<br/> <a href='consultas.php' class='fa fa-sync reload'> Atualizar </a> ";
-
-	// 	toastr.options = {positionClass:'toast-bottom-right', escapeHTML:true}
-	// 	toastr.info(payload.notification.body + reload_button, payload.notification.title);
-	// });
+		toastr.options = {positionClass:'toast-bottom-right', escapeHTML:true}
+		toastr.info(payload.notification.body, payload.notification.title);
+	});

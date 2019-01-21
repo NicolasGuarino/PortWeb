@@ -5,6 +5,9 @@
 	include 'enviar_push_web.php';
 	
 
+	// Definindo fuso-horário
+	date_default_timezone_set('America/Sao_Paulo');
+
 	if(isset($_GET['numero_etiqueta']) || isset($_REQUEST['documento_id'])){
 		$conexao = conectar();
 		$numero_etiqueta = $_GET['numero_etiqueta']; // NUMERO DO DOCUMENTO LIDA
@@ -84,18 +87,21 @@
 			// Capturando a hora atual
 			$hora_agora = date('H:i');
 
+			// Ação que será registrada
+			$tipo_acao = ($ult_registro['tipo_acao'] == "ENTRADA") ? "Saida" : "Entrada";
+
 			// Verificando a entrada
 			if($ult_registro['tipo_acao'] == 'SAIDA'){
 
 				if($hora_agora == $hora_entrada){
 					$liberado = 1;
-					$title = "Acesso liberado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às " . $hora_agora;
+					$title = $array_dados_documento['nome'];
+					$description = $tipo_acao . " dentro da escala ás " . $hora_agora;
 
 				}else {
 					$liberado = 0;
-					$title = "Acesso negado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às " . $hora_agora;
+					$title = $array_dados_documento['nome'];
+					$description = $tipo_acao . " fora da escala ás " . $hora_agora;
 				}
 			}
 
@@ -104,13 +110,13 @@
 
 				if($hora_agora == $hora_saida){
 					$liberado = 1;
-					$title = "Acesso liberado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi liberado às " . $hora_agora;
+					$title = $array_dados_documento['nome'];
+					$description = $tipo_acao . " dentro da escala ás " . $hora_agora;
 
 				}else {
 					$liberado = 0;
-					$title = "Acesso negado";
-					$description = "O acesso para a pessoa ".$array_dados_documento['nome']." foi negado às " . $hora_agora;
+					$title = $array_dados_documento['nome'];
+					$description = $tipo_acao . " fora da escala ás " . $hora_agora;
 				}
 			}
 
@@ -249,7 +255,7 @@
 						'title' => $title,
 						'body' => $description,
 						'icon' => 'empresarial_logo.png',
-						'click_action' => 'http://www.nuflame.com.br/portaria/lista_acesso.php'
+						'click_action' => 'https://nuflame1.websiteseguro.com/portaria/acesso_usuario.php'
 					);
 
 					// Enviando notificação

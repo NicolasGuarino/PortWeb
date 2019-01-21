@@ -1,23 +1,48 @@
-// Lista de acessos
-var lista_acesso = [];
 
 // Ajax utilizado para obter a lista de acesso
 var ajax = null;
-
 var timer = null;
+
+// Obtendo o ID da empresa do usuário
+var empresa_id = $("#principal").attr("name");
 
 // VueJs
 var app = new Vue({
 	el: '#principal',
+
 	data: {
-		lista_acesso: lista_acesso,
-		loader: false
+
+		// Lista de acesso
+		lista_acesso: [],
+
+		add_lista_acesso: false,
+		lista_data: 	  [],
+		loader: 		  false,
+		qtd_pagina: 	  null,
+
+		// Variáveis de controle
+		controle: {
+			ult_data: 	null,
+			btn_filtro: true
+		},
+
+		// Parâmetros da busca dos registros
+		busca: {
+			pagina: 		1,
+			limite: 		10,
+			filtro: 		null,
+			data_inicio: 	null,
+			data_termino: 	null,
+			ordem: 			null,
+			tipo_usuario: 	"1,3,4",
+			empresa_id: 	empresa_id,
+			qtd_pagina: 	null
+		}
 	},
 
 	methods: {
-
-		liberacaoClass: function(liberacao) {
-			return (liberacao == 1)? "liberado" : "bloqueado";
+		acaoClass: function(acao) {
+			return (acao == "ENTRADA")? "seta_esquerda" : "seta_direita";
 		},
 
 		liberacaoStyle: function(liberacao) {
@@ -28,14 +53,8 @@ var app = new Vue({
 			return 'url("' + texto + '")';
 		},
 
-		obterDataHora: function(data, hora) {
-			return moment("2018-11-27 12:30:15").format("DD/MM/YYYY hh:mm:ss");
-		},
-
 		expandirLinha: function(e){
 			var linha = $(e.currentTarget);
-			// var direita = linha.children(".direita");
-			// var esquerda = linha.children(".esquerda");
 
 			if(linha.hasClass("expandido")){
 				linha.removeClass("expandido");
@@ -44,67 +63,197 @@ var app = new Vue({
 				$(".linha").removeClass("expandido");
 				linha.addClass("expandido");
 			}
+		},
+
+		mostrarData: function(data){
+
+			if(data != this.ult_data){
+				this.ult_data = data;
+				return true;
+
+			}else return false;
+		},
+
+		mostrarDataLinha: function(data){
+
+			if(data != this.ult_data_linha_tempo){
+				this.ult_data_linha_tempo = data;
+				return true;
+
+			}else return false;
+		},
+
+		scrollData: function(evento){
+			var el = $(evento.target);
+			var el_origem = $("#" + el.attr("id") + "_data");
+			var el_origem_top = el_origem.offset().top;
+
+			$(".linha_data").removeClass("data_selecionado");
+			el.addClass("data_selecionado");
+
+			$("html").animate({scrollTop: el_origem_top}, 200);
+		},
+
+		limparFiltro: function(){
+			this.busca.pagina 		= 1,
+			this.busca.limite 		= 10,
+			this.busca.filtro 		= null,
+			this.busca.data_inicio 	= null,
+			this.busca.data_termino	= null,
+			this.busca.ordem 		= null,
+			this.busca.tipo_usuario	= "1,3,4",
+			this.busca.empresa_id 	= empresa_id,
+			this.busca.qtd_pagina 	= null
+		},
+
+		atualizarLista: function(e){
+			$("#campo_pesquisa").val("");
+			$("#campo_pesquisa").focus();
+
+			btnAtualizar();
+			atualizarListaAcesso();
+		},
+
+		carregarMais: function(){
+
+			if(this.busca.pagina <= this.qtd_pagina){
+				this.busca.pagina ++;
+				this.add_lista_acesso = true;
+				atualizarListaAcesso();
+			}
+		},
+
+		adicionarRemoverFiltro: function(){
+
+			if(this.controle.btn_filtro){
+
+				// Mostrando os filtros
+				this.controle.btn_filtro = false;
+				$("#btn_filtro").text("remover filtro");
+				$("#caixa_filtro").css("height", "57px");
+				$("#caixa_filtro").css("margin", "20px auto 0 auto");
+
+			}else {
+				
+				// Escondendo os filtros
+				this.controle.btn_filtro = true;
+				$("#btn_filtro").text("adicionar filtro");
+				$("#caixa_filtro").css("height", "0");
+				$("#caixa_filtro").css("margin", "");
+
+				// Limpando os filtros
+				this.limparFiltro();
+			}
 		}
 	}
 });
 
-// Obtendo o ID da empresa do usuário
-var empresa_id = $("#principal").attr("name");
-
 // Listando os acessos
-listarAcesso();
+atualizarListaAcesso();
 
-// Realizando a pesquisa quando digitado
-$("#campo_pesquisa").keyup(function(){
-	var valor = $(this).val();
+// Botão de 'ok'
+$("#btn_ok").click(atualizarListaAcesso);
 
-	// Cancelando timer anterior (se houver)
-	clearInterval(timer);
+// Pesquisa de texto
+$("#campo_pesquisa").keyup(function(e){
+	if(e.keyCode == 13) atualizarListaAcesso();
+});
 
-	// Tempo de espera antes de realizar a pesquisa
-	timer = setTimeout(function(){
+// Filtro de período de data
+$("#data_inicio").change(function(){
 
-		if(valor != "") listarAcesso(valor);
-		else listarAcesso();
+	if(app.busca.data_termino == null){
+		app.busca.data_termino = app.busca.data_inicio;
 
-		// Mostrando o loader
-		$(".loader").fadeIn(250);
+	}else if(app.busca.data_inicio > app.busca.data_termino)
+		app.busca.data_inicio = app.busca.data_termino;
+});
 
-	}, 500);
+$("#data_termino").change(function(){
+
+	if(app.busca.data_termino < app.busca.data_inicio)
+		app.busca.data_termino = app.busca.data_inicio;
+});
+
+// Fixando a caixa de filtro ao rolar a página
+$(window).scroll(function(){
+	var scroll_top = $(window).scrollTop();
+
+	if(scroll_top >= 255){
+		$("#caixa_pesquisa").addClass("caixa_pesquisa_fixa");
+		$("#lista").css("marginTop", "163px");
+
+	}else {
+		$("#caixa_pesquisa").removeClass("caixa_pesquisa_fixa");
+		$("#lista").css("marginTop", "");
+	} 
+});
+
+// Botão de voltar ao topo da página
+$("#voltar_topo").click(function(){
+	$("html, body").animate({
+		scrollTop: 0
+	}, 100);
 });
 
 // Preenche a lista de acessos
-function listarAcesso(nome){
-	var dados = {
-		limite: 50,
-		pagina: 1,
-		empresa_id: empresa_id
-	};
+function atualizarListaAcesso(){
 
-	if(nome != null){
-		dados = {
-			limite: 50,
-			pagina: 1,
-			empresa_id: empresa_id,
-			filtro: 	nome
-		};
-	}
+	// 'Zerando' a ultima data
+	app.controle.ult_data = null;
 
 	// Mostrando o loader
-	$(".loader").fadeIn(250);
+	btnCarregando();
+
+	// Zerando a página
+	if(!app.add_lista_acesso) app.busca.pagina = 1;
 
 	// Preenchendo a lista de registro de acesso
 	ajax = $.ajax({
 
 		url:  "api/listar_pessoas.php",
-		data: dados
+		data: app.busca
 
-	}).done(function(resultado){
+	}).done(function(r){
 
-		// Preenchendo a lista de acessos
-		app.lista_acesso = $.parseJSON(resultado);
+		var res = $.parseJSON(r);
+
+		// Convertendo para JSON a lista de pessoas
+		var lista_acesso = res.lista;
+
+		// Preenchendo a quantidade de páginas
+		app.qtd_pagina = res.qtd_pagina;
+
+		// Preenchendo a lista de acesso
+		if(app.add_lista_acesso){
+			app.lista_acesso = app.lista_acesso.concat(lista_acesso);
+			app.add_lista_acesso = false;
+
+		}else app.lista_acesso = lista_acesso;
+
+		// Mostrando aviso de nada encontrado
+		if(app.lista_acesso.length == 0) $(".nada_encontrado").fadeIn(0);
+		else $(".nada_encontrado").fadeOut(0);
 
 		// Escondendo o loader
-		$(".loader").fadeOut(250);
+		btnAtualizar();
 	});
+}
+
+// Mostra o botão de carregando
+function btnCarregando(){
+	// $(".loader").css("width", "300px");
+	$(".loader").css("height", "45px");
+	$(".loader").children("span").text("Carregando");
+	$(".loader").children(".loader_circulo").addClass("loader_circulo_animacao");
+	$(".loader").children(".loader_circulo").css("margin", "0");
+}
+
+// Mostra o botão de atualizar
+function btnAtualizar(){
+	// $(".loader").css("width", "");
+	$(".loader").css("height", "");
+	$(".loader").children("span").text("");
+	$(".loader").children(".loader_circulo").removeClass("loader_circulo_animacao");
+	$(".loader").children(".loader_circulo").css("margin", "");
 }

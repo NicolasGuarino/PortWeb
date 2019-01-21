@@ -113,7 +113,8 @@ function validar(nome, cpf, dt_nascimento, email, tel, rg){
 	var data_ok = validar_campo(eData(dt_nascimento), $("#dt_nascimento"), "#ff2233", "#aaa");
 	var email_ok = validar_campo(eEmail(email), $("#email"), "#ff2233", "#aaa");
 	var tel_ok = validar_campo(eTel(tel), $("#tel"), "#ff2233", "#aaa");
-	var rg_ok = validar_campo(eRG(rg), $("#rg"), "#ff2233", "#aaa");
+	// var rg_ok = validar_campo(eRG(rg), $("#rg"), "#ff2233", "#aaa");
+	var rg_ok = true;
 
 	var campos_validos = nome_ok && cpf_ok && data_ok && email_ok && tel_ok && rg_ok && existencia;
 
