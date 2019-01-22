@@ -58,22 +58,28 @@
             $.getJSON("api/buscar_log_conexao.php", {}, function(retorno){
             
             if(retorno[0].status_servidor == "ONLINE"){
+                $(".servidor").children(".bolinha").removeClass("bolinha_vermelha");
                 $(".servidor").children(".bolinha").addClass("bolinha_verde");
             }else{
+                $(".servidor").children(".bolinha").removeClass("bolinha_verde");
                 $(".servidor").children(".bolinha").addClass("bolinha_vermelha");
             }
 
 
-            if(retorno[0].status_servidor == "ONLINE"){
+            if(retorno[0].status_arduino == "ONLINE"){
+                $(".arduino").children(".bolinha").removeClass("bolinha_vermelha");
                 $(".arduino").children(".bolinha").addClass("bolinha_verde");
             }else{
+                $(".arduino").children(".bolinha").removeClass("bolinha_verde");
                 $(".arduino").children(".bolinha").addClass("bolinha_vermelha");
             }
 
 
-            if(retorno[0].status_servidor == "ONLINE"){
+            if(retorno[0].status_rfid == "ONLINE"){
+                $(".rfid").children(".bolinha").removeClass("bolinha_vermelha");
                 $(".rfid").children(".bolinha").addClass("bolinha_verde");
             }else{
+                $(".servidor").children(".bolinha").removeClass("bolinha_verde");
                 $(".rfid").children(".bolinha").addClass("bolinha_vermelha");
             }
         });
