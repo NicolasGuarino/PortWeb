@@ -79,7 +79,7 @@
                 $(".rfid").children(".bolinha").removeClass("bolinha_vermelha");
                 $(".rfid").children(".bolinha").addClass("bolinha_verde");
             }else{
-                $(".servidor").children(".bolinha").removeClass("bolinha_verde");
+                $(".rfid").children(".bolinha").removeClass("bolinha_verde");
                 $(".rfid").children(".bolinha").addClass("bolinha_vermelha");
             }
         });
