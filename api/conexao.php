@@ -1,7 +1,7 @@
 <?php
     function conectar(){
         include "../../../conexao_db.php";
-        return conectar("portaria");
+        return conectar_db("portaria");
     }
 
     function exec_query($con, $query){
