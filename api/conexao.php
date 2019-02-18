@@ -1,7 +1,20 @@
 <?php
     function conectar(){
-        include "../../../conexao_db.php";
-        return conectar_db("portaria");
+      $pasta_a_voltar = "";
+
+      // Coleta a pasta atual
+      $pieces = explode("/", $_SERVER['PHP_SELF']);
+      
+      $loop = count($pieces) - 2;
+
+      // Loop até a pasta raiz
+      for ($i=0; $i<$loop; $i++) {
+          $pasta_a_voltar .= "../";
+      }
+
+      include $pasta_a_voltar."../conexao_db.php";
+      
+      return conectar_db("portaria");
     }
 
     function exec_query($con, $query){
