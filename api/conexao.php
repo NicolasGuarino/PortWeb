@@ -12,7 +12,7 @@
           $pasta_a_voltar .= "../";
       }
 
-      include $pasta_a_voltar."../conexao_db.php";
+      require_once $pasta_a_voltar."../conexao_db.php";
       
       return conectar_db("portaria");
     }
