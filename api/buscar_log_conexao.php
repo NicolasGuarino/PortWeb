@@ -9,7 +9,7 @@
 
     $query1 = "select  status from tbl_log_conexao where conexao = 'Servidor' order by log_conexao_id desc limit 1;";
     $query2 = "select  status from tbl_log_conexao where conexao = 'RFID' order by log_conexao_id desc limit 1;";
-    $query3 = "select  status from tbl_log_conexao where conexao = 'Arduino' order by log_conexao_id desc limit 1;";
+    $query3 = "select  status from tbl_log_conexao where conexao = 'CLP' order by log_conexao_id desc limit 1;";
     
     $status_servidor = exec_query($conexao, $query1)[0]['status'];
     $status_rfid = exec_query($conexao, $query2)[0]['status'];
